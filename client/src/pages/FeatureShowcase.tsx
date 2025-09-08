@@ -80,7 +80,7 @@ const InteractiveFeaturesPage: React.FC = () => {
 
     return (
      <>
-        <section className="py-20 bg-gray-50 min-h-screen">
+        <section className="py-20 bg-gray-50 mt-7 min-h-screen">
             <div className="container mx-auto px-6">
                 {/* Page Header */}
                 <motion.div

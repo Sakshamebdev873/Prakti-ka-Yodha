@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-import { FaUser, FaEnvelope, FaLock } from 'react-icons/fa';
+import React, { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 // --- Sub-Components for Clarity ---
 
@@ -8,12 +9,12 @@ import { FaUser, FaEnvelope, FaLock } from 'react-icons/fa';
 const AnimatedGradient = () => (
   <motion.div
     className="absolute inset-0 z-0"
-    animate={{ backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}
-    transition={{ duration: 25, ease: 'linear', repeat: Infinity }}
+    animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+    transition={{ duration: 25, ease: "linear", repeat: Infinity }}
     style={{
-      // Thematic gradient using our emerald, green, and teal colors
-      background: 'linear-gradient(-45deg, #10b981, #22c55e, #14b8a6, #059669)',
-      backgroundSize: '400% 400%',
+      background:
+        "linear-gradient(-45deg, #10b981, #22c55e, #14b8a6, #059669)",
+      backgroundSize: "400% 400%",
     }}
   />
 );
@@ -26,32 +27,49 @@ const LoginForm = ({ onSwitch }) => (
     initial={{ opacity: 0, x: 50 }}
     animate={{ opacity: 1, x: 0 }}
     exit={{ opacity: 0, x: -50 }}
-    transition={{ type: 'spring', stiffness: 100, damping: 15 }}
+    transition={{ type: "spring", stiffness: 100, damping: 15 }}
     className="w-full"
   >
-    <h2 className="text-3xl font-bold text-gray-800 mb-2">Welcome Back, Warrior!</h2>
+    <h2 className="text-3xl font-bold text-gray-800 mb-2">
+      Welcome Back, Warrior!
+    </h2>
     <p className="text-gray-500 mb-8">Log in to continue your mission.</p>
     <form className="space-y-5">
       <div className="relative">
         <FaEnvelope className="absolute top-1/2 -translate-y-1/2 left-4 text-gray-400" />
-        <input type="email" placeholder="Email Address" className="w-full p-3 pl-12 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition" />
+        <input
+          type="email"
+          placeholder="Email Address"
+          className="w-full p-3 pl-12 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition"
+        />
       </div>
       <div className="relative">
         <FaLock className="absolute top-1/2 -translate-y-1/2 left-4 text-gray-400" />
-        <input type="password" placeholder="Password" className="w-full p-3 pl-12 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition" />
+        <input
+          type="password"
+          placeholder="Password"
+          className="w-full p-3 pl-12 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition"
+        />
       </div>
       <motion.button
         type="submit"
         className="w-full py-3 bg-orange-500 text-white font-bold rounded-lg shadow-lg"
-        whileHover={{ scale: 1.02, y: -2, boxShadow: '0 10px 15px -3px rgb(249 115 22 / 0.3)' }}
+        whileHover={{
+          scale: 1.02,
+          y: -2,
+          boxShadow: "0 10px 15px -3px rgb(249 115 22 / 0.3)",
+        }}
         whileTap={{ scale: 0.98 }}
       >
         Log In
       </motion.button>
     </form>
     <p className="mt-8 text-center text-gray-600">
-      Don't have an account?{' '}
-      <button onClick={onSwitch} className="font-bold text-emerald-600 hover:underline">
+      Don't have an account?{" "}
+      <button
+        onClick={onSwitch}
+        className="font-bold text-emerald-600 hover:underline"
+      >
         Sign Up
       </button>
     </p>
@@ -66,78 +84,109 @@ const SignupForm = ({ onSwitch }) => (
     initial={{ opacity: 0, x: 50 }}
     animate={{ opacity: 1, x: 0 }}
     exit={{ opacity: 0, x: -50 }}
-    transition={{ type: 'spring', stiffness: 100, damping: 15 }}
+    transition={{ type: "spring", stiffness: 100, damping: 15 }}
     className="w-full"
   >
     <h2 className="text-3xl font-bold text-gray-800 mb-2">Join the Mission</h2>
-    <p className="text-gray-500 mb-8">Create your account to start your adventure.</p>
+    <p className="text-gray-500 mb-8">
+      Create your account to start your adventure.
+    </p>
     <form className="space-y-5">
       <div className="relative">
         <FaUser className="absolute top-1/2 -translate-y-1/2 left-4 text-gray-400" />
-        <input type="text" placeholder="Your Name" className="w-full p-3 pl-12 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition" />
+        <input
+          type="text"
+          placeholder="Your Name"
+          className="w-full p-3 pl-12 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition"
+        />
       </div>
       <div className="relative">
         <FaEnvelope className="absolute top-1/2 -translate-y-1/2 left-4 text-gray-400" />
-        <input type="email" placeholder="Email Address" className="w-full p-3 pl-12 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition" />
+        <input
+          type="email"
+          placeholder="Email Address"
+          className="w-full p-3 pl-12 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition"
+        />
       </div>
       <div className="relative">
         <FaLock className="absolute top-1/2 -translate-y-1/2 left-4 text-gray-400" />
-        <input type="password" placeholder="Password" className="w-full p-3 pl-12 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition" />
+        <input
+          type="password"
+          placeholder="Password"
+          className="w-full p-3 pl-12 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition"
+        />
       </div>
       <motion.button
         type="submit"
         className="w-full py-3 bg-emerald-600 text-white font-bold rounded-lg shadow-lg"
-        whileHover={{ scale: 1.02, y: -2, boxShadow: '0 10px 15px -3px rgb(16 185 129 / 0.3)' }}
+        whileHover={{
+          scale: 1.02,
+          y: -2,
+          boxShadow: "0 10px 15px -3px rgb(16 185 129 / 0.3)",
+        }}
         whileTap={{ scale: 0.98 }}
       >
         Create Account
       </motion.button>
     </form>
     <p className="mt-8 text-center text-gray-600">
-      Already have an account?{' '}
-      <button onClick={onSwitch} className="font-bold text-emerald-600 hover:underline">
+      Already have an account?{" "}
+      <button
+        onClick={onSwitch}
+        className="font-bold text-emerald-600 hover:underline"
+      >
         Log In
       </button>
     </p>
   </motion.div>
 );
 
-
 // --- The Main AuthPage Component ---
 const AuthPage: React.FC = () => {
   const [isLoginView, setIsLoginView] = useState(true);
+  const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gray-100 mt-7 flex items-center justify-center p-4">
+    <div className="min-h-screen  bg-gray-100  flex items-center  justify-center p-4">
       <div className="relative w-full max-w-5xl h-[650px] flex shadow-2xl rounded-3xl overflow-hidden">
-        
         {/* Left Branding Panel */}
         <div className="relative hidden lg:flex w-1/2 items-center justify-center p-12 text-white">
           <AnimatedGradient />
           <div className="relative z-10 text-center space-y-4">
-            <motion.div 
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.2, type: 'spring' }}
-                className="flex items-center justify-center gap-2 text-4xl font-bold"
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.2, type: "spring" }}
+              className="flex items-center justify-center gap-2 text-4xl font-bold"
             >
-                <span className="text-4xl">🍃</span>
-                <span>Prakriti Ke</span>
-                <span className="text-orange-300">Yoddha</span>
+              <span className="text-4xl">🍃</span>
+              <span>Prakriti Ke</span>
+              <span className="text-orange-300">Yoddha</span>
             </motion.div>
-            <motion.p 
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className="text-lg text-gray-200"
+            <motion.p
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="text-lg text-gray-200"
             >
-              Play, Learn, and Protect. Your mission to save the planet starts now.
+              Play, Learn, and Protect. Your mission to save the planet starts
+              now.
             </motion.p>
           </div>
         </div>
-        
+
         {/* Right Form Panel */}
-        <div className="w-full lg:w-1/2 bg-white p-8 sm:p-12 flex flex-col justify-center">
+        <div className="w-full lg:w-1/2 bg-white p-8 sm:p-12 flex flex-col justify-center relative">
+          {/* Back to Home Button */}
+          <motion.button
+            onClick={() => navigate("/")}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="absolute top-4 right-4 text-sm font-semibold text-emerald-600 hover:text-emerald-700"
+          >
+            ← Back to Home
+          </motion.button>
+
           <AnimatePresence mode="wait">
             {isLoginView ? (
               <LoginForm key="login" onSwitch={() => setIsLoginView(false)} />
@@ -146,7 +195,6 @@ const AuthPage: React.FC = () => {
             )}
           </AnimatePresence>
         </div>
-        
       </div>
     </div>
   );

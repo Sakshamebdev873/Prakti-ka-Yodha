@@ -8,13 +8,15 @@ import FeaturesShowcase from './pages/FeatureShowcase';
 import InteractiveImpactPage from './pages/InteractiveImpactPage';
 import SuperInteractiveHowItWorks from './pages/SuperInteractiveHowItWorks';
 import ContactPage from './pages/ContactPage';
+import Layout from './Layout';
 // You can add LoginPage and other pages here later
 // import LoginPage from './pages/LoginPage';
 
 function App() {
   return (
     <Router>
-      <Header />
+      <Layout>
+    
       <main>
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -25,8 +27,8 @@ function App() {
           <Route path='/contact' element={<ContactPage/>} ></Route>
         </Routes>
       </main>
-      <Footer />
       {/* You can add a Footer component here if you create one */}
+      </Layout>
     </Router>
   );
 }

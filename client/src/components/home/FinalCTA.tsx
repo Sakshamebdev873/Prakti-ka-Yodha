@@ -32,26 +32,6 @@ const FinalCTA: React.FC = () => {
   { 
     question: "Are there rewards or recognition for students?", 
     answer: "Students earn digital badges, certificates, and leaderboard rankings for completing activities and challenges. Top performers may also get recognition at district or national levels." 
-  },
-  { 
-    question: "Does the platform work on mobile phones?", 
-    answer: "Yes, the platform is fully mobile-friendly and can be accessed via smartphones, tablets, or computers with an internet connection." 
-  },
-  { 
-    question: "Can private schools also join?", 
-    answer: "Yes, private schools can join by subscribing to our program. They get access to all features, dashboards, and activities just like government schools." 
-  },
-  { 
-    question: "What kind of challenges are included?", 
-    answer: "The platform includes gamified challenges such as waste segregation, tree plantation drives, water conservation tasks, carbon footprint tracking, and interactive eco-quizzes." 
-  },
-  { 
-    question: "Is the platform available in regional languages?", 
-    answer: "Yes, to ensure inclusivity, the platform supports multiple Indian languages alongside English." 
-  },
-  { 
-    question: "How do we track progress?", 
-    answer: "Schools and students can view progress dashboards showing completed tasks, eco-points earned, and overall impact metrics." 
   }
 ];
 
