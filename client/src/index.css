@@ -1,0 +1,62 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Cursive:wght@400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+*{
+  font-family: "Montserrat";
+  }
+@layer base {
+  body {
+    /* We apply our base background and text colors here using arbitrary values */
+    @apply bg-[#F5F5DC] text-[#2E3D30];
+
+    /* We set the default font for the entire application */
+    font-family: 'Poppins', sans-serif;
+  }
+}
+.bg-image{
+  background-image: url('./src/assets/hero.jpg');
+}
+.cta-image{
+  background-image: url('./assets/ctaimg.jpg')
+}
+@layer components {
+  /* 
+    Here we define our custom utility classes.
+    The component files can still use 'bg-eco-green' because it's defined here.
+  */
+
+  /* Background Colors */
+  .bg-eco-green {
+    @apply bg-[#4CAF50];
+  }
+  .bg-eco-light-green {
+    @apply bg-[#8BC34A];
+  }
+  .bg-eco-dark {
+    @apply bg-[#2E3D30];
+  }
+  .bg-eco-tan {
+    @apply bg-[#F5F5DC];
+  }
+
+  /* Text Colors */
+  .text-eco-green {
+    @apply text-[#4CAF50];
+  }
+  .text-eco-light-green {
+    @apply text-[#8BC34A];
+  }
+  .text-eco-dark {
+    @apply text-[#2E3D30];
+  }
+  .text-eco-tan {
+    @apply text-[#F5F5DC];
+  }
+
+  /* Hover Text Colors */
+  .hover\:text-eco-green:hover {
+    @apply text-[#4CAF50];
+  }
+  .hover\:text-eco-light-green:hover {
+    @apply text-[#8BC34A];
+  }
+}
