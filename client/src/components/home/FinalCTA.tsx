@@ -1,8 +1,94 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { FaChevronDown } from 'react-icons/fa';
 
 const FinalCTA: React.FC = () => {
+       const [expanded, setExpanded] = useState(0);
+    const faqData = [
+  { 
+    question: "How can my school register for Prakriti Ke Yoddha?", 
+    answer: "Schools can register through our dedicated portal. An authorized representative from the school administration needs to fill out the form. We will then verify the details and provide login credentials for the school's dashboard." 
+  },
+  { 
+    question: "Is the platform free to use for government schools?", 
+    answer: "Yes, the Prakriti Ke Yoddha platform is completely free for all recognized government and government-aided schools across India as part of this national initiative." 
+  },
+  { 
+    question: "How is our data protected?", 
+    answer: "We adhere to the highest standards of data security and privacy in line with government regulations. All user data is encrypted and stored securely. We do not share personal information with third parties." 
+  },
+  { 
+    question: "Can parents get involved?", 
+    answer: "Absolutely! We have a dedicated 'Parental Involvement' feature where parents can view their child's achievements, get reports, and even participate in special family-oriented eco-challenges." 
+  },
+  { 
+    question: "What age groups can participate?", 
+    answer: "Students from primary to higher secondary levels can actively participate. The activities and challenges are tailored to be age-appropriate." 
+  },
+  { 
+    question: "Do teachers get support or training?", 
+    answer: "Yes, teachers receive digital toolkits, activity guides, and periodic training sessions to help them integrate eco-learning into everyday teaching." 
+  },
+  { 
+    question: "Are there rewards or recognition for students?", 
+    answer: "Students earn digital badges, certificates, and leaderboard rankings for completing activities and challenges. Top performers may also get recognition at district or national levels." 
+  },
+  { 
+    question: "Does the platform work on mobile phones?", 
+    answer: "Yes, the platform is fully mobile-friendly and can be accessed via smartphones, tablets, or computers with an internet connection." 
+  },
+  { 
+    question: "Can private schools also join?", 
+    answer: "Yes, private schools can join by subscribing to our program. They get access to all features, dashboards, and activities just like government schools." 
+  },
+  { 
+    question: "What kind of challenges are included?", 
+    answer: "The platform includes gamified challenges such as waste segregation, tree plantation drives, water conservation tasks, carbon footprint tracking, and interactive eco-quizzes." 
+  },
+  { 
+    question: "Is the platform available in regional languages?", 
+    answer: "Yes, to ensure inclusivity, the platform supports multiple Indian languages alongside English." 
+  },
+  { 
+    question: "How do we track progress?", 
+    answer: "Schools and students can view progress dashboards showing completed tasks, eco-points earned, and overall impact metrics." 
+  }
+];
+
+    
+    // --- Accordion Item Sub-Component ---
+    const AccordionItem = ({ item, index, expanded, setExpanded } : any) => {
+        const isOpen = index === expanded;
+        return (
+            <motion.div className="border-b border-gray-200">
+                <motion.header
+                    className="flex justify-between items-center p-5 cursor-pointer"
+                    onClick={() => setExpanded(isOpen ? false : index)}
+                    whileHover={{ backgroundColor: '#F9FAFB' }}
+                >
+                    <h3 className="text-lg font-semibold text-gray-800">{item.question}</h3>
+                    <motion.div animate={{ rotate: isOpen ? 180 : 0 }}>
+                        <FaChevronDown className="text-gray-500" />
+                    </motion.div>
+                </motion.header>
+                <AnimatePresence initial={false}>
+                    {isOpen && (
+                        <motion.section
+                            key="content"
+                            initial="collapsed" animate="open" exit="collapsed"
+                            variants={{ open: { opacity: 1, height: 'auto' }, collapsed: { opacity: 0, height: 0 } }}
+                            transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
+                            className="overflow-hidden"
+                        >
+                            <p className="px-5 pb-5 text-gray-600 leading-relaxed">{item.answer}</p>
+                        </motion.section>
+                    )}
+                </AnimatePresence>
+            </motion.div>
+        );
+    };
   return (
+    <>
     <section 
         id="cta"
         className="relative py-24 bg-cover cta-image bg-center text-white"
@@ -38,6 +124,22 @@ const FinalCTA: React.FC = () => {
             </motion.button>
         </motion.div>
     </section>
+            <div className="max-w-4xl mx-auto pb-20 mt-20">
+                    <motion.div
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.3 }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Frequently Asked Questions</h2>
+                        <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+                            {faqData.map((item, index) => (
+                                <AccordionItem key={index} item={item} index={index} expanded={expanded} setExpanded={setExpanded} />
+                            ))}
+                        </div>
+                    </motion.div>
+                </div>
+    </>
   );
 };
 

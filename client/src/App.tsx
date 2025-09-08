@@ -6,6 +6,8 @@ import Footer from './components/common/Footer';
 import AuthPage from './pages/AuthPage';
 import FeaturesShowcase from './pages/FeatureShowcase';
 import InteractiveImpactPage from './pages/InteractiveImpactPage';
+import SuperInteractiveHowItWorks from './pages/SuperInteractiveHowItWorks';
+import ContactPage from './pages/ContactPage';
 // You can add LoginPage and other pages here later
 // import LoginPage from './pages/LoginPage';
 
@@ -19,6 +21,8 @@ function App() {
           <Route path="/auth" element={<AuthPage />} />
           <Route path='/feature' element={<FeaturesShowcase/>}/>
           <Route path='/impact' element={<InteractiveImpactPage/>}></Route>
+          <Route path='/works' element={<SuperInteractiveHowItWorks/>} ></Route>
+          <Route path='/contact' element={<ContactPage/>} ></Route>
         </Routes>
       </main>
       <Footer />

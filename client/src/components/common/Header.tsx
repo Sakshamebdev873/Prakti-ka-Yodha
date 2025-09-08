@@ -1,33 +1,30 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-// UPDATED NavLink component with a "pill" background effect
+// UPDATED NavLink component with active state
 const NavLink: React.FC<{ href: string; children: React.ReactNode }> = ({
   href,
   children,
-}) => (
-  <motion.a
-    href={href}
-    className="relative font-medium text-gray-700 px-4 py-2 rounded-full"
-    whileHover={{
-      backgroundColor: "rgba(16, 185, 129, 0.1)", // A light emerald background
-      color: "rgb(5, 150, 105)", // A darker emerald text color
-    }}
-    transition={{ duration: 0.2 }}
-  >
-    {children}
-  </motion.a>
-);
+}) => {
+  const isActive = typeof window !== "undefined" && window.location.pathname === href;
 
-// The main Header component (no changes needed here)
+  return (
+    <motion.a
+      href={href}
+      className={`relative font-medium px-4 py-2 rounded-full transition-colors duration-200 ${
+        isActive
+          ? "bg-emerald-100 text-emerald-700"
+          : "text-gray-700 hover:bg-emerald-50 hover:text-emerald-600"
+      }`}
+      whileHover={{ scale: 1.05 }}
+    >
+      {children}
+    </motion.a>
+  );
+};
+
+// The main Header component
 const PrakritiYoddhaHeader: React.FC = () => {
-  // Mock user data for demonstration
-  const user = {
-    name: "Aarav",
-    avatar: "https://i.pravatar.cc/40?u=aarav",
-    prakritiPoints: 1250,
-  };
-
   return (
     <motion.header
       initial={{ y: -60, opacity: 0 }}
@@ -47,31 +44,23 @@ const PrakritiYoddhaHeader: React.FC = () => {
           <span className="text-orange-500">Yoddha</span>
         </motion.a>
 
-        {/* Navigation Links with the new effect */}
-      <div className="hidden md:flex items-center space-x-6"> {/* Increased spacing slightly for new text */}
-  <NavLink href="/feature">Features</NavLink>
-  <NavLink href="/impact">Our Impact</NavLink>
-  <NavLink href="#how-it-works">How It Works</NavLink>
-  <NavLink href="#contact">Contact</NavLink> {/* Assuming you have a contact section in the footer or elsewhere */}
-</div>
-
-        {/* User Profile & Gamification */}
-        <div className="flex items-center gap-4">
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="flex items-center gap-2 bg-emerald-50 border border-emerald-200 rounded-full px-4 py-1.5 cursor-pointer"
-          >
-            <span className="text-emerald-600 font-bold">🌿</span>
-            <span className="font-semibold text-gray-700">{user.prakritiPoints} PP</span>
-          </motion.div>
-          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
-            <img
-              src={user.avatar}
-              alt={user.name}
-              className="w-10 h-10 rounded-full border-2 border-orange-400 cursor-pointer"
-            />
-          </motion.div>
+        {/* Navigation Links */}
+        <div className="hidden md:flex items-center space-x-6">
+          <NavLink href="/feature">Features</NavLink>
+          <NavLink href="/impact">Our Impact</NavLink>
+          <NavLink href="/works">How It Works</NavLink>
+          <NavLink href="/contact">Contact</NavLink>
         </div>
+
+        {/* Get Started Button */}
+        <motion.a
+          href="/auth"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="bg-emerald-600 text-white font-semibold px-5 py-2 rounded-full shadow hover:bg-emerald-700 transition"
+        >
+          Get Started
+        </motion.a>
       </nav>
     </motion.header>
   );
