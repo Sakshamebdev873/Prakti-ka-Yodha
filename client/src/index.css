@@ -18,6 +18,9 @@
 .cta-image{
   background-image: url('./assets/ctaimg.jpg')
 }
+.impact_image{
+  background-image: url('./assets//impact-image.jpg')
+}
 @layer components {
   /* 
     Here we define our custom utility classes.

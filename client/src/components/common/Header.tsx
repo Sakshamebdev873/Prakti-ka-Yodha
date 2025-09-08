@@ -48,12 +48,12 @@ const PrakritiYoddhaHeader: React.FC = () => {
         </motion.a>
 
         {/* Navigation Links with the new effect */}
-        <div className="hidden md:flex items-center space-x-2"> {/* Reduced space-x for better fit */}
-          <NavLink href="#missions">Missions</NavLink>
-          <NavLink href="#learn">Learn</NavLink>
-          <NavLink href="#leaderboard">Leaderboard</NavLink>
-          <NavLink href="#eco-clubs">Eco-Clubs</NavLink>
-        </div>
+      <div className="hidden md:flex items-center space-x-6"> {/* Increased spacing slightly for new text */}
+  <NavLink href="/feature">Features</NavLink>
+  <NavLink href="/impact">Our Impact</NavLink>
+  <NavLink href="#how-it-works">How It Works</NavLink>
+  <NavLink href="#contact">Contact</NavLink> {/* Assuming you have a contact section in the footer or elsewhere */}
+</div>
 
         {/* User Profile & Gamification */}
         <div className="flex items-center gap-4">
