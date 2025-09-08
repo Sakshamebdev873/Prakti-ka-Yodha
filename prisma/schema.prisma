@@ -1,0 +1,236 @@
+// schema.prisma
+generator client {
+  provider = "prisma-client-js"
+  
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(uuid())
+  name          String
+  email         String    @unique
+  emailVerified DateTime? // For email verification
+  passwordHash  String
+  role          Role      @default(STUDENT)
+  avatar        String?   // eco-themed customization
+  ecoScore      Int       @default(0)
+  streakCount   Int       @default(0)
+  lastActive    DateTime? // used for streak reset logic
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations
+  badges          BadgeUser[]
+  challenges      UserChallenge[]
+  projects        Project[]
+  submissions     Submission[]
+  pledges         Pledge[]
+  forumPosts      ForumPost[]
+  wasteScans      WasteScan[]
+  carbonLogs      CarbonLog[]
+  recommendations Recommendation[]
+  refreshTokens   RefreshToken[] // Relation for refresh tokens
+  leaderboardEntries LeaderboardEntry[]
+}
+
+enum Role {
+  STUDENT
+  TEACHER
+  ADMIN
+}
+
+// -----------------------------
+// Authentication
+// -----------------------------
+
+model RefreshToken {
+  id          String   @id @default(uuid())
+  hashedToken String   @unique
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  revoked     Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+
+// -----------------------------
+// Gamification
+// -----------------------------
+model Badge {
+  id          String @id @default(uuid())
+  name        String @unique
+  description String
+  tier        BadgeTier
+  icon        String?
+
+  // Relations
+  users BadgeUser[]
+}
+
+enum BadgeTier {
+  BRONZE
+  SILVER
+  GOLD
+}
+
+model BadgeUser {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  badgeId   String
+  badge     Badge    @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+  awardedAt DateTime @default(now())
+
+  @@unique([userId, badgeId]) // avoid duplicate awards
+}
+
+model Challenge {
+  id           String        @id @default(uuid())
+  title        String
+  description  String
+  type         ChallengeType
+  points       Int           @default(10)
+  startDate    DateTime?
+  endDate      DateTime?
+  // Relations
+  participants UserChallenge[]
+
+   
+}
+
+enum ChallengeType {
+  DAILY
+  WEEKLY
+  QUIZ
+  PROJECT
+}
+
+model UserChallenge {
+  id          String          @id @default(uuid())
+  userId      String
+  user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  challengeId String
+  challenge   Challenge       @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+  status      ChallengeStatus @default(PENDING)
+  completedAt DateTime?
+
+  @@unique([userId, challengeId]) // no duplicate enrollments
+}
+
+enum ChallengeStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
+model Leaderboard {
+  id        String   @id @default(uuid())
+  name      String   // e.g. global, class, inter-school
+  period    String   // daily, weekly, monthly
+  createdAt DateTime @default(now())
+
+  // Optionally link leaderboard scores
+  entries LeaderboardEntry[]
+}
+
+model LeaderboardEntry {
+  id            String      @id @default(uuid())
+  leaderboardId String
+  leaderboard   Leaderboard @relation(fields: [leaderboardId], references: [id], onDelete: Cascade)
+  userId        String
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  score         Int         @default(0)
+
+  @@unique([leaderboardId, userId]) // one score per user per board
+}
+
+// -----------------------------
+// Learning & Submissions
+// -----------------------------
+model Project {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  submissions Submission[]
+}
+
+model Submission {
+  id        String   @id @default(uuid())
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  content   String   @db.VarChar(5000) // essay, poster link, video URL
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// -----------------------------
+// Community Features
+// -----------------------------
+model Pledge {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  message   String   @db.VarChar(500)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ForumPost {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  content   String   @db.VarChar(2000)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// -----------------------------
+// AI Features
+// -----------------------------
+model WasteScan {
+  id         String    @id @default(uuid())
+  userId     String
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  imageUrl   String
+  label      WasteType
+  confidence Float
+  scannedAt  DateTime  @default(now())
+}
+
+enum WasteType {
+  RECYCLABLE
+  BIODEGRADABLE
+  NON_RECYCLABLE
+}
+
+model CarbonLog {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date      DateTime @db.Date
+  habitType String   // e.g., transport, diet, energy
+  value     Int      // impact score
+  createdAt DateTime @default(now())
+
+  @@unique([userId, date, habitType]) // avoid duplicate logs for same day
+}
+
+model Recommendation {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  message   String   @db.VarChar(1000)
+  createdAt DateTime @default(now())
+}
