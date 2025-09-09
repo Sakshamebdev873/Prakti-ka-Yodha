@@ -5,6 +5,7 @@ import morgan from "morgan";
 import cookieParser from 'cookie-parser'
 import authRouter from './routes/auth.route.js'
 import userRouter from './routes/user.routes.js'
+import teacherRouter from './routes/teacher.routes.js'
 const app = express();
 
 
@@ -16,8 +17,10 @@ app.use(cookieParser())
 // routes
 app.use('/api/v1/auth',authRouter)
 app.use('/api/v1/user',userRouter)
-
+app.use('/api/v1/teacher',teacherRouter)
 const port = process.env.PORT || 5101;
+
+
 const start = () => {
   try {
     app.listen(port, () => {
