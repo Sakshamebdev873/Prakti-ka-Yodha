@@ -1,0 +1,15 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+const tabs = [
+    { label: "Dashboard", img: "https://placehold.co/1200x800/22c55e/FFFFFF/png?text=Your+Dashboard" },
+    { label: "Missions", img: "https://placehold.co/1200x800/f97316/FFFFFF/png?text=Daily+Missions" },
+    { label: "Leaderboard", img: "https://placehold.co/1200x800/3b82f6/FFFFFF/png?text=National+Leaderboard" },
+    { label: "Avatar", img: "https://placehold.co/1200x800/8b5cf6/FFFFFF/png?text=Customize+Avatar" },
+];
+const PlatformPreview = () => {
+    const [selectedTab, setSelectedTab] = useState(tabs[0]);
+    return (_jsx("section", { id: "preview", className: "py-20 bg-white", children: _jsxs("div", { className: "container mx-auto px-6", children: [_jsxs(motion.div, { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.6 }, className: "text-center mb-16", children: [_jsx("h2", { className: "text-4xl md:text-5xl font-extrabold text-gray-800 mb-4", children: "A Glimpse of the Adventure" }), _jsx("p", { className: "text-lg text-gray-600 max-w-2xl mx-auto", children: "Explore the key features that make Prakriti Ke Yoddha an exciting and rewarding experience." })] }), _jsx("div", { className: "flex justify-center mb-8 space-x-2 md:space-x-4", children: tabs.map(tab => (_jsxs("button", { className: `px-4 py-2 text-sm md:text-base font-semibold rounded-full transition-colors relative ${selectedTab.label === tab.label ? 'text-white' : 'text-gray-600 hover:bg-gray-200'}`, onClick: () => setSelectedTab(tab), children: [selectedTab.label === tab.label && (_jsx(motion.div, { layoutId: "underline", className: "absolute inset-0 bg-emerald-500 rounded-full z-0" })), _jsx("span", { className: "relative z-10", children: tab.label })] }, tab.label))) }), _jsxs(motion.div, { className: "max-w-4xl mx-auto rounded-xl shadow-2xl border border-gray-200", initial: { opacity: 0, y: 50 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.7, delay: 0.2 }, children: [_jsxs("div", { className: "p-3 bg-gray-100 rounded-t-xl flex items-center space-x-2", children: [_jsx("div", { className: "w-3 h-3 bg-red-400 rounded-full" }), _jsx("div", { className: "w-3 h-3 bg-yellow-400 rounded-full" }), _jsx("div", { className: "w-3 h-3 bg-green-400 rounded-full" })] }), _jsx("div", { className: "aspect-video w-full bg-gray-200", children: _jsx(AnimatePresence, { mode: "wait", children: _jsx(motion.img, { src: selectedTab.img, alt: selectedTab.label, className: "w-full h-full object-cover", initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: -20 }, transition: { duration: 0.3 } }, selectedTab.label) }) })] })] }) }));
+};
+export default PlatformPreview;
+//# sourceMappingURL=PlatformPreview.js.map

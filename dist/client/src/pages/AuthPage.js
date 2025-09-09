@@ -1,0 +1,33 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import React, { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+// --- Sub-Components for Clarity ---
+// 1. The Animated Gradient Background for the Branding Panel
+const AnimatedGradient = () => (_jsx(motion.div, { className: "absolute inset-0 z-0", animate: { backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }, transition: { duration: 25, ease: "linear", repeat: Infinity }, style: {
+        background: "linear-gradient(-45deg, #10b981, #22c55e, #14b8a6, #059669)",
+        backgroundSize: "400% 400%",
+    } }));
+// 2. The Login Form Component
+// @ts-ignore
+const LoginForm = ({ onSwitch }) => (_jsxs(motion.div, { initial: { opacity: 0, x: 50 }, animate: { opacity: 1, x: 0 }, exit: { opacity: 0, x: -50 }, transition: { type: "spring", stiffness: 100, damping: 15 }, className: "w-full", children: [_jsx("h2", { className: "text-3xl font-bold text-gray-800 mb-2", children: "Welcome Back, Warrior!" }), _jsx("p", { className: "text-gray-500 mb-8", children: "Log in to continue your mission." }), _jsxs("form", { className: "space-y-5", children: [_jsxs("div", { className: "relative", children: [_jsx(FaEnvelope, { className: "absolute top-1/2 -translate-y-1/2 left-4 text-gray-400" }), _jsx("input", { type: "email", placeholder: "Email Address", className: "w-full p-3 pl-12 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition" })] }), _jsxs("div", { className: "relative", children: [_jsx(FaLock, { className: "absolute top-1/2 -translate-y-1/2 left-4 text-gray-400" }), _jsx("input", { type: "password", placeholder: "Password", className: "w-full p-3 pl-12 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition" })] }), _jsx(motion.button, { type: "submit", className: "w-full py-3 bg-orange-500 text-white font-bold rounded-lg shadow-lg", whileHover: {
+                        scale: 1.02,
+                        y: -2,
+                        boxShadow: "0 10px 15px -3px rgb(249 115 22 / 0.3)",
+                    }, whileTap: { scale: 0.98 }, children: "Log In" })] }), _jsxs("p", { className: "mt-8 text-center text-gray-600", children: ["Don't have an account?", " ", _jsx("button", { onClick: onSwitch, className: "font-bold text-emerald-600 hover:underline", children: "Sign Up" })] })] }, "login"));
+// 3. The Signup Form Component
+// @ts-ignore
+const SignupForm = ({ onSwitch }) => (_jsxs(motion.div, { initial: { opacity: 0, x: 50 }, animate: { opacity: 1, x: 0 }, exit: { opacity: 0, x: -50 }, transition: { type: "spring", stiffness: 100, damping: 15 }, className: "w-full", children: [_jsx("h2", { className: "text-3xl font-bold text-gray-800 mb-2", children: "Join the Mission" }), _jsx("p", { className: "text-gray-500 mb-8", children: "Create your account to start your adventure." }), _jsxs("form", { className: "space-y-5", children: [_jsxs("div", { className: "relative", children: [_jsx(FaUser, { className: "absolute top-1/2 -translate-y-1/2 left-4 text-gray-400" }), _jsx("input", { type: "text", placeholder: "Your Name", className: "w-full p-3 pl-12 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition" })] }), _jsxs("div", { className: "relative", children: [_jsx(FaEnvelope, { className: "absolute top-1/2 -translate-y-1/2 left-4 text-gray-400" }), _jsx("input", { type: "email", placeholder: "Email Address", className: "w-full p-3 pl-12 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition" })] }), _jsxs("div", { className: "relative", children: [_jsx(FaLock, { className: "absolute top-1/2 -translate-y-1/2 left-4 text-gray-400" }), _jsx("input", { type: "password", placeholder: "Password", className: "w-full p-3 pl-12 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition" })] }), _jsx(motion.button, { type: "submit", className: "w-full py-3 bg-emerald-600 text-white font-bold rounded-lg shadow-lg", whileHover: {
+                        scale: 1.02,
+                        y: -2,
+                        boxShadow: "0 10px 15px -3px rgb(16 185 129 / 0.3)",
+                    }, whileTap: { scale: 0.98 }, children: "Create Account" })] }), _jsxs("p", { className: "mt-8 text-center text-gray-600", children: ["Already have an account?", " ", _jsx("button", { onClick: onSwitch, className: "font-bold text-emerald-600 hover:underline", children: "Log In" })] })] }, "signup"));
+// --- The Main AuthPage Component ---
+const AuthPage = () => {
+    const [isLoginView, setIsLoginView] = useState(true);
+    const navigate = useNavigate();
+    return (_jsx("div", { className: "min-h-screen  bg-gray-100  flex items-center  justify-center p-4", children: _jsxs("div", { className: "relative w-full max-w-5xl h-[650px] flex shadow-2xl rounded-3xl overflow-hidden", children: [_jsxs("div", { className: "relative hidden lg:flex w-1/2 items-center justify-center p-12 text-white", children: [_jsx(AnimatedGradient, {}), _jsxs("div", { className: "relative z-10 text-center space-y-4", children: [_jsxs(motion.div, { initial: { scale: 0.8, opacity: 0 }, animate: { scale: 1, opacity: 1 }, transition: { duration: 0.6, delay: 0.2, type: "spring" }, className: "flex items-center justify-center gap-2 text-4xl font-bold", children: [_jsx("span", { className: "text-4xl", children: "\uD83C\uDF43" }), _jsx("span", { children: "Prakriti Ke" }), _jsx("span", { className: "text-orange-300", children: "Yoddha" })] }), _jsx(motion.p, { initial: { y: 20, opacity: 0 }, animate: { y: 0, opacity: 1 }, transition: { duration: 0.6, delay: 0.4 }, className: "text-lg text-gray-200", children: "Play, Learn, and Protect. Your mission to save the planet starts now." })] })] }), _jsxs("div", { className: "w-full lg:w-1/2 bg-white p-8 sm:p-12 flex flex-col justify-center relative", children: [_jsx(motion.button, { onClick: () => navigate("/"), whileHover: { scale: 1.05 }, whileTap: { scale: 0.95 }, className: "absolute top-4 right-4 text-sm font-semibold text-emerald-600 hover:text-emerald-700", children: "\u2190 Back to Home" }), _jsx(AnimatePresence, { mode: "wait", children: isLoginView ? (_jsx(LoginForm, { onSwitch: () => setIsLoginView(false) }, "login")) : (_jsx(SignupForm, { onSwitch: () => setIsLoginView(true) }, "signup")) })] })] }) }));
+};
+export default AuthPage;
+//# sourceMappingURL=AuthPage.js.map
