@@ -1,0 +1,402 @@
+[
+    {
+        "source_url": "sciq_dataset_sample_0",
+        "content": "Context: These data can be qualitative (descriptive) or quantitative (consisting of numbers), and the raw data can be supplemented with drawings, pictures, photos, or videos. From many observations, the scientist can infer conclusions (inductions) based on evidence. Inductive reasoning involves formulating generalizations inferred from careful observation and the analysis of a large amount of data. Brain studies often work this way. Many brains are observed while people are doing a task. The part of the brain that lights up, indicating activity, is then demonstrated to be the part controlling the response to that task. Deductive reasoning or deduction is the type of logic used in hypothesis-based science. In deductive reasoning, the pattern of thinking moves in the opposite direction as compared to inductive reasoning. Deductive reasoning is a form of logical thinking that uses a general principle or law to forecast specific results. From those general principles, a scientist can extrapolate and predict the specific results that would be valid as long as the general principles are valid. For example, a prediction would be that if the climate is becoming warmer in a region, the distribution of plants and animals should change. Comparisons have been made between distributions in the past and the present, and the many changes that have been found are consistent with a warming climate. Finding the change in distribution is evidence that the climate change conclusion is a valid one. Both types of logical thinking are related to the two main pathways of scientific study: descriptive science and hypothesisbased science. Descriptive (or discovery) science aims to observe, explore, and discover, while hypothesis-based science begins with a specific question or problem and a potential answer or solution that can be tested. The boundary between these two forms of study is often blurred, because most scientific endeavors combine both approaches. Observations lead to questions, questions lead to forming a hypothesis as a possible answer to those questions, and then the hypothesis is tested. Thus, descriptive science and hypothesis-based science are in continuous dialogue.\nQuestion: What kind of reasoning involves formulating generalizations inferred from careful observation and the analysis of a large amount of data?\nCorrect Answer: deductive"
+    },
+    {
+        "source_url": "sciq_dataset_sample_1",
+        "content": "Context: Air pollution causes acid rain, ozone depletion, and global warming.\nQuestion: What causes acid rain?\nCorrect Answer: air pollution"
+    },
+    {
+        "source_url": "sciq_dataset_sample_2",
+        "content": "Context: Algae play significant roles as producers in aquatic ecosystems. Microscopic forms live suspended in the water column. They are the main component of phytoplankton . As such, they contribute to the food base of most marine ecosystems.\nQuestion: What is the main component of phytoplankton?\nCorrect Answer: algae"
+    },
+    {
+        "source_url": "sciq_dataset_sample_3",
+        "content": "Context: A type of lipid called trans fat is found in many processed foods. Trans fat is rare in nature but is manufactured and added to foods to preserve freshness. Eating foods that contain trans fat increases the risk of heart disease. Trans fat may be found in such foods as cookies, doughnuts, crackers, fried foods, ground beef, and margarine.\nQuestion: What is manufactured and added to foods to preserve freshness?\nCorrect Answer: trans fat"
+    },
+    {
+        "source_url": "sciq_dataset_sample_4",
+        "content": "Context: All living organisms must have the ability to reproduce. Living things make more organisms like themselves. Whether the organism is a rabbit, or a tree, or a bacterium, life will create more life. If a species cannot create the next generation, the species will go extinct. Reproduction is the process of making the next generation and may be a sexual or an asexual process. Sexual reproduction involves two parents and the fusion of gametes , haploid sex cells from each parent. Sexual reproduction produces offspring that are genetically unique and increases genetic variation within a species. Asexual reproduction involves only one parent. It occurs without a fusion of gametes and produces offspring that are all genetically identical to the parent.\nQuestion: All living organisms must have what ability, in order to make more organisms like themselves?\nCorrect Answer: reproduction"
+    },
+    {
+        "source_url": "sciq_dataset_sample_5",
+        "content": "Context: Interaction of Hydrostatic and Osmotic Pressures The normal unit used to express pressures within the cardiovascular system is millimeters of mercury (mm Hg). When blood leaving an arteriole first enters a capillary bed, the CHP is quite high—about 35 mm Hg. Gradually, this initial CHP declines as the blood moves through the capillary so that by the time the blood has reached the venous end, the CHP has dropped to approximately 18 mm Hg. In comparison, the plasma proteins remain suspended in the blood, so the BCOP remains fairly constant at about 25 mm Hg throughout the length of the capillary and considerably below the osmotic pressure in the interstitial fluid. The net filtration pressure (NFP) represents the interaction of the hydrostatic and osmotic pressures, driving fluid out of the capillary. It is equal to the difference between the CHP and the BCOP. Since filtration is, by definition, the movement of fluid out of the capillary, when reabsorption is occurring, the NFP is a negative number. NFP changes at different points in a capillary bed (Figure 20.16). Close to the arterial end of the capillary, it is approximately 10 mm Hg, because the CHP of 35 mm Hg minus the BCOP of 25 mm Hg equals 10 mm Hg. Recall that the hydrostatic and osmotic pressures of the interstitial fluid are essentially negligible. Thus, the NFP of 10 mm Hg drives a net movement of fluid out of the capillary at the arterial end. At approximately the middle of the capillary, the CHP is about the same as the BCOP of 25 mm Hg, so the NFP drops to zero. At this point, there is no net change of volume: Fluid moves out of the capillary at the same rate as it moves into the capillary. Near the venous end of the capillary, the CHP has dwindled to about 18 mm Hg due to loss of fluid. Because the BCOP remains steady at 25 mm Hg, water is drawn into the capillary, that is, reabsorption occurs. Another way of expressing this is to say that at the venous end of the capillary, there is an NFP of −7 mm Hg.\nQuestion: In the cardiovascular system, net filtration pressure represents the interaction of osmotic pressures and what other pressures?\nCorrect Answer: hydrostatic"
+    },
+    {
+        "source_url": "sciq_dataset_sample_6",
+        "content": "Context: Nucleotides are composed of a phosphate group, a sugar, and one of five different nitrogenous bases.\nQuestion: What are composed of a phosphate group, a sugar, and one of five different nitrogenous bases.\nCorrect Answer: nucleotides"
+    },
+    {
+        "source_url": "sciq_dataset_sample_7",
+        "content": "Context: Most of the body’s resistance is in its dry skin. When wet, salts go into ion form, lowering the resistance significantly. The interior of the body has a much lower resistance than dry skin because of all the ionic solutions and fluids it contains. If skin resistance is bypassed, such as by an intravenous infusion, a catheter, or exposed pacemaker leads, a person is rendered microshock sensitive. In this condition, currents about 1/1000 those listed in Table 20.3 produce similar effects. During open-heart surgery, currents as small as 20 μA can be used to still the heart. Stringent electrical safety requirements in hospitals, particularly in surgery and intensive care, are related to the doubly disadvantaged microshock-sensitive patient. The break in the skin has reduced his resistance, and so the same voltage causes a greater current, and a much smaller current has a greater effect.\nQuestion: What is lowered when salts go into ion form?\nCorrect Answer: resistance"
+    },
+    {
+        "source_url": "sciq_dataset_sample_8",
+        "content": "Context: Many samples have a lot of variation in measurements. Variation can be described with a statistic called the range. The range is the total spread of values in a sample. It is calculated by subtracting the smallest value from the largest value.\nQuestion: What term is used to describe the total spread of values in a sample?\nCorrect Answer: range"
+    },
+    {
+        "source_url": "sciq_dataset_sample_9",
+        "content": "Context: \nQuestion: What kind of mutations are produced by nucleotide-pair insertions or deletions?\nCorrect Answer: frameshift"
+    },
+    {
+        "source_url": "sciq_dataset_sample_10",
+        "content": "Context: The figure below shows the most commonly used form of the periodic table. Each square shows the chemical symbol of the element along with its name. Notice that several of the symbols seem to be unrelated to the name of the element: Fe for iron, Pb for lead, etc. Most of these are the elements that have been known since ancient times and have symbols based on their Latin names. The atomic number of each element is written above the symbol.\nQuestion: Fe for iron and pb for lead are examples of elements known since ancient times, which have symbols based on their name in what language?\nCorrect Answer: latin"
+    },
+    {
+        "source_url": "sciq_dataset_sample_11",
+        "content": "Context: A lipid is an organic compound such as fat or oil. Organisms use lipids to store energy, but lipids have other important roles as well. Lipids consist of repeating units called fatty acids. There are two types of fatty acids: saturated fatty acids and unsaturated fatty acids.\nQuestion: What are the two types of fatty acids?\nCorrect Answer: saturated and unsaturated"
+    },
+    {
+        "source_url": "sciq_dataset_sample_12",
+        "content": "Context: Ternary compounds are named by stating the cation first, followed by the anion.\nQuestion: In naming ternary compounds, which type of particle is stated first?\nCorrect Answer: cation"
+    },
+    {
+        "source_url": "sciq_dataset_sample_13",
+        "content": "Context: The nervous system is a complex network of nervous tissue that carries electrical messages throughout the body. Its functions include controlling muscles, maintaining balance, sensing internal and external environments, controlling body systems to maintain homeostasis, preparing the body for emergencies, and allowing higher mental functions such as thinking.\nQuestion: Which human body system is a complex network of nervous tissue that carries electrical messages throughout the body?\nCorrect Answer: the nervous system"
+    },
+    {
+        "source_url": "sciq_dataset_sample_14",
+        "content": "Context: The Prokaryotic Cell Recall that prokaryotes (Figure 22.10) are unicellular organisms that lack organelles or other internal membrane-bound structures. Therefore, they do not have a nucleus but instead generally have a single chromosome—a piece of circular, double-stranded DNA located in an area of the cell called the nucleoid. Most prokaryotes have a cell wall outside the plasma membrane.\nQuestion: Prokaryotic cells do not have a nucleus but instead generally have a single chromosome, a piece of double-stranded dna located in an area of the cell called the what?\nCorrect Answer: nucleoid"
+    },
+    {
+        "source_url": "sciq_dataset_sample_15",
+        "content": "Context: Wings of bats and birds serve the same function. Look closely at the bones inside the wings. The differences show they developed from different ancestors.\nQuestion: Wings of bats and birds serve the same function. which body part should you study to understand ancestral differences?\nCorrect Answer: bones inside wings"
+    },
+    {
+        "source_url": "sciq_dataset_sample_16",
+        "content": "Context: Adult humans lack some of the defining traits of chordates. Why are humans still classified in the chordate phylum?.\nQuestion: Who lack some of the defining traits of chordates?\nCorrect Answer: adult humans"
+    },
+    {
+        "source_url": "sciq_dataset_sample_17",
+        "content": "Context: Spinal Cord Development While the brain is developing from the anterior neural tube, the spinal cord is developing from the posterior neural tube. However, its structure does not differ from the basic layout of the neural tube. It is a long, straight cord with a small, hollow space down the center. The neural tube is defined in terms of its anterior versus posterior portions, but it also has a dorsal–ventral dimension. As the neural tube separates from the rest of the ectoderm, the side closest to the surface is dorsal, and the deeper side is ventral. As the spinal cord develops, the cells making up the wall of the neural tube proliferate and differentiate into the neurons and glia of the spinal cord. The dorsal tissues will be associated with sensory functions, and the ventral tissues will be associated with motor functions.\nQuestion: The spinal cord develops, cells making up the wall of the neural tube proliferate and differentiate into what?\nCorrect Answer: neurons and glia"
+    },
+    {
+        "source_url": "sciq_dataset_sample_18",
+        "content": "Context: Chemicals that are applied to farm fields include fertilizers and pesticides. Excess chemicals can be picked up by rainwater. The chemicals can end up in streams, ponds, lakes, or the ocean. Dissolved fertilizer causes tremendous numbers of water plants and algae to grow. This can lead to dead zones where nothing can live in lakes or the coastal oceans.\nQuestion: Dissolved fertilizer can ultimately lead to the creation of what in lakes or coastal oceans, which means a place where nothing can live?\nCorrect Answer: dead zone"
+    },
+    {
+        "source_url": "sciq_dataset_sample_19",
+        "content": "Context: may not be able to use vision as their primary sense to find food. Instead, they are more likely to use taste or chemical cues to find prey. Wetlands Wetlands are environments in which the soil is either permanently or periodically saturated with water. Wetlands are different from lakes because wetlands are shallow bodies of water whereas lakes vary in depth. Emergent vegetation consists of wetland plants that are rooted in the soil but have portions of leaves, stems, and flowers extending above the water’s surface. There are several types of wetlands including marshes, swamps, bogs, mudflats, and salt marshes (Figure 44.25). The three shared characteristics among these types—what makes them wetlands—are their hydrology, hydrophytic vegetation, and hydric soils.\nQuestion: There are several types of wetlands including marshes, swamps, bogs, mudflats, and salt marshes. the three shared characteristics among these types—what makes them wetlands—are their hydrology, hydrophytic vegetation, and this?\nCorrect Answer: hydric soils"
+    },
+    {
+        "source_url": "sciq_dataset_sample_20",
+        "content": "Context: Diversifying Selection Sometimes two or more distinct phenotypes can each have their advantages and be selected for by natural selection, while the intermediate phenotypes are, on average, less fit. Known as diversifying selection (Figure 19.8), this is seen in many populations of animals that have multiple male forms. Large, dominant alpha males obtain mates by brute force, while small males can sneak in for furtive copulations with the females in an alpha male’s territory. In this case, both the alpha males and the “sneaking” males will be selected for, but medium-sized males, which can’t overtake the alpha males and are too big to sneak copulations, are selected against. Diversifying selection can also occur when environmental changes favor individuals on either end of the phenotypic spectrum. Imagine a population of mice living at the beach where there is light-colored sand interspersed with patches of tall grass. In this scenario, light-colored mice that blend in with the sand would be favored, as well as dark-colored mice that can hide in the grass. Medium-colored mice, on the other hand, would not blend in with either the grass or the sand, and would thus be more likely to be eaten by predators. The result of this type of selection is increased genetic variance as the population becomes more diverse.\nQuestion: Sometimes two or more distinct phenotypes can each have their advantages and be selected for by natural selection; this is known as what?\nCorrect Answer: diversifying selection"
+    },
+    {
+        "source_url": "sciq_dataset_sample_21",
+        "content": "Context: Asteroids are irregularly-shaped, rocky bodies that orbit the Sun. Most of them are found in the asteroid belt, between the orbits of Mars and Jupiter.\nQuestion: What two planets is the asteroid belt found between?\nCorrect Answer: mars and jupiter"
+    },
+    {
+        "source_url": "sciq_dataset_sample_22",
+        "content": "Context: Any two waves in the same medium undergo wave interference as they pass each other. At the location where the two waves collide, the result is essentially a summation of the two waves. In some places, a wave crest from one source will overlap a wave crest from the other source. Since both waves are lifting the medium, the combined wave crest will be twice as high as the original crests. Nearby, a wave trough will overlap another wave trough and the new trough will be twice as deep as the original. This is called constructive interference because the resultant wave is larger than the original waves. Within the interference pattern, the amplitude will be twice the original amplitude. Once the waves pass through each other and are alone again, their amplitudes return to their original values.\nQuestion: What is it called when two waves in the same medium pass one another?\nCorrect Answer: interference"
+    },
+    {
+        "source_url": "sciq_dataset_sample_23",
+        "content": "Context: The Noble Gases The noble gases are helium, neon, argon, krypton, xenon, and radon. Because the noble gases are composed of only single atoms, they are monatomic. At room temperature and pressure, they are unreactive gases. Because of their lack of reactivity, for many years they were called inert gases or rare gases. However, the first chemical compounds containing the noble gases were prepared in 1962. Although the noble gases are relatively minor constituents of the atmosphere, natural gas contains substantial amounts of helium. Because of its low reactivity, argon is often used as an unreactive (inert) atmosphere for welding and in light bulbs. The red light emitted by neon in a gas discharge tube is used in neon lights.\nQuestion: Noble gases are monatomic because they only contain one of what?\nCorrect Answer: atoms"
+    },
+    {
+        "source_url": "sciq_dataset_sample_24",
+        "content": "Context: Fingernails and toenails consist of specialized epidermal cells that are filled with keratin . The keratin makes them tough and hard, which is important for the functions they serve. Fingernails prevent injury by forming protective plates over the ends of the fingers. They also enhance sensation by acting as a counterforce to the sensitive fingertips when objects are handled. Nails are similar to claws in other animals. They cover the tips of fingers and toes. Fingernails and toenails both grow from nail beds. As the nail grows, more cells are added at the nail bed. Older cells get pushed away from the nail bed and the nail grows longer. There are no nerve endings in the nail. Otherwise cutting your nails would hurt a lot!.\nQuestion: What fills the epidermal cells that make up fingernails and toenails?\nCorrect Answer: keratin"
+    },
+    {
+        "source_url": "sciq_dataset_sample_25",
+        "content": "Context: Several lethal viruses that cause viral hemorrhagic fever have been discovered, two of which are shown in the Figure below . Ebola outbreaks have been limited mainly to remote areas of the world. However, they have gained extensive media attention because of the high mortality rate—23 percent to 90 percent—depending on the strain. The primary hosts of the viruses are thought to be apes in west central Africa, but the virus has also been isolated from bats in the same region.\nQuestion: What are the 2 primary hosts of ebola in central africa?\nCorrect Answer: apes and bats"
+    },
+    {
+        "source_url": "sciq_dataset_sample_26",
+        "content": "Context: All reptiles have a cloaca , a single exit and entrance for sperm, eggs, and waste, located at the base of the tail. Most reptiles lay amniotic eggs covered with leathery or hard shell. These eggs can be placed anywhere as they don't have to be in a moist environment, like the eggs of amphibians. However, not all species lay eggs, as certain species of squamates can give birth to live young.\nQuestion: Most reptiles lay what kind of eggs?\nCorrect Answer: amniotic"
+    },
+    {
+        "source_url": "sciq_dataset_sample_27",
+        "content": "Context: Metalloids such as boron have an outer energy level that is about half full. These elements need to gain or lose too many electrons for a full outer energy level to come about easily. As a result, these elements are not very reactive. They may be able to conduct electricity but not very well.\nQuestion: About how full is the outer energy level in metalloids?\nCorrect Answer: half full"
+    },
+    {
+        "source_url": "sciq_dataset_sample_28",
+        "content": "Context: The body can also respond effectively to short-term exposure to cold. One response to cold is shivering, which is random muscle movement that generates heat. Another response is increased breakdown of stored energy to generate heat. When that energy reserve is depleted, however, and the core temperature begins to drop significantly, red blood cells will lose their ability to give up oxygen, denying the brain of this critical component of ATP production. This lack of oxygen can cause confusion, lethargy, and eventually loss of consciousness and death. The body responds to cold by reducing blood circulation to the extremities, the hands and feet, in order to prevent blood from cooling there and so that the body’s core can stay warm. Even when core body temperature remains stable, however, tissues exposed to severe cold, especially the fingers and toes, can develop frostbite when blood flow to the extremities has been much reduced. This form of tissue damage can be permanent and lead to gangrene, requiring amputation of the affected region.\nQuestion: Which bone is derived from the fusion of four very small coccygeal vertebrae?\nCorrect Answer: coccyx"
+    },
+    {
+        "source_url": "sciq_dataset_sample_29",
+        "content": "Context: Energy can be transferred between molecules during collisions. Collisions are completely elastic.\nQuestion: Because collisions are ______, energy can be transferred between molecules during them.\nCorrect Answer: elastic"
+    },
+    {
+        "source_url": "sciq_dataset_sample_30",
+        "content": "Context: The fishing float in Figure below bobs on the surface of the water. The fish in the figure is suspended in the water near the surface. Why do the float and fish stay on or near the surface? Why don’t they sink? The answer is buoyancy, another property of fluids.\nQuestion: What property of fluids causes something to stay on or near the surface of water?\nCorrect Answer: buoyancy"
+    },
+    {
+        "source_url": "sciq_dataset_sample_31",
+        "content": "Context: Gymnosperms are seed plants that produce naked seeds in cones. There are about 1000 species of gymnosperms. Conifers are the most common group of gymnosperms. The spruce tree in Figure below is an example of a conifer.\nQuestion: What are seeds plants that produce naked seeds in cones called?\nCorrect Answer: gymnosperms"
+    },
+    {
+        "source_url": "sciq_dataset_sample_32",
+        "content": "Context: Regardless of what gravity is — a force between masses or the result of curves in space and time — the effects of gravity on motion are well known. You already know that gravity causes objects to fall down to the ground. Gravity affects the motion of objects in other ways as well.\nQuestion: What is the force that causes objects to fall down to the ground?\nCorrect Answer: gravity"
+    },
+    {
+        "source_url": "sciq_dataset_sample_33",
+        "content": "Context: Many lakes are not natural, but are human-made. People dam a stream in a suitable spot. Water backs up behind the dam, creating a lake. These lakes are \"reservoirs\" ( Figure below ).\nQuestion: A man made lake is known as what?\nCorrect Answer: resevoirs"
+    },
+    {
+        "source_url": "sciq_dataset_sample_34",
+        "content": "Context: \nQuestion: What type of cells make up tumors?\nCorrect Answer: cancer cells"
+    },
+    {
+        "source_url": "sciq_dataset_sample_35",
+        "content": "Context: in which C is a constant that depends on the type of crystal structure; Z+ and Z– are the charges on the ions; and Ro is the interionic distance (the sum of the radii of the positive and negative ions). Thus, the lattice energy of an ionic crystal increases rapidly as the charges of the ions increase and the sizes of the ions decrease. When all other parameters are kept constant, doubling the charge of both the cation and anion quadruples the lattice energy. For example, the lattice energy of LiF (Z+ and Z– = 1) is 1023 kJ/mol, whereas that of MgO (Z+ and Z– = 2) is 3900 kJ/ mol (Ro is nearly the same—about 200 pm for both compounds). Different interatomic distances produce different lattice energies. For example, we can compare the lattice energy of MgF2 (2957 kJ/mol) to that of MgI2 (2327 kJ/mol) to observe the effect on lattice energy of the smaller ionic size of F– as compared to I–.\nQuestion: Different interatomic distances produce different lattice what?\nCorrect Answer: energies"
+    },
+    {
+        "source_url": "sciq_dataset_sample_36",
+        "content": "Context: Many skeletal muscles are attached to the ends of bones where they meet at a joint. The muscles span the joint and connect the bones. When the muscles contract, they pull on the bones, causing them to move.\nQuestion: Where do skeletal muscles usually attach?\nCorrect Answer: end of bones"
+    },
+    {
+        "source_url": "sciq_dataset_sample_37",
+        "content": "Context: 7. People with red hair usually have very light skin. What might be a genetic explanation for this observation?.\nQuestion: People with red hair usually have what type of skin?\nCorrect Answer: light"
+    },
+    {
+        "source_url": "sciq_dataset_sample_38",
+        "content": "Context: Some minerals are valuable simply because they are beautiful. Jade has been used for thousands of years in China. Native Americans have been decorating items with turquoise since ancient times. Minerals like jade, turquoise, diamonds, and emeralds are gemstones. A gemstone is a material that is cut and polished to use in jewelry. Many gemstones, such as those shown in Figure below , are minerals.\nQuestion: Which mineral do native americans use to decorate items?\nCorrect Answer: turquoise"
+    },
+    {
+        "source_url": "sciq_dataset_sample_39",
+        "content": "Context: Heat is the transfer of thermal energy between substances. Thermal energy is the kinetic energy of moving particles of matter, measured by their temperature. Thermal energy always moves from matter with greater thermal energy to matter with less thermal energy, so it moves from warmer to cooler substances. You can see this in the Figure below . Faster-moving particles of the warmer substance bump into and transfer some of their energy to slower-moving particles of the cooler substance. Thermal energy is transferred in this way until both substances have the same thermal energy and temperature. For a visual introduction to these concepts, watch the animation “Temperature vs. Heat” at this URL:.\nQuestion: Kinetic energy of moving particles of matter, measured by their temperatures are known as:\nCorrect Answer: thermal energy"
+    },
+    {
+        "source_url": "sciq_dataset_sample_40",
+        "content": "Context: Animal Bioenergetics All animals must obtain their energy from food they ingest or absorb. These nutrients are converted to adenosine triphosphate (ATP) for short-term storage and use by all cells. Some animals store energy for slightly longer times as glycogen, and others store energy for much longer times in the form of triglycerides housed in specialized adipose tissues. No energy system is one hundred percent efficient, and an animal’s metabolism produces waste energy in the form of heat. If an animal can conserve that heat and maintain a relatively constant body temperature, it is classified as a warm-blooded animal and called an endotherm. The insulation used to conserve the body heat comes in the forms of fur, fat, or feathers. The absence of insulation in ectothermic animals increases their dependence on the environment for body heat. The amount of energy expended by an animal over a specific time is called its metabolic rate. The rate is measured variously in joules, calories, or kilocalories (1000 calories). Carbohydrates and proteins contain about 4.5 to 5 kcal/g, and fat contains about 9 kcal/g. Metabolic rate is estimated as the basal metabolic rate (BMR) in endothermic animals at rest and as the standard metabolic rate (SMR) in ectotherms. Human males have a BMR of 1600 to 1800 kcal/day, and human females have a BMR of 1300 to 1500 kcal/day. Even with insulation, endothermal animals require extensive amounts of energy to maintain a constant body temperature. An ectotherm such as an alligator has an SMR of 60 kcal/day. Energy Requirements Related to Body Size Smaller endothermic animals have a greater surface area for their mass than larger ones (Figure 33.4). Therefore, smaller animals lose heat at a faster rate than larger animals and require more energy to maintain a constant internal temperature. This results in a smaller endothermic animal having a higher BMR, per body weight, than a larger endothermic animal.\nQuestion: Metabolism produces waste energy in the form of heat, which helps what type of animal conserve and maintain heat at a relatively constant body temperature?\nCorrect Answer: warm-blooded (endotherm)"
+    },
+    {
+        "source_url": "sciq_dataset_sample_41",
+        "content": "Context: Introduction All life on Earth is related. Evolutionary theory states that humans, beetles, plants, and bacteria all share a common ancestor, but that millions of years of evolution have shaped each of these organisms into the forms seen today. Scientists consider evolution a key concept to understanding life. Natural selection is one of the most dominant evolutionary forces. Natural selection acts to promote traits and behaviors that increase an organism’s chances of survival and reproduction, while eliminating those traits and behaviors that are to the organism’s detriment. But natural selection can only, as its name implies, select—it cannot create. The introduction of novel traits and behaviors falls on the shoulders of another evolutionary force—mutation. Mutation and other sources of variation among individuals, as well as the evolutionary forces that act upon them, alter populations and species. This combination of processes has led to the world of life we see today.\nQuestion: Natural selection cannot create new variations in organisms - these new variations must be created by what, which are usually associated with some sort of abnormality?\nCorrect Answer: mutation"
+    },
+    {
+        "source_url": "sciq_dataset_sample_42",
+        "content": "Context: Some molecules are not able to satisfy the octet rule by making only single covalent bonds between the atoms. Consider the compound ethene, which has a molecular formula of C 2 H 4 . The carbon atoms are bonded together, with each carbon also being bonded to two hydrogen atoms.\nQuestion: The carbon atoms are bonded together, with each carbon also being bonded to two of what kind of atoms?\nCorrect Answer: hydrogen"
+    },
+    {
+        "source_url": "sciq_dataset_sample_43",
+        "content": "Context: In both men and women, the second most common type of cancer is lung cancer. Most cases of lung cancer develop in people who smoke.\nQuestion: What is the second most common type of cancer in both men and women?\nCorrect Answer: lung"
+    },
+    {
+        "source_url": "sciq_dataset_sample_44",
+        "content": "Context: Electrochemistry is the study of chemical processes that occur at the interface between an electron conductor, such as a wire, and a solution of electrolytes, which is often simply an ionic substance dissolved in water. Electrochemical processes involve a transfer of electrons between the wire and the solution. These reactions can be used to create electrical power, to purify metals, and to carry out a number of useful chemical transformations.\nQuestion: What processes involve a transfer of electrons between the wire and the solution?\nCorrect Answer: electrochemical"
+    },
+    {
+        "source_url": "sciq_dataset_sample_45",
+        "content": "Context: Figure 11.31 Bronchial tubes in the lungs branch into ever-smaller structures, finally ending in alveoli. The alveoli act like tiny bubbles. The surface tension of their mucous lining aids in exhalation and can prevent inhalation if too great.\nQuestion: Bronchial tubes in the lungs branch into ever-smaller structures, finally ending in alveoli. the alveoli act like what?\nCorrect Answer: tiny bubbles"
+    },
+    {
+        "source_url": "sciq_dataset_sample_46",
+        "content": "Context: One problem with current methods of aluminum production is the generation of environmental contaminants. Hydrogen fluoride gas is an extremely corrosive and toxic byproduct that must be trapped and neutralized. Other fluorides and metals contaminants can also pollute water, soil, and air if not carefully managed.\nQuestion: What is one problem with current methods of aluminum production?\nCorrect Answer: environmental contaminants"
+    },
+    {
+        "source_url": "sciq_dataset_sample_47",
+        "content": "Context: 18.3 Erythrocytes The most abundant formed elements in blood, erythrocytes are red, biconcave disks packed with an oxygen-carrying compound called hemoglobin. The hemoglobin molecule contains four globin proteins bound to a pigment molecule called heme, which contains an ion of iron. In the bloodstream, iron picks up oxygen in the lungs and drops it off in the tissues; the amino acids in hemoglobin then transport carbon dioxide from the tissues back to the lungs. Erythrocytes live only 120 days on average, and thus must be continually replaced. Worn-out erythrocytes are phagocytized by macrophages and their hemoglobin is broken down. The breakdown products are recycled or removed as wastes: Globin is broken down into amino acids for synthesis of new proteins; iron is stored in the liver or spleen or used by the bone marrow for production of new erythrocytes; and the remnants of heme are converted into bilirubin, or other waste products that are taken up by the liver and excreted in the bile or removed by the kidneys. Anemia is a deficiency of RBCs or hemoglobin, whereas polycythemia is an excess of RBCs.\nQuestion: The most abundant formed elements in blood, erythrocytes are red, biconcave disks packed with an oxygen-carrying compound called this?\nCorrect Answer: hemoglobin"
+    },
+    {
+        "source_url": "sciq_dataset_sample_48",
+        "content": "Context: Polar bonds contain atoms that possess either a partial positive or a partial negative charge.\nQuestion: What type of bonds contain atoms that possess either a partial positive or a partial negative charge?\nCorrect Answer: polar bonds"
+    },
+    {
+        "source_url": "sciq_dataset_sample_49",
+        "content": "Context: Latitude is the distance north or south of the Equator. It is expressed as a number between 0° and 90° north or south.\nQuestion: What is the distance north or south of the equator called?\nCorrect Answer: latitude"
+    },
+    {
+        "source_url": "sciq_dataset_sample_50",
+        "content": "Context: Viruses were assumed to exist before they were first seen with an electron microscope in the 1930s. Multiple hypotheses for viral origins have been proposed.\nQuestion: Viruses were assumed to exist before they were first seen with an electron microscope in which decade?\nCorrect Answer: 1930 ' s"
+    },
+    {
+        "source_url": "sciq_dataset_sample_51",
+        "content": "Context: The surface of Venus is shrouded by thick clouds. Radar images show a complex surface. There are volcanoes and craters like those found on other planets and moons. The surface is not nearly as complex as the surface of Earth.\nQuestion: A diploid cell contains two sets of what?\nCorrect Answer: chromosomes"
+    },
+    {
+        "source_url": "sciq_dataset_sample_52",
+        "content": "Context: \nQuestion: Which part of the axon has a higher membrane potential?\nCorrect Answer: axon hillock"
+    },
+    {
+        "source_url": "sciq_dataset_sample_53",
+        "content": "Context: There are also six types of leptons, including electrons. Leptons have an electric charge of either -1 or 0. Electrons, for example, have a charge of -1. Leptons have mass, although the mass of electrons is extremely small.\nQuestion: How many types of leptons are there?\nCorrect Answer: six"
+    },
+    {
+        "source_url": "sciq_dataset_sample_54",
+        "content": "Context: Functionally, the respiratory system can be divided into a conducting zone and a respiratory zone. The conducting zone of the respiratory system includes the organs and structures not directly involved in gas exchange. The gas exchange occurs in the respiratory zone.\nQuestion: The conducting zone of the respiratory system includes the organs and structures not directly involved in what?\nCorrect Answer: gas exchange"
+    },
+    {
+        "source_url": "sciq_dataset_sample_55",
+        "content": "Context: AM radio waves are used to carry commercial radio signals in the frequency range from 540 to 1600 kHz. The abbreviation AM stands for amplitude modulation, which is the method for placing information on these waves. (See Figure 24.12. ) A carrier wave having the basic frequency of the radio station, say 1530 kHz, is varied or modulated in amplitude by an audio signal. The resulting wave has a constant frequency, but a varying amplitude. A radio receiver tuned to have the same resonant frequency as the carrier wave can pick up the signal, while rejecting the many other frequencies impinging on its antenna. The receiver’s circuitry is designed to respond to variations in amplitude of the carrier wave to replicate the original audio signal. That audio signal is amplified to drive a speaker or perhaps to be recorded.\nQuestion: What type of radio waves exist in the 540 to 1600 khz frequency range?\nCorrect Answer: am radio waves"
+    },
+    {
+        "source_url": "sciq_dataset_sample_56",
+        "content": "Context: The kidneys also secrete hormones that help maintain homeostasis. For example, they produce a hormone that stimulates bone marrow to produce red blood cells when more are needed. They also secrete a hormone that regulates blood pressure and keeps it in a normal range.\nQuestion: What organs secrete hormones that help maintain homeostasis?\nCorrect Answer: the kidneys"
+    },
+    {
+        "source_url": "sciq_dataset_sample_57",
+        "content": "Context: Regular reflection occurs when light reflects off a very smooth surface and forms a clear image. Diffuse reflection occurs when light reflects off a rough surface and forms a blurry image or no image at all.\nQuestion: What occurs when light reflects off a very smooth surface and forms a clear image?\nCorrect Answer: regular reflection"
+    },
+    {
+        "source_url": "sciq_dataset_sample_58",
+        "content": "Context: The mouth also begins the process of mechanical digestion . Sharp teeth in the front of the mouth cut or tear food when you bite into it (see Figure below ). Broad teeth in the back of the mouth grind food when you chew. Food is easier to chew because it is moistened by saliva from the salivary glands. The tongue helps mix the food with saliva and also helps you swallow. After you swallow, the chewed food passes into the pharynx.\nQuestion: Where does mechanical digestion begin?\nCorrect Answer: mouth"
+    },
+    {
+        "source_url": "sciq_dataset_sample_59",
+        "content": "Context: Explosive waste is likely to explode. The risk of explosion may be greater if the waste is mixed with other substances.\nQuestion: What type of waste is likely to explode?\nCorrect Answer: explosive waste"
+    },
+    {
+        "source_url": "sciq_dataset_sample_60",
+        "content": "Context: The thalamus acts as a gateway to and from the cortex. It receives sensory and motor inputs from the body and also receives feedback from the cortex. This feedback mechanism can modulate conscious awareness of sensory and motor inputs depending on the attention and arousal state of the animal. The thalamus helps regulate consciousness, arousal, and sleep states. Below the thalamus is the hypothalamus. The hypothalamus controls the endocrine system by sending signals to the pituitary gland. Among other functions, the hypothalamus is the body’s thermostat—it makes sure the body temperature is kept at appropriate levels. Neurons within the hypothalamus also regulate circadian rhythms, sometimes called sleep cycles. The limbic system is a connected set of structures that regulates emotion, as well as behaviors related to fear and motivation. It plays a role in memory formation and includes parts of the thalamus and hypothalamus as well as the hippocampus. One important structure within the limbic system is a temporal lobe structure called the amygdala. The two amygdala (one on each side) are important both for the sensation of fear and for recognizing fearful faces. The cerebellum (cerebellum = “little brain”) sits at the base of the brain on top of the brainstem. The cerebellum controls balance and aids in coordinating movement and learning new motor tasks. The cerebellum of birds is large compared to other vertebrates because of the coordination required by flight. The brainstem connects the rest of the brain with the spinal cord and regulates some of the most important and basic functions of the nervous system including breathing, swallowing, digestion, sleeping, walking, and sensory and motor information integration.\nQuestion: The thalamus acts as a gateway to and from what?\nCorrect Answer: cortex"
+    },
+    {
+        "source_url": "sciq_dataset_sample_61",
+        "content": "Context: Bird organ systems are adapted for flight. For example, they have light-weight air-filled bones and a large four-chambered heart.\nQuestion: Light-weight air-filled bones and a large four-chambered heart helps a bird do what?\nCorrect Answer: fly"
+    },
+    {
+        "source_url": "sciq_dataset_sample_62",
+        "content": "Context: Nonmetals are elements that generally do not conduct electricity. They are one of three classes of elements (the other two classes are metals and metalloids. ) Nonmetals are the second largest of the three classes after metals. They are the elements located on the right side of the periodic table.\nQuestion: What are elements that generally do not conduct electricity?\nCorrect Answer: nonmetals"
+    },
+    {
+        "source_url": "sciq_dataset_sample_63",
+        "content": "Context: Figure 20.19 Power is distributed over large distances at high voltage to reduce power loss in the transmission lines. The voltages generated at the power plant are stepped up by passive devices called transformers (see Transformers) to 330,000 volts (or more in some places worldwide). At the point of use, the transformers reduce the voltage transmitted for safe residential and commercial use. (Credit: GeorgHH, Wikimedia Commons).\nQuestion: The voltages generated at a power plant are stepped up by what passive devices, which then reduce voltage to a safe level at the point of use?\nCorrect Answer: transformers"
+    },
+    {
+        "source_url": "sciq_dataset_sample_64",
+        "content": "Context: When glass breaks, its physical properties change. Instead of one solid sheet of glass, it now has holes and cracks.\nQuestion: Which property changes when a glass breaks?\nCorrect Answer: its physical property"
+    },
+    {
+        "source_url": "sciq_dataset_sample_65",
+        "content": "Context: Xylem and phloem are the two types of vascular tissues in vascular plants.\nQuestion: What are the two types of vascular tissues found in vascular plants?\nCorrect Answer: xylem and phloem"
+    },
+    {
+        "source_url": "sciq_dataset_sample_66",
+        "content": "Context: This giant Buddha statue, which is a national treasure in Japan, is made of bronze. Bronze consists mainly of copper but also contains some tin. Bronze is an example of a solution. A solution is a type of mixture that has the same composition throughout.\nQuestion: What do you call a type of mixture that has the same composition throughout?\nCorrect Answer: solution"
+    },
+    {
+        "source_url": "sciq_dataset_sample_67",
+        "content": "Context: Sure we can! If you've ever flown on a jet airplane, you've been in the stratosphere. Airplanes fly in the stratosphere, because there is less friction. They get better gas mileage and so costs are lower. There is also less turbulence, so passengers are happier. Can you identify the bottom of the stratosphere in the photo? It's where the clouds begin. Remember that all weather is in the troposphere.\nQuestion: Planes fly in what layer of the atmosphere because there is less friction and turbulence?\nCorrect Answer: stratosphere"
+    },
+    {
+        "source_url": "sciq_dataset_sample_68",
+        "content": "Context: Homologous structures are structures that have a common function and suggest common ancestry. For example, homologous structures include the limbs of mammals, such as bats, lions, whales, and humans, which all have a common ancestor. Different mammals may use their limbs for walking, running, swimming or flying. The method the mammal uses to move is considered a common function.\nQuestion: What are structures that have a common function and suggest common ancestry?\nCorrect Answer: homologous structures"
+    },
+    {
+        "source_url": "sciq_dataset_sample_69",
+        "content": "Context: \nQuestion: What type of response do signal transductions within target cells bring about?\nCorrect Answer: physiological"
+    },
+    {
+        "source_url": "sciq_dataset_sample_70",
+        "content": "Context: Do you know what these greenish, blob-like shapes are? Would it surprise you to learn that they are animals? They don’t look anything like the animals you are probably familiar with—animals such as dogs and deer, fish and frogs. But the greenish blobs are animals nonetheless. They belong to a phylum called Cnidaria, but you may know them as jellyfish. They are very simple animals and not fish at all.\nQuestion: Jellyfish belong to which phylum?\nCorrect Answer: cnidaria"
+    },
+    {
+        "source_url": "sciq_dataset_sample_71",
+        "content": "Context: 29.3 Amphibians As tetrapods, most amphibians are characterized by four well-developed limbs, although some species of salamanders and all caecilians are limbless. The most important characteristic of extant amphibians is a moist, permeable skin used for cutaneous respiration. The fossil record provides evidence of amphibian species, now extinct, that arose over 400 million years ago as the first tetrapods. Amphibia can be divided into three clades: salamanders (Urodela), frogs (Anura), and caecilians (Apoda). The life cycle of frogs, like the majority of amphibians, consists of two distinct stages: the larval stage and metamorphosis to an adult stage. Some species in all orders bypass a free-living larval stage.\nQuestion: The most important characteristic of extant amphibians is a moist, permeable skin used for this?\nCorrect Answer: cutaneous respiration"
+    },
+    {
+        "source_url": "sciq_dataset_sample_72",
+        "content": "Context: Replacement reactions occur when elements switch places in compounds. In a single replacement reaction, one element takes the place of another in a single compound. In a double replacement reaction, two compounds exchange elements.\nQuestion: What  occur when elements switch places in compounds?\nCorrect Answer: replacement reactions"
+    },
+    {
+        "source_url": "sciq_dataset_sample_73",
+        "content": "Context: Transition metals are superior conductors of heat as well as electricity. They are malleable, which means they can be shaped into sheets, and ductile, which means they can be shaped into wires. They have high melting and boiling points, and all are solids at room temperature, except for mercury (Hg), which is a liquid. Transition metals are also high in density and very hard. Most of them are white or silvery in color, and they are generally lustrous, or shiny. The compounds that transition metals form with other elements are often very colorful. You can see several examples in the Figure below .\nQuestion: Transition metals are superior conductors of heat as well as what else?\nCorrect Answer: electricity"
+    },
+    {
+        "source_url": "sciq_dataset_sample_74",
+        "content": "Context: The electric current is measured in coulombs per second. A flow of one coulomb per second is called one ampere, A, of current.\nQuestion: A flow of one coulomb per second is called one ampere, which is a measure of what?\nCorrect Answer: electric current"
+    },
+    {
+        "source_url": "sciq_dataset_sample_75",
+        "content": "Context: Mount Kilimanjaro has very different climates at the top and bottom.\nQuestion: Mount kilimanjaro has ________ climates at the top and bottom?\nCorrect Answer: different"
+    },
+    {
+        "source_url": "sciq_dataset_sample_76",
+        "content": "Context: Viruses , like the one depicted in Figure below , are tiny particles that may cause disease. Human diseases caused by viruses include the common cold and flu. Do you think viruses are prokaryotes or eukaryotes? The answer may surprise you. Viruses are not cells at all, so they are neither prokaryotes nor eukaryotes.\nQuestion: The common cold and flu are examples of human diseases caused by what tiny particles?\nCorrect Answer: viruses"
+    },
+    {
+        "source_url": "sciq_dataset_sample_77",
+        "content": "Context: Streptophytes Until recently, all photosynthetic eukaryotes were considered members of the kingdom Plantae. The brown, red, and gold algae, however, have been reassigned to the Protista kingdom. This is because apart from their ability to capture light energy and fix CO2, they lack many structural and biochemical traits that distinguish plants from protists. The position of green algae is more ambiguous. Green algae contain the same carotenoids and chlorophyll a and b as land plants, whereas other algae have different accessory pigments and types of chlorophyll molecules in addition to chlorophyll a. Both green algae and land plants also store carbohydrates as starch. Cells in green algae divide along cell plates called phragmoplasts, and their cell walls are layered in the same manner as the cell walls of embryophytes. Consequently, land plants and closely related green algae are now part of a new monophyletic group called Streptophyta. The remaining green algae, which belong to a group called Chlorophyta, include more than 7000 different species that live in fresh or brackish water, in seawater, or in snow patches. A few green algae even survive on soil, provided it is covered by a thin film of moisture in which they can live. Periodic dry spells provide a selective advantage to algae that can survive water stress. Some green algae may already be familiar, in particular Spirogyra and desmids. Their cells contain chloroplasts that display a dizzying variety of shapes, and their cell walls contain cellulose, as do land plants. Some green algae are single cells, such as Chlorella and Chlamydomonas, which adds to the ambiguity of green algae classification, because plants are multicellular. Other algae, like Ulva (commonly called sea lettuce), form colonies (Figure 25.7).\nQuestion: Cells in green algae divide along cell plates called what?\nCorrect Answer: phragmoplasts"
+    },
+    {
+        "source_url": "sciq_dataset_sample_78",
+        "content": "Context: Where an earthquake takes place is described by its focus and epicenter.\nQuestion: What is the center of an earthquake called?\nCorrect Answer: the epicenter"
+    },
+    {
+        "source_url": "sciq_dataset_sample_79",
+        "content": "Context: Longshore drift can erode the sediment from a beach. To keep this from happening, people may build a series of groins. A groin is wall of rocks or concrete that juts out into the ocean perpendicular to the shore. It stops waves from moving right along the beach. This stops the sand on the upcurrent side and reduces beach erosion. You can see how groins work in Figure below .\nQuestion: A wall of rocks or concrete that juts out into the ocean perpendicular to the shore is called?\nCorrect Answer: groin"
+    },
+    {
+        "source_url": "sciq_dataset_sample_80",
+        "content": "Context: This long, almost nonstop molecule is called a polymer (from the Greek meaning “many parts”). The original part—ethylene—is called the monomer (meaning “one part”). The process of making a polymer is called polymerization. A polymer is an example of a macromolecule, the name given to a large molecule. Simple polymers are named after their monomers; the ethylene polymer is formally called poly(ethylene), although in common use, the names are used without parentheses: polyethylene. Because adding one Saylor URL: http://www. saylor. org/books.\nQuestion: The process of making a polymer is called what?\nCorrect Answer: polymerization"
+    },
+    {
+        "source_url": "sciq_dataset_sample_81",
+        "content": "Context: Metamorphism. This long word means “to change form. “ A rock undergoes metamorphism if it is exposed to extreme heat and pressure within the crust. With metamorphism , the rock does not melt all the way. The rock changes due to heat and pressure. A metamorphic rock may have a new mineral composition and/or texture.\nQuestion: What scientific word, which gives its name to a type of rock, means \"to change form\"?\nCorrect Answer: metamorphism"
+    },
+    {
+        "source_url": "sciq_dataset_sample_82",
+        "content": "Context: \nQuestion: How many processes contribute to the emergence of viral diseases?\nCorrect Answer: three"
+    },
+    {
+        "source_url": "sciq_dataset_sample_83",
+        "content": "Context: Somatic mutations occur in other cells of the body. These mutations may have little effect on the organism because they are confined to just one cell and its daughter cells. Somatic mutations cannot be passed on to offspring.\nQuestion: What type of mutations cannot be passed on to offspring?\nCorrect Answer: somatic mutations"
+    },
+    {
+        "source_url": "sciq_dataset_sample_84",
+        "content": "Context: An experiment generally tests how one variable is affected by another. The affected variable is called the dependent variable . In the plant experiment shown above, the dependent variable is plant growth. The variable that affects the dependent variable is called the independent variable . In the plant experiment, the independent variable could be fertilizer—some plants will get fertilizer, others will not. The scientists change the amount of the independent variable (the fertilizer) to observe the effects on the dependent variable (plant growth). An experiment needs to be run simultaneously in which no fertilizer is given to the plant. This would be known as a control experiment. In any experiment, other factors that might affect the dependent variable must be controlled. In the plant experiment, what factors do you think should be controlled? ( Hint: What other factors might affect plant growth?).\nQuestion: In an experiment, what is the affected variable called?\nCorrect Answer: dependent variable"
+    },
+    {
+        "source_url": "sciq_dataset_sample_85",
+        "content": "Context: Human beings are mammals. Like other mammals, we have hair and mammary glands. The subclass in which the human species is classified is the placental mammals.\nQuestion: What type of mammals are humans?\nCorrect Answer: placental mammals"
+    },
+    {
+        "source_url": "sciq_dataset_sample_86",
+        "content": "Context: The electrolysis of water produces hydrogen and oxygen gases. The electrolytic cell consists of a pair of platinum electrodes immersed in water containing a small amount of an electrolyte, such as H 2 SO 4 . The electrolyte is necessary because pure water does not contain enough ions to effectively conduct a current. At the anode, water is oxidized to oxygen gas and hydrogen ions. At the cathode, water is reduced to hydrogen gas and hydroxide ions.\nQuestion: The electrolysis of what substance produces hydrogen and oxygen gases\nCorrect Answer: water"
+    },
+    {
+        "source_url": "sciq_dataset_sample_87",
+        "content": "Context: Actually, almost all organisms obtain their energy from photosynthetic organisms. For example, if a bird eats a caterpillar, then the bird gets the energy that the caterpillar gets from the plants it eats. So the bird indirectly gets energy that began with the glucose formed through photosynthesis. Therefore, the process of photosynthesis is central to sustaining life on Earth. In eukaryotic organisms, photosynthesis occurs in chloroplasts . Only cells with chloroplasts—plant cells and algal (protist) cells—can perform photosynthesis. Animal cells and fungal cells do not have chloroplasts and, therefore, cannot photosynthesize. That is why these organisms, as well as the non-photosynthetic protists, rely on other organisms to obtain their energy. These organisms are heterotrophs.\nQuestion: What is the function of chloroplasts that are found in plant and algal cells?\nCorrect Answer: photosynthesis"
+    },
+    {
+        "source_url": "sciq_dataset_sample_88",
+        "content": "Context: Oceanic crust is thinner and denser than continental crust.\nQuestion: What crust is thinner and denser than continental crust?\nCorrect Answer: oceanic"
+    },
+    {
+        "source_url": "sciq_dataset_sample_89",
+        "content": "Context: There are three types of mechanical waves. They differ in how they travel through a medium. The three types are transverse, longitudinal, and surface waves. All three types are described in detail below.\nQuestion: How many types of mechanical waves are there?\nCorrect Answer: three"
+    },
+    {
+        "source_url": "sciq_dataset_sample_90",
+        "content": "Context: We obviously can’t live without plants, but sometimes they cause us problems. Many plants are weeds. Weeds are plants that grow where people don’t want them, such as gardens and lawns. They take up space and use resources, hindering the growth of more desirable plants. People often introduce plants to new habitats where they lack natural predators and parasites. The introduced plants may spread rapidly and drive out native plants. Many plants produce pollen, which can cause allergies. Plants may also produce toxins that harm human health (see Figure below ).\nQuestion: What are plants that grow where people don't want them to and can take up space and use resources which hinders growth of more desirable plants?\nCorrect Answer: weeds"
+    },
+    {
+        "source_url": "sciq_dataset_sample_91",
+        "content": "Context: Cancer is a disease that causes cells to divide out of control. Normally, the body has systems that prevent cells from dividing out of control. But in the case of cancer, these systems fail. Cancer is usually caused by mutations. Mutations are random errors in genes. Mutations that lead to cancer usually happen to genes that control the cell cycle. Because of the mutations, abnormal cells divide uncontrollably. This often leads to the development of a tumor. A tumor is a mass of abnormal tissue. As a tumor grows, it may harm normal tissues around it. Anything that can cause cancer is called a carcinogen . Carcinogens may be pathogens, chemicals, or radiation.\nQuestion: Which disease causes cells to divide out of control\nCorrect Answer: cancer"
+    },
+    {
+        "source_url": "sciq_dataset_sample_92",
+        "content": "Context: Other Types of Chemical Signaling In endocrine signaling, hormones secreted into the extracellular fluid diffuse into the blood or lymph, and can then travel great distances throughout the body. In contrast, autocrine signaling takes place within the same cell. An autocrine (auto= “self”) is a chemical that elicits a response in the same cell that secreted it. Interleukin-1, or IL-1, is a signaling molecule that plays an important role in inflammatory response. The cells that secrete IL-1 have receptors on their cell surface that bind these molecules, resulting in autocrine signaling. Local intercellular communication is the province of the paracrine, also called a paracrine factor, which is a chemical that induces a response in neighboring cells. Although paracrines may enter the bloodstream, their concentration is generally too low to elicit a response from distant tissues. A familiar example to those with asthma is histamine, a paracrine that is released by immune cells in the bronchial tree. Histamine causes the smooth muscle cells of the bronchi to constrict, narrowing the airways. Another example is the neurotransmitters of the nervous system, which act only locally within the synaptic cleft.\nQuestion: Autocrine signaling takes place within the same what?\nCorrect Answer: cell"
+    },
+    {
+        "source_url": "sciq_dataset_sample_93",
+        "content": "Context: During mitosis , when the nucleus divides, the two chromatids that make up each chromosome separate from each other and move to opposite poles of the cell. This is shown in Figure below . You can watch an animation of the process at the following link: http://www. biology. arizona. edu/Cell_bio/tutorials/cell_cycle/MitosisFlash. html .\nQuestion: When the nucleus divides, the two chromatids that make up each chromosome separate from each other and move to opposite poles of the cell during this process?\nCorrect Answer: mitosis"
+    },
+    {
+        "source_url": "sciq_dataset_sample_94",
+        "content": "Context: Near-Earth asteroids have orbits that cross Earth’s orbit. This means that they can collide with Earth. There are over 4,500 known near-Earth asteroids. Small asteroids do sometimes collide with Earth. An asteroid about 5–10 m in diameter hits about once per year. Five hundred to a thousand of the known near-Earth asteroids are much bigger. They are over 1 kilometer in diameter. When large asteroids hit Earth in the past, many organisms died. At times, many species became extinct. Astronomers keep looking for near-Earth asteroids. They hope to predict a possible collision early so they can to try to stop it.\nQuestion: In the past, what colliding with planet earth has caused many organisms to die off?\nCorrect Answer: asteroids"
+    },
+    {
+        "source_url": "sciq_dataset_sample_95",
+        "content": "Context: Understanding the \"hows\" and \"whys\" of the world is the goal of science. The term science comes from a Latin word that means \"having knowledge. \" But science is as much about adding to knowledge as it is about having knowledge. Science is a way of thinking as well as a set of facts. Science can be defined as a way of learning about the natural world that is based on evidence and logic.\nQuestion: The term science comes from a latin word that means?\nCorrect Answer: having knowledge"
+    },
+    {
+        "source_url": "sciq_dataset_sample_96",
+        "content": "Context: a phosphate group, which contains phosphorus and oxygen.\nQuestion: What do angiosperms produce?\nCorrect Answer: flowers and fruit"
+    },
+    {
+        "source_url": "sciq_dataset_sample_97",
+        "content": "Context: Like mollusks and annelids, aquatic arthropods may have gills to exchange gases with the water (discussed below). Terrestrial arthropods, on the other hand, have special respiratory structures to exchange gases with the air. These are described in Figure below .\nQuestion: What do aquatic arthropods use to exchange gases with the water?\nCorrect Answer: gills"
+    },
+    {
+        "source_url": "sciq_dataset_sample_98",
+        "content": "Context: Living things need nonliving matter as well as energy. What do you think matter is used for? One thing is to build bodies. They also need it to carry out the processes of life. Any nonliving matter that living things need is called a nutrient . Carbon and nitrogen are examples of nutrients. Unlike energy, matter is recycled in ecosystems. You can see how in Figure below .\nQuestion: What are the nonliving matter that living things need called?\nCorrect Answer: nutrients"
+    },
+    {
+        "source_url": "sciq_dataset_sample_99",
+        "content": "Context: Air reaches its dew point when humidity increases or temperature decreases.\nQuestion: Air is said to reach what point, a term used by meteorologists, when humidity increases or temperature decreases?\nCorrect Answer: its dew point"
+    }
+]

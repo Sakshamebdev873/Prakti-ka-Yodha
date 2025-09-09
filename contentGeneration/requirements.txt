@@ -1,0 +1,13 @@
+langchain
+fastapi
+uvicorn[standard]
+python-dotenv
+pypdf
+sentence-transformers
+chromadb
+langchain-google-genai
+playwright
+datasets
+tf-keras # <-- ADD THIS LINE to solve the error
+langchain-huggingface
+jq

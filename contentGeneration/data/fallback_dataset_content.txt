@@ -1,0 +1,60 @@
+Context: Thyroid Gland The thyroid gland is located in the neck, just below the larynx and in front of the trachea, as shown in Figure 37.16. It is a butterfly-shaped gland with two lobes that are connected by the isthmus. It has a dark red color due to its extensive vascular system. When the thyroid swells due to dysfunction, it can be felt under the skin of the neck.
+Question: What is the shape of the thyroid gland?
+Correct Answer: butterfly-shaped
+
+---
+
+Context: Asthma is a disease in which bronchioles in the lungs periodically swell and fill with mucus. Symptoms of asthma may include difficulty breathing, wheezing, coughing, and chest tightness. An asthma attack may be triggered by allergies, strenuous exercise, stress, or another respiratory illness such as a cold.
+Question: What is the disease in which bronchioles in the lungs periodically swell and fill with mucus?
+Correct Answer: asthma
+
+---
+
+Context: 19.3 The Human Population Earth’s human population is growing exponentially. Humans have increased their carrying capacity through technology, urbanization, and harnessing the energy of fossil fuels. The age structure of a population allows us to predict population growth. Unchecked human population growth could have dire long-term effects on human welfare and Earth’s ecosystems.
+Question: Human population is growing exponentially and humans have increased what normally limiting factor through technology, urbanization, and harnessing the energy of fossil fuels?
+Correct Answer: carrying capacity
+
+---
+
+Context: A lichen is an organism that results from a mutualistic relationship between a fungus and a photosynthetic organism. The other organism is usually a cyanobacterium or green alga. The fungus grows around the bacterial or algal cells. The fungus benefits from the constant supply of food produced by the photosynthesizer. The photosynthesizer benefits from the water and nutrients absorbed by the fungus. Figure below shows lichen growing on a rock.
+Question: How does the fungus benefit from the photosynthesizer?
+Correct Answer: supply of food
+
+---
+
+Context: Igneous rocks are classified first by composition. Categories go from from felsic to ultramafic. Color can indicate composition.
+Question: What is the first classification of igneous rocks?
+Correct Answer: composition
+
+---
+
+Context: There is a lot of water ice in the polar ice caps and under the surface of Mars.
+Question: What is found in abundance in the polar ice caps and under the surface of mars?
+Correct Answer: water
+
+---
+
+Context: 
+Question: Scientists often classify or organize different objects based on their what?
+Correct Answer: physical properties
+
+---
+
+Context: Microbial Genomics: Metagenomics Traditionally, microbiology has been taught with the view that microorganisms are best studied under pure culture conditions, which involves isolating a single type of cell and culturing it in the laboratory. Because microorganisms can go through several generations in a matter of hours, their gene expression profiles adapt to the new laboratory environment very quickly. In addition, the vast majority of bacterial species resist being cultured in isolation. Most microorganisms do not live as isolated entities, but in microbial communities known as biofilms. For all of these reasons, pure culture is not always the best way to study microorganisms. Metagenomics is the study of the collective genomes of multiple species.
+Question: Because microorganisms can go through several generations in a matter of hours, their gene expression profiles adapt to the new laboratory environment very quickly. in addition, the vast majority of bacterial species resist being cultured in this?
+Correct Answer: isolation
+
+---
+
+Context: yellow liquid used in the production of synthetic rubber. Its condensed structural formula is ClSSCl. Ethylene glycol is the major ingredient in antifreeze. Its condensed structural formula is HOCH2CH2OH. Trimethylamine is one of the substances responsible for the smell of spoiled fish. Its condensed structural formula is (CH3)3N. Given: condensed structural formula Asked for: molecular formula Strategy: A Identify every element in the condensed structural formula and then determine whether the compound is organic or inorganic. B As appropriate, use either organic or inorganic convention to list the elements. Then add appropriate subscripts to indicate the number of atoms of each element present in the molecular formula. Solution: The molecular formula lists the elements in the molecule and the number of atoms of each.
+Question: Trimethylamine is one of the substances responsible for the what of spoiled fish?
+Correct Answer: smell
+
+---
+
+Context: If a solute is a gas, increasing the temperature decreases its solubility. For example, less carbon dioxide can dissolve in warm ocean water than in cold ocean water.
+Question: If a solute is a gas, increasing the temperature will do what?
+Correct Answer: decrease its solubility
+
+---
+

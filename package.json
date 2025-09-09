@@ -19,12 +19,23 @@
   },
   "homepage": "https://github.com/Sakshamebdev873/Prakti-ka-Yodha#readme",
   "dependencies": {
+    "@prisma/client": "^6.15.0",
+    "@types/cookie-parser": "^1.4.9",
     "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/morgan": "^1.9.10",
     "@types/typescript": "^0.4.29",
+    "bcryptjs": "^3.0.2",
+    "body-parser": "^2.2.0",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.1",
     "typescript": "^5.9.2"
+  },
+  "devDependencies": {
+    "prisma": "^6.15.0"
   }
 }
