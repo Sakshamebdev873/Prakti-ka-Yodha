@@ -13,5 +13,5 @@
     "**/*.ts",     // This finds all TypeScript files in the project
     "**/*.d.ts"     // This finds all TypeScript declaration files
   ],
-  "exclude": ["node_modules", "dist","client"] // Exclude node_modules and the output directory
+  "exclude": ["node_modules", "dist","client","contentGeneration"] // Exclude node_modules and the output directory
 }
