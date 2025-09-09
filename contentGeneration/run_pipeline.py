@@ -8,6 +8,7 @@ def run_content_pipeline(url_to_scrape: str):
     1. Tries to scrape a URL.
     2. If scraping fails, fetches from a fallback dataset.
     3. Runs the ingestion script to update the vector database.
+    4.test it again
     """
     print("--- Starting Content Pipeline ---")
     try:
