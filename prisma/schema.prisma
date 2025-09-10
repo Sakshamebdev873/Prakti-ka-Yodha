@@ -1,7 +1,6 @@
 // schema.prisma
 generator client {
   provider = "prisma-client-js"
-  
 }
 
 datasource db {
@@ -10,31 +9,34 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(uuid())
-  name          String
-  email         String    @unique
-  emailVerified DateTime? // For email verification
-  passwordHash  String
-  role          Role      @default(STUDENT)
-  avatar        String?   // eco-themed customization
-  ecoScore      Int       @default(0)
-  streakCount   Int       @default(0)
-  lastActive    DateTime? // used for streak reset logic
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  id                 String    @id @default(uuid())
+  name               String
+  email              String    @unique
+  emailVerified      DateTime?
+  passwordHash       String
+  role               Role      @default(STUDENT)
+  avatar             String?
+  ecoScore           Int       @default(0)
+  streakCount        Int       @default(0)
+  lastActive         DateTime?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
 
   // Relations
-  badges          BadgeUser[]
-  challenges      UserChallenge[]
-  projects        Project[]
-  submissions     Submission[]
-  pledges         Pledge[]
-  forumPosts      ForumPost[]
-  wasteScans      WasteScan[]
-  carbonLogs      CarbonLog[]
-  recommendations Recommendation[]
-  refreshTokens   RefreshToken[] // Relation for refresh tokens
+  badges             BadgeUser[]
+  challenges         UserChallenge[]
+  projects           Project[]
+  submissions        Submission[]
+  pledges            Pledge[]
+  forumPosts         ForumPost[]
+  wasteScans         WasteScan[]
+  carbonLogs         CarbonLog[]
+  recommendations    Recommendation[]
+  refreshTokens      RefreshToken[]
   leaderboardEntries LeaderboardEntry[]
+  createdChallenges  Challenge[]     @relation("ChallengeAuthor")
+  ownedClassrooms    Classroom[]     @relation("ClassroomTeacher")
+  classrooms         ClassroomUser[]
 }
 
 enum Role {
@@ -46,7 +48,6 @@ enum Role {
 // -----------------------------
 // Authentication
 // -----------------------------
-
 model RefreshToken {
   id          String   @id @default(uuid())
   hashedToken String   @unique
@@ -57,19 +58,16 @@ model RefreshToken {
   updatedAt   DateTime @updatedAt
 }
 
-
 // -----------------------------
 // Gamification
 // -----------------------------
 model Badge {
-  id          String @id @default(uuid())
-  name        String @unique
+  id          String    @id @default(uuid())
+  name        String    @unique
   description String
   tier        BadgeTier
   icon        String?
-
-  // Relations
-  users BadgeUser[]
+  users       BadgeUser[]
 }
 
 enum BadgeTier {
@@ -86,7 +84,7 @@ model BadgeUser {
   badge     Badge    @relation(fields: [badgeId], references: [id], onDelete: Cascade)
   awardedAt DateTime @default(now())
 
-  @@unique([userId, badgeId]) // avoid duplicate awards
+  @@unique([userId, badgeId])
 }
 
 model Challenge {
@@ -97,10 +95,10 @@ model Challenge {
   points       Int           @default(10)
   startDate    DateTime?
   endDate      DateTime?
-  // Relations
+  authorId     String
+  author       User          @relation("ChallengeAuthor", fields: [authorId], references: [id])
   participants UserChallenge[]
-
-   
+  assignedInClassrooms ClassroomChallenge[]
 }
 
 enum ChallengeType {
@@ -119,7 +117,7 @@ model UserChallenge {
   status      ChallengeStatus @default(PENDING)
   completedAt DateTime?
 
-  @@unique([userId, challengeId]) // no duplicate enrollments
+  @@unique([userId, challengeId])
 }
 
 enum ChallengeStatus {
@@ -129,13 +127,18 @@ enum ChallengeStatus {
 }
 
 model Leaderboard {
-  id        String   @id @default(uuid())
-  name      String   // e.g. global, class, inter-school
-  period    String   // daily, weekly, monthly
-  createdAt DateTime @default(now())
+  id        String            @id @default(uuid())
+  name      String
+  period    LeaderboardPeriod
+  createdAt DateTime          @default(now())
+  entries   LeaderboardEntry[]
+}
 
-  // Optionally link leaderboard scores
-  entries LeaderboardEntry[]
+enum LeaderboardPeriod {
+  DAILY
+  WEEKLY
+  MONTHLY
+  ALL_TIME
 }
 
 model LeaderboardEntry {
@@ -146,7 +149,7 @@ model LeaderboardEntry {
   user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   score         Int         @default(0)
 
-  @@unique([leaderboardId, userId]) // one score per user per board
+  @@unique([leaderboardId, userId])
 }
 
 // -----------------------------
@@ -160,7 +163,6 @@ model Project {
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-
   submissions Submission[]
 }
 
@@ -170,9 +172,10 @@ model Submission {
   project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  content   String   @db.VarChar(5000) // essay, poster link, video URL
+  content   String   @db.VarChar(5000)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+   status    SubmissionStatus @default(PENDING)
 }
 
 // -----------------------------
@@ -216,15 +219,23 @@ enum WasteType {
 }
 
 model CarbonLog {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  date      DateTime @db.Date
-  habitType String   // e.g., transport, diet, energy
-  value     Int      // impact score
-  createdAt DateTime @default(now())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date      DateTime  @db.Date
+  habitType HabitType
+  value     Int
+  createdAt DateTime  @default(now())
 
-  @@unique([userId, date, habitType]) // avoid duplicate logs for same day
+  @@unique([userId, date, habitType])
+}
+
+enum HabitType {
+  TRANSPORT
+  DIET
+  ENERGY
+  SHOPPING
+  OTHER
 }
 
 model Recommendation {
@@ -233,4 +244,47 @@ model Recommendation {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   message   String   @db.VarChar(1000)
   createdAt DateTime @default(now())
+}
+
+// -----------------------------
+// Classroom & School Features
+// -----------------------------
+model Classroom {
+  id        String          @id @default(uuid())
+  name      String
+  joinCode  String          @unique
+  teacherId String
+  teacher   User            @relation("ClassroomTeacher", fields: [teacherId], references: [id], onDelete: Cascade)
+  createdAt DateTime        @default(now())
+  students  ClassroomUser[]
+  classRoomChallenges ClassroomChallenge[]
+}
+
+model ClassroomUser {
+  id          String    @id @default(uuid())
+  classroomId String
+  classroom   Classroom @relation(fields: [classroomId], references: [id], onDelete: Cascade)
+  studentId   String
+  student     User      @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  joinedAt    DateTime  @default(now())
+
+  @@unique([classroomId, studentId])
+}
+// --- ADD THIS NEW ENUM ---
+enum SubmissionStatus {
+  PENDING   // Student has submitted, awaiting review
+  APPROVED  // Teacher has approved it, points can be awarded
+  REJECTED // Teacher has rejected it, student may need to resubmit
+}
+
+// --- ADD THIS NEW MODEL (for the many-to-many relation) ---
+model ClassroomChallenge {
+  id          String    @id @default(uuid())
+  classroomId String
+  classroom   Classroom @relation(fields: [classroomId], references: [id], onDelete: Cascade)
+  challengeId String
+  challenge   Challenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+  assignedAt  DateTime  @default(now())
+
+  @@unique([classroomId, challengeId]) // A challenge can only be assigned to a class once
 }
