@@ -11,9 +11,7 @@ const prisma = new client_1.PrismaClient();
 //==========================================================================
 // CHALLENGE & ASSIGNMENT MANAGEMENT
 //==========================================================================
-/**
- * Creates a challenge using the AI service, authored by the teacher.
- */
+// in this take care of start date na dend Date
 const createChallengeWithAI = async (req, res) => {
     // ... (This function remains the same as before)
     const teacherId = req.user?.userId;

@@ -19,15 +19,17 @@ const COLLECTION_NAME = 'ecolearn_content';
 // Initialize the models and vector store once
 const embeddings = new google_genai_1.GoogleGenerativeAIEmbeddings({
     apiKey: process.env.GOOGLE_API_KEY,
-    model: 'embedding-001',
+    model: 'gemini-embedding-001',
 });
+// CORRECTED PART: The `embeddings` object is the first argument, 
+// and the configuration is the second.
 const vectorStore = new chroma_1.Chroma(embeddings, {
     collectionName: COLLECTION_NAME,
-    url: 'http://localhost:8000', // URL of your running ChromaDB instance
+    url: 'http://localhost:8000', // This requires a separate ChromaDB server running
 });
 const llm = new google_genai_2.ChatGoogleGenerativeAI({
     apiKey: process.env.GOOGLE_API_KEY,
-    model: 'gemini-2.5-pro',
+    model: 'gemini-2.0-flash',
     temperature: 0.7,
 });
 const retriever = vectorStore.asRetriever(3); // Retrieve top 3 documents
@@ -49,7 +51,6 @@ JSON RESPONSE:
 `;
 const prompt = prompts_1.PromptTemplate.fromTemplate(promptTemplate);
 // Define the RAG chain using the newer LangChain Expression Language (LCEL)
-console.log(VECTOR_STORE_PATH, process.env.GOOGLE_API_KEY);
 const ragChain = runnables_1.RunnableSequence.from([
     {
         context: (input) => retriever.invoke(input.topic).then(document_1.formatDocumentsAsString),
@@ -58,22 +59,21 @@ const ragChain = runnables_1.RunnableSequence.from([
     },
     prompt,
     llm,
-    new output_parsers_1.StringOutputParser(),
+    new output_parsers_1.JsonOutputParser(),
 ]);
 // The main service function to be called from the controller
 const generateChallengeFromTopic = async (input) => {
     console.log(`Generating challenge for topic: "${input.topic}"`);
-    const result = await ragChain.invoke({
-        topic: input.topic,
-        challenge_type: input.challenge_type,
-    });
     try {
-        // The chain returns a JSON string, so we parse it
-        return JSON.parse(result);
+        const result = await ragChain.invoke({
+            topic: input.topic,
+            challenge_type: input.challenge_type,
+        });
+        return result;
     }
     catch (error) {
-        console.error('Failed to parse JSON from LLM output:', result);
-        throw new Error('Failed to generate a valid challenge structure from the AI model.');
+        console.error('Error during RAG chain execution:', error);
+        throw new Error('Failed to generate a valid challenge from the AI model.');
     }
 };
 exports.generateChallengeFromTopic = generateChallengeFromTopic;

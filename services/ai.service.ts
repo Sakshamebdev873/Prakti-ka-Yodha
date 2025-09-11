@@ -3,10 +3,11 @@ import { GoogleGenerativeAIEmbeddings } from '@langchain/google-genai';
 import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
 import { PromptTemplate } from '@langchain/core/prompts';
 import { RunnableSequence } from '@langchain/core/runnables';
-import { StringOutputParser } from '@langchain/core/output_parsers';
+import { JsonOutputParser } from '@langchain/core/output_parsers';
 import { formatDocumentsAsString } from 'langchain/util/document';
-import dotenv from 'dotenv'
-dotenv.config()
+import dotenv from 'dotenv';
+dotenv.config();
+
 // --- CONFIGURATION ---
 const VECTOR_STORE_PATH = './contentGeneration/chroma_db'; // Must match the path from ingest.ts
 const COLLECTION_NAME = 'ecolearn_content';
@@ -14,17 +15,19 @@ const COLLECTION_NAME = 'ecolearn_content';
 // Initialize the models and vector store once
 const embeddings = new GoogleGenerativeAIEmbeddings({
   apiKey: process.env.GOOGLE_API_KEY,
-  model: 'embedding-001',
+  model: 'gemini-embedding-001',
 });
 
+// CORRECTED PART: The `embeddings` object is the first argument, 
+// and the configuration is the second.
 const vectorStore = new Chroma(embeddings, {
   collectionName: COLLECTION_NAME,
-  url: 'http://localhost:8000', // URL of your running ChromaDB instance
+  url: 'http://localhost:8000', // This requires a separate ChromaDB server running
 });
 
 const llm = new ChatGoogleGenerativeAI({
   apiKey: process.env.GOOGLE_API_KEY,
-  model: 'gemini-2.5-pro',
+  model: 'gemini-2.0-flash',
   temperature: 0.7,
 });
 
@@ -50,7 +53,6 @@ JSON RESPONSE:
 const prompt = PromptTemplate.fromTemplate(promptTemplate);
 
 // Define the RAG chain using the newer LangChain Expression Language (LCEL)
-console.log(VECTOR_STORE_PATH,process.env.GOOGLE_API_KEY);
 const ragChain = RunnableSequence.from([
   {
     context: (input) => retriever.invoke(input.topic).then(formatDocumentsAsString),
@@ -59,7 +61,7 @@ const ragChain = RunnableSequence.from([
   },
   prompt,
   llm,
-  new StringOutputParser(),
+  new JsonOutputParser(),
 ]);
 
 interface GenerateChallengeInput {
@@ -71,16 +73,14 @@ interface GenerateChallengeInput {
 export const generateChallengeFromTopic = async (input: GenerateChallengeInput) => {
   console.log(`Generating challenge for topic: "${input.topic}"`);
   
-  const result = await ragChain.invoke({
-    topic: input.topic,
-    challenge_type: input.challenge_type,
-  });
-  
   try {
-    // The chain returns a JSON string, so we parse it
-    return JSON.parse(result);
+    const result = await ragChain.invoke({
+      topic: input.topic,
+      challenge_type: input.challenge_type,
+    });
+    return result;
   } catch (error) {
-    console.error('Failed to parse JSON from LLM output:', result);
-    throw new Error('Failed to generate a valid challenge structure from the AI model.');
+    console.error('Error during RAG chain execution:', error);
+    throw new Error('Failed to generate a valid challenge from the AI model.');
   }
 };

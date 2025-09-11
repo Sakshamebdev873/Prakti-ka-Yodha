@@ -9,9 +9,7 @@ const prisma = new PrismaClient();
 // CHALLENGE & ASSIGNMENT MANAGEMENT
 //==========================================================================
 
-/**
- * Creates a challenge using the AI service, authored by the teacher.
- */
+// in this take care of start date na dend Date
 export const createChallengeWithAI = async (req: Request, res: Response): Promise<Response> => {
     // ... (This function remains the same as before)
     const teacherId = req.user?.userId;
@@ -20,7 +18,7 @@ export const createChallengeWithAI = async (req: Request, res: Response): Promis
         return res.status(400).json({ message: 'Topic and challenge_type are required.' });
     }
     try {
-        const generatedChallenge = await generateChallengeFromTopic({ topic, challenge_type });
+        const generatedChallenge : any = await generateChallengeFromTopic({ topic, challenge_type });
         const newChallenge = await prisma.challenge.create({
             data: { ...generatedChallenge, authorId: teacherId! }
         });
