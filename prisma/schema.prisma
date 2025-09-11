@@ -260,6 +260,7 @@ model Classroom {
   classRoomChallenges ClassroomChallenge[]
 }
 
+
 model ClassroomUser {
   id          String    @id @default(uuid())
   classroomId String
