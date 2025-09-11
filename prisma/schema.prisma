@@ -10,13 +10,13 @@ datasource db {
 
 // --- NEW MODEL: For Schools, Colleges, etc. ---
 model Institution {
-  id      String @id @default(uuid())
-  name    String @unique
+  id      String          @id @default(uuid())
+  name    String          @unique
   type    InstitutionType
   address String?
 
   // An institution has many users (students and teachers)
-  users User[]
+  users              User[]
   // An institution can have many pending invitations for teachers
   teacherInvitations TeacherInvitation[]
 }
@@ -29,25 +29,24 @@ enum InstitutionType {
   OTHER
 }
 
-
 model User {
-  id                 String    @id @default(uuid())
-  name               String
-  email              String    @unique
-  emailVerified      DateTime?
-  passwordHash       String
-  role               Role      @default(STUDENT)
-  avatar             String?
-  ecoScore           Int       @default(0)
-  streakCount        Int       @default(0)
-  lastActive         DateTime?
-  createdAt          DateTime  @default(now())
-  updatedAt          DateTime  @updatedAt
+  id            String    @id @default(uuid())
+  name          String
+  email         String    @unique
+  emailVerified DateTime?
+  passwordHash  String
+  role          Role      @default(STUDENT)
+  avatar        String?
+  ecoScore      Int       @default(0)
+  streakCount   Int       @default(0)
+  lastActive    DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 
   // --- MODIFIED: Link User to an Institution ---
   // A user must belong to an institution. This is non-optional.
-  institutionId      String
-  institution        Institution @relation(fields: [institutionId], references: [id], onDelete: Cascade)
+  institutionId String
+  institution   Institution @relation(fields: [institutionId], references: [id], onDelete: Cascade)
 
   // Relations
   badges             BadgeUser[]
@@ -61,8 +60,8 @@ model User {
   recommendations    Recommendation[]
   refreshTokens      RefreshToken[]
   leaderboardEntries LeaderboardEntry[]
-  createdChallenges  Challenge[]     @relation("ChallengeAuthor")
-  ownedClassrooms    Classroom[]     @relation("ClassroomTeacher")
+  createdChallenges  Challenge[]        @relation("ChallengeAuthor")
+  ownedClassrooms    Classroom[]        @relation("ClassroomTeacher")
   classrooms         ClassroomUser[]
 }
 
@@ -70,6 +69,7 @@ enum Role {
   STUDENT
   TEACHER
   ADMIN
+  INSTITUTION_ADMIN
 }
 
 // -----------------------------
@@ -79,19 +79,19 @@ enum Role {
 // --- NEW MODEL: To handle the Admin-invites-Teacher flow ---
 model TeacherInvitation {
   id            String      @id @default(uuid())
-  email         String      // The email of the teacher to be invited
-  institutionId String      // The institution they are being invited to
+  email         String // The email of the teacher to be invited
+  institutionId String // The institution they are being invited to
   institution   Institution @relation(fields: [institutionId], references: [id], onDelete: Cascade)
-  
+
   // A unique, secure token sent in the invitation link
-  token         String      @unique
-  expiresAt     DateTime
-  status        InvitationStatus @default(PENDING)
-  
+  token     String           @unique
+  expiresAt DateTime
+  status    InvitationStatus @default(PENDING)
+
   // Who sent the invitation
-  invitedBy     String      // Could be an Admin's ID
-  
-  createdAt     DateTime    @default(now())
+  invitedBy String // Could be an Admin's ID
+
+  createdAt DateTime @default(now())
 
   @@unique([email, institutionId]) // Can't invite the same email to the same institution twice
 }
@@ -102,11 +102,11 @@ enum InvitationStatus {
   EXPIRED
 }
 
-
 model RefreshToken {
   id          String   @id @default(uuid())
   hashedToken String   @unique
   userId      String
+  jti         String   @unique
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   revoked     Boolean  @default(false)
   createdAt   DateTime @default(now())
@@ -119,8 +119,8 @@ model RefreshToken {
 // Gamification
 // -----------------------------
 model Badge {
-  id          String    @id @default(uuid())
-  name        String    @unique
+  id          String      @id @default(uuid())
+  name        String      @unique
   description String
   tier        BadgeTier
   icon        String?
@@ -145,16 +145,16 @@ model BadgeUser {
 }
 
 model Challenge {
-  id           String        @id @default(uuid())
-  title        String
-  description  String
-  type         ChallengeType
-  points       Int           @default(10)
-  startDate    DateTime?
-  endDate      DateTime?
-  authorId     String
-  author       User          @relation("ChallengeAuthor", fields: [authorId], references: [id])
-  participants UserChallenge[]
+  id                   String               @id @default(uuid())
+  title                String
+  description          String
+  type                 ChallengeType
+  points               Int                  @default(10)
+  startDate            DateTime?
+  endDate              DateTime?
+  authorId             String
+  author               User                 @relation("ChallengeAuthor", fields: [authorId], references: [id])
+  participants         UserChallenge[]
   assignedInClassrooms ClassroomChallenge[]
 }
 
@@ -184,10 +184,10 @@ enum ChallengeStatus {
 }
 
 model Leaderboard {
-  id        String            @id @default(uuid())
+  id        String             @id @default(uuid())
   name      String
   period    LeaderboardPeriod
-  createdAt DateTime          @default(now())
+  createdAt DateTime           @default(now())
   entries   LeaderboardEntry[]
 }
 
@@ -213,32 +213,34 @@ model LeaderboardEntry {
 // Learning & Submissions
 // -----------------------------
 model Project {
-  id          String   @id @default(uuid())
+  id          String       @id @default(uuid())
   title       String
   description String
   userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
   submissions Submission[]
 }
 
 model Submission {
-  id        String   @id @default(uuid())
+  id        String           @id @default(uuid())
   projectId String
-  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  project   Project          @relation(fields: [projectId], references: [id], onDelete: Cascade)
   userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  content   String   @db.VarChar(5000)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-   status    SubmissionStatus @default(PENDING)
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  content   String           @db.VarChar(5000)
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  status    SubmissionStatus @default(PENDING)
 }
+
 enum SubmissionStatus {
   PENDING
   APPROVED
   REJECTED
 }
+
 // -----------------------------
 // Community Features
 // -----------------------------
@@ -311,16 +313,15 @@ model Recommendation {
 // Classroom & School Features
 // -----------------------------
 model Classroom {
-  id        String          @id @default(uuid())
-  name      String
-  joinCode  String          @unique
-  teacherId String
-  teacher   User            @relation("ClassroomTeacher", fields: [teacherId], references: [id], onDelete: Cascade)
-  createdAt DateTime        @default(now())
-  students  ClassroomUser[]
+  id                  String               @id @default(uuid())
+  name                String
+  joinCode            String               @unique
+  teacherId           String
+  teacher             User                 @relation("ClassroomTeacher", fields: [teacherId], references: [id], onDelete: Cascade)
+  createdAt           DateTime             @default(now())
+  students            ClassroomUser[]
   classRoomChallenges ClassroomChallenge[]
 }
-
 
 model ClassroomUser {
   id          String    @id @default(uuid())
