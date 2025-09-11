@@ -8,6 +8,28 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// --- NEW MODEL: For Schools, Colleges, etc. ---
+model Institution {
+  id      String @id @default(uuid())
+  name    String @unique
+  type    InstitutionType
+  address String?
+
+  // An institution has many users (students and teachers)
+  users User[]
+  // An institution can have many pending invitations for teachers
+  teacherInvitations TeacherInvitation[]
+}
+
+// --- NEW ENUM: To differentiate between institution types ---
+enum InstitutionType {
+  SCHOOL
+  COLLEGE
+  UNIVERSITY
+  OTHER
+}
+
+
 model User {
   id                 String    @id @default(uuid())
   name               String
@@ -21,6 +43,11 @@ model User {
   lastActive         DateTime?
   createdAt          DateTime  @default(now())
   updatedAt          DateTime  @updatedAt
+
+  // --- MODIFIED: Link User to an Institution ---
+  // A user must belong to an institution. This is non-optional.
+  institutionId      String
+  institution        Institution @relation(fields: [institutionId], references: [id], onDelete: Cascade)
 
   // Relations
   badges             BadgeUser[]
@@ -46,8 +73,36 @@ enum Role {
 }
 
 // -----------------------------
-// Authentication
+// Authentication & Invitations
 // -----------------------------
+
+// --- NEW MODEL: To handle the Admin-invites-Teacher flow ---
+model TeacherInvitation {
+  id            String      @id @default(uuid())
+  email         String      // The email of the teacher to be invited
+  institutionId String      // The institution they are being invited to
+  institution   Institution @relation(fields: [institutionId], references: [id], onDelete: Cascade)
+  
+  // A unique, secure token sent in the invitation link
+  token         String      @unique
+  expiresAt     DateTime
+  status        InvitationStatus @default(PENDING)
+  
+  // Who sent the invitation
+  invitedBy     String      // Could be an Admin's ID
+  
+  createdAt     DateTime    @default(now())
+
+  @@unique([email, institutionId]) // Can't invite the same email to the same institution twice
+}
+
+enum InvitationStatus {
+  PENDING
+  ACCEPTED
+  EXPIRED
+}
+
+
 model RefreshToken {
   id          String   @id @default(uuid())
   hashedToken String   @unique
@@ -57,6 +112,8 @@ model RefreshToken {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
+// (The rest of your schema remains the same...)
 
 // -----------------------------
 // Gamification
@@ -177,7 +234,11 @@ model Submission {
   updatedAt DateTime @updatedAt
    status    SubmissionStatus @default(PENDING)
 }
-
+enum SubmissionStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
 // -----------------------------
 // Community Features
 // -----------------------------
@@ -271,14 +332,7 @@ model ClassroomUser {
 
   @@unique([classroomId, studentId])
 }
-// --- ADD THIS NEW ENUM ---
-enum SubmissionStatus {
-  PENDING   // Student has submitted, awaiting review
-  APPROVED  // Teacher has approved it, points can be awarded
-  REJECTED // Teacher has rejected it, student may need to resubmit
-}
 
-// --- ADD THIS NEW MODEL (for the many-to-many relation) ---
 model ClassroomChallenge {
   id          String    @id @default(uuid())
   classroomId String
@@ -287,5 +341,5 @@ model ClassroomChallenge {
   challenge   Challenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
   assignedAt  DateTime  @default(now())
 
-  @@unique([classroomId, challengeId]) // A challenge can only be assigned to a class once
+  @@unique([classroomId, challengeId])
 }
