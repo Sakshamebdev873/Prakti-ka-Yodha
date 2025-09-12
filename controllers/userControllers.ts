@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
+import prisma from '../libs/prisma';
 import bcrypt from 'bcryptjs';
 
-const prisma = new PrismaClient();
+
 
 // Re-use the avatar list for validation. In a larger app, you'd move this to a shared constants file.
 const VALID_AVATARS = [

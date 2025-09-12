@@ -1,9 +1,8 @@
 import { Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
+import prisma from '../libs/prisma';
 import crypto from 'crypto';
 import { generateChallengeFromTopic } from '../services/ai.service';
 
-const prisma = new PrismaClient();
 
 //==========================================================================
 // CHALLENGE & ASSIGNMENT MANAGEMENT

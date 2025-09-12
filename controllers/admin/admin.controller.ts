@@ -1,7 +1,40 @@
-import { InstitutionType, PrismaClient } from "@prisma/client";
+import { InstitutionType} from "@prisma/client";
 import { Request, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
-const prisma = new PrismaClient();
+import prisma from '../../libs/prisma'
+
+const generateUniqueJoinCode = async (name: string): Promise<string> => {
+  // 1. Create a short, clean base from the institution name (e.g., "Greenwood High" -> "GREE")
+  const base = name.replace(/[^a-zA-Z]/g, '').substring(0, 4).toUpperCase();
+  
+  let uniqueCode = '';
+  let attempts = 0;
+
+  // 2. Loop until a unique code is found (to prevent collisions)
+  while (!uniqueCode && attempts < 10) {
+    // Generate a random 3-digit number
+    const suffix = Math.floor(1000 + Math.random() * 9000).toString().substring(1);
+    const candidateCode = `${base}-${suffix}`;
+
+    // 3. Check if this code already exists in the database
+    const existing = await prisma.institution.findUnique({
+      where: { joinCode: candidateCode },
+    });
+
+    // If it doesn't exist, we've found our unique code!
+    if (!existing) {
+      uniqueCode = candidateCode;
+    }
+    attempts++;
+  }
+
+  // If we couldn't find a unique code after 10 tries, throw an error
+  if (!uniqueCode) {
+    throw new Error('Failed to generate a unique join code.');
+  }
+
+  return uniqueCode;
+};
 
 export const createInstitution = async (req: Request, res: Response) => {
   const { name, type, address } = req.body;
@@ -19,8 +52,9 @@ export const createInstitution = async (req: Request, res: Response) => {
         .status(400)
         .json({ message: "An institution with this name is already exists" });
     }
+    const joinCode = await generateUniqueJoinCode(name)
     const institution = await prisma.institution.create({
-      data: { name, type, address },
+      data: { name, type :type as InstitutionType , address ,joinCode},
     });
     res.status(200).json({ institution });
   } catch (err) {
@@ -69,62 +103,18 @@ export const updateInstitution = async (req: Request, res: Response) => {
     res.status(500).json({ msg: "Error updating institution.", error });
   }
 };
-
-export const inviteTeacher = async (req: Request, res: Response) => {
-  const { email } = req.body;
-  const institutionAdmin = (req as any).user;
-  if (!email) {
-    return res.status(400).json({ message: "Teacher's email is required" });
+export const deleteInstitution = async (req: Request, res: Response) => {
+  const { institutionId } = req.params;
+  if (!institutionId) {
+    return res.status(400).json({ msg: "Please provide the institution Id" });
   }
   try {
-    const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-    const token = uuidv4();
-    const invitation = await prisma.teacherInvitation.create({
-      data: {
-        email,
-        institutionId: institutionAdmin.institutionId,
-        token,
-        expiresAt,
-        invitedBy: institutionAdmin.userId,
-      },
+    await prisma.institution.delete({
+      where: { id: institutionId },
     });
-    const registrationLink = `https://yourapp.com/register/teacher?token=${token}`;
-    console.log(`(Email Sim) Teacher invite for ${email}: ${registrationLink}`);
-
-    res
-      .status(201)
-      .json({ message: "Teacher invitation sent successfully.", invitation });
+    res.status(200).json({ msg: "Institution deleted Successfully" });
   } catch (error) {
-    res.status(500).json({ message: "Error sending invitation.", error });
+    console.error("Failed to delete Institution.", error);
+    res.status(500).json({msg : "Server error during institution deletion"})
   }
 };
-export const getUsersInInstitution = async (req: Request, res: Response) => {
-  const institutionId = (req as any).user.institutionId;
-  try {
-    const users = await prisma.user.findMany({
-      where: { institutionId },
-      select: { id: true, name: true, email: true, role: true, ecoScore: true },
-      orderBy: { name: "asc" },
-    });
-    res.status(200).json({ users });
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Erro fetching institution users.", error });
-  }
-};
-export const getClassroomsInInstitution = async (req:Request,res:Response) =>{
-    const institutionId = (req as any).user.institutionId
-    try {
-        const classrooms = await prisma.classroom.findMany({
-           where : {teacher : {institutionId}},
-            include : {
-                teacher : { select : {name : true}},
-                _count : {select : {students : true}}
-            }
-        })
-        res.status(200).json({classrooms})
-    } catch (error) {
-        res.status(500).json({message : "Error fetching classrooms ",error})
-    }
-}

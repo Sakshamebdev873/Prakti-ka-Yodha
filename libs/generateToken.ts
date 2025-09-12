@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
-import { PrismaClient } from '@prisma/client';
+import prisma from './prisma';
 import { v4 as uuidv4 } from 'uuid'; // For generating unique token IDs
 
-const prisma = new PrismaClient();
+
 
 // No changes needed here, but ensure the secret is in your .env
 export const generateAccessToken = (user: any) => {

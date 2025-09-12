@@ -1,19 +1,23 @@
-import { PrismaClient } from '@prisma/client';
+import prisma from '../libs/prisma.js';
 import bcrypt from 'bcryptjs';
 import { generateAccessToken, generateRefreshToken } from '../libs/generateToken.js';
 import type { Request, Response } from 'express';
 import jwt from 'jsonwebtoken'
-const prisma = new PrismaClient();
+
 
 // --- 1a. Student Registration ---
-export const registerStudent = async (req: Request, res: Response) => {
+export const signUp = async (req: Request, res: Response) => {
   // Students must provide the ID of their institution upon registration
-  const { name, email, password, avatar, institutionId } = req.body;
+  const { name, email, password, avatar, joinCode } = req.body;
 
-  if (!name || !email || !password || !institutionId) {
-    return res.status(400).json({ message: 'Name, email, password, and institution are required.' });
+  if (!name || !email || !password || !joinCode) {
+    return res.status(400).json({ message: 'Name, email, password, and join Code are required.' });
   }
-
+const institution = await prisma.institution.findUnique({ where: { joinCode } });
+if (!institution) {
+  return res.status(404).json({ message: 'Invalid join code.' });
+}
+const institutionId = institution.id; 
   try {
     // Check if the institution exists
     const institution = await prisma.institution.findUnique({ where: { id: institutionId } });

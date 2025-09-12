@@ -4,9 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.changePassword = exports.updateUserProfile = exports.getUserProfile = void 0;
-const client_1 = require("@prisma/client");
+const prisma_1 = __importDefault(require("../libs/prisma"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
-const prisma = new client_1.PrismaClient();
 // Re-use the avatar list for validation. In a larger app, you'd move this to a shared constants file.
 const VALID_AVATARS = [
     'https://example.com/avatars/eco-avatar-01.png',
@@ -22,7 +21,7 @@ const getUserProfile = async (req, res) => {
         return res.status(401).json({ message: "Unauthorized" });
     }
     try {
-        const user = await prisma.user.findUnique({
+        const user = await prisma_1.default.user.findUnique({
             where: { id: userId },
             // IMPORTANT: Select only the fields that are safe to send to the client
             select: {
@@ -69,7 +68,7 @@ const updateUserProfile = async (req, res) => {
         return res.status(400).json({ message: 'No valid fields provided for update.' });
     }
     try {
-        const updatedUser = await prisma.user.update({
+        const updatedUser = await prisma_1.default.user.update({
             where: { id: userId },
             data: dataToUpdate,
             select: {
@@ -101,7 +100,7 @@ const changePassword = async (req, res) => {
     }
     try {
         // We MUST fetch the user with the password hash to verify the old password
-        const user = await prisma.user.findUnique({ where: { id: userId } });
+        const user = await prisma_1.default.user.findUnique({ where: { id: userId } });
         if (!user) {
             return res.status(404).json({ message: 'User not found.' });
         }
@@ -111,12 +110,12 @@ const changePassword = async (req, res) => {
         }
         // Hash the new password and update it in the database
         const newPasswordHash = await bcryptjs_1.default.hash(newPassword, 12);
-        await prisma.user.update({
+        await prisma_1.default.user.update({
             where: { id: userId },
             data: { passwordHash: newPasswordHash },
         });
         // We should also consider revoking all existing refresh tokens here for security
-        await prisma.refreshToken.deleteMany({
+        await prisma_1.default.refreshToken.deleteMany({
             where: { userId: userId }
         });
         return res.status(200).json({ message: 'Password updated successfully. Please log in again.' });
