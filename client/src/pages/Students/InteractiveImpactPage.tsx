@@ -81,7 +81,7 @@ const impactData = [
   {
     type: "parallaxImage",
     imageUrl:
-      "../src/assets/impact-image.jpg",
+      "../src/assets//impact-image.jpg",
   },
   {
     type: "mainStat",
