@@ -1,7 +1,7 @@
-import { InstitutionType, PrismaClient } from "@prisma/client";
+import { InstitutionType} from "@prisma/client";
 import { Request, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
-const prisma = new PrismaClient();
+import prisma from '../../libs/prisma'
 
 export const createInstitution = async (req: Request, res: Response) => {
   const { name, type, address } = req.body;
