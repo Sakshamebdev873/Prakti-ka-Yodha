@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { PrismaClient } from "@prisma/client";
+import prisma from "../../libs/prisma";
 import { v4 as uuidv4 } from "uuid";
-const prisma = new PrismaClient();
+
 export const getInstitutionStats = async (req: Request, res: Response) => {
   const institutionId = (req as any).user.institutionId;
   try {

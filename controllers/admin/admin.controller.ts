@@ -3,6 +3,39 @@ import { Request, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
 import prisma from '../../libs/prisma'
 
+const generateUniqueJoinCode = async (name: string): Promise<string> => {
+  // 1. Create a short, clean base from the institution name (e.g., "Greenwood High" -> "GREE")
+  const base = name.replace(/[^a-zA-Z]/g, '').substring(0, 4).toUpperCase();
+  
+  let uniqueCode = '';
+  let attempts = 0;
+
+  // 2. Loop until a unique code is found (to prevent collisions)
+  while (!uniqueCode && attempts < 10) {
+    // Generate a random 3-digit number
+    const suffix = Math.floor(1000 + Math.random() * 9000).toString().substring(1);
+    const candidateCode = `${base}-${suffix}`;
+
+    // 3. Check if this code already exists in the database
+    const existing = await prisma.institution.findUnique({
+      where: { joinCode: candidateCode },
+    });
+
+    // If it doesn't exist, we've found our unique code!
+    if (!existing) {
+      uniqueCode = candidateCode;
+    }
+    attempts++;
+  }
+
+  // If we couldn't find a unique code after 10 tries, throw an error
+  if (!uniqueCode) {
+    throw new Error('Failed to generate a unique join code.');
+  }
+
+  return uniqueCode;
+};
+
 export const createInstitution = async (req: Request, res: Response) => {
   const { name, type, address } = req.body;
   if (!name || !type) {
@@ -19,8 +52,9 @@ export const createInstitution = async (req: Request, res: Response) => {
         .status(400)
         .json({ message: "An institution with this name is already exists" });
     }
+    const joinCode = await generateUniqueJoinCode(name)
     const institution = await prisma.institution.create({
-      data: { name, type, address },
+      data: { name, type :type as InstitutionType , address ,joinCode},
     });
     res.status(200).json({ institution });
   } catch (err) {

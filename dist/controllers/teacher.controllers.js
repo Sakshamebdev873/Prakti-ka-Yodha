@@ -4,10 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.approveSubmission = exports.removeStudentFromClassroom = exports.getClassroomDetails = exports.getMyClassrooms = exports.createClassroom = exports.assignChallengeToClassroom = exports.createChallengeWithAI = void 0;
-const client_1 = require("@prisma/client");
+const prisma_1 = __importDefault(require("../libs/prisma"));
 const crypto_1 = __importDefault(require("crypto"));
 const ai_service_1 = require("../services/ai.service");
-const prisma = new client_1.PrismaClient();
 //==========================================================================
 // CHALLENGE & ASSIGNMENT MANAGEMENT
 //==========================================================================
@@ -21,7 +20,7 @@ const createChallengeWithAI = async (req, res) => {
     }
     try {
         const generatedChallenge = await (0, ai_service_1.generateChallengeFromTopic)({ topic, challenge_type });
-        const newChallenge = await prisma.challenge.create({
+        const newChallenge = await prisma_1.default.challenge.create({
             data: { ...generatedChallenge, authorId: teacherId }
         });
         return res.status(201).json(newChallenge);
@@ -43,13 +42,13 @@ const assignChallengeToClassroom = async (req, res) => {
     }
     try {
         // Security Check: Verify the teacher owns the classroom
-        const classroom = await prisma.classroom.findFirst({
+        const classroom = await prisma_1.default.classroom.findFirst({
             where: { id: classroomId, teacherId: teacherId }
         });
         if (!classroom) {
             return res.status(403).json({ message: "You do not own this classroom." });
         }
-        const assignment = await prisma.classroomChallenge.create({
+        const assignment = await prisma_1.default.classroomChallenge.create({
             data: { classroomId, challengeId }
         });
         return res.status(201).json(assignment);
@@ -75,7 +74,7 @@ const createClassroom = async (req, res) => {
     }
     const joinCode = crypto_1.default.randomBytes(4).toString('hex').toUpperCase();
     try {
-        const classroom = await prisma.classroom.create({
+        const classroom = await prisma_1.default.classroom.create({
             data: { name, teacherId: teacherId, joinCode }
         });
         return res.status(201).json(classroom);
@@ -92,7 +91,7 @@ const getMyClassrooms = async (req, res) => {
     // ... (This function remains the same as before)
     const teacherId = req.user?.userId;
     try {
-        const classrooms = await prisma.classroom.findMany({
+        const classrooms = await prisma_1.default.classroom.findMany({
             where: { teacherId: teacherId },
             include: { _count: { select: { students: true } } }
         });
@@ -111,7 +110,7 @@ const getClassroomDetails = async (req, res) => {
     const teacherId = req.user?.userId;
     const { classroomId } = req.params;
     try {
-        const classroom = await prisma.classroom.findFirst({
+        const classroom = await prisma_1.default.classroom.findFirst({
             where: { id: classroomId, teacherId: teacherId },
             include: {
                 students: { select: { student: { select: { id: true, name: true, email: true, ecoScore: true } } } }
@@ -138,14 +137,14 @@ const removeStudentFromClassroom = async (req, res) => {
     }
     try {
         // Security Check: Verify the teacher owns the classroom
-        const classroom = await prisma.classroom.findFirst({
+        const classroom = await prisma_1.default.classroom.findFirst({
             where: { id: classroomId, teacherId: teacherId }
         });
         if (!classroom) {
             return res.status(403).json({ message: "You do not own this classroom." });
         }
         // Find the specific ClassroomUser record to delete
-        await prisma.classroomUser.delete({
+        await prisma_1.default.classroomUser.delete({
             where: {
                 classroomId_studentId: {
                     classroomId: classroomId,
@@ -172,7 +171,7 @@ const approveSubmission = async (req, res) => {
     const { submissionId } = req.params;
     try {
         // This is a complex transaction to ensure data integrity
-        const updatedSubmission = await prisma.$transaction(async (tx) => {
+        const updatedSubmission = await prisma_1.default.$transaction(async (tx) => {
             // 1. Find the submission
             const submission = await tx.submission.findUnique({
                 where: { id: submissionId },

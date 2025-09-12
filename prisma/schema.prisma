@@ -10,12 +10,13 @@ datasource db {
 }
 
 // --- NEW MODEL: For Schools, Colleges, etc. ---
+
 model Institution {
   id      String          @id @default(uuid())
   name    String          @unique
   type    InstitutionType
   address String?
-
+ joinCode String? @unique
   // An institution has many users (students and teachers)
   users              User[]
   // An institution can have many pending invitations for teachers
@@ -105,7 +106,7 @@ enum InvitationStatus {
 
 model RefreshToken {
   id          String   @id @default(uuid())
-  hashedToken String   @unique
+
   userId      String
   jti         String   @unique
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
