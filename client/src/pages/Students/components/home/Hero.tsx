@@ -1,8 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from "react-router-dom";
 import { FaPlay, FaUsers, FaLeaf } from 'react-icons/fa'; // Using react-icons for feature icons
 
 const Hero: React.FC = () => {
+    const navigate = useNavigate();
   // Animation variants for staggering child elements
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -21,7 +23,6 @@ const Hero: React.FC = () => {
 
   return (
     // The main section with the pixel art background image
-
     <section
       className="relative min-h-screen bg-image flex items-center justify-center bg-cover bg-center text-white pt-24 pb-12"
 
@@ -49,14 +50,18 @@ const Hero: React.FC = () => {
           Join <span className="font-bold text-orange-300">Prakriti Ke Yoddha</span>, a national mission where you play games, complete challenges, and take real-world action to protect India's environment.
         </motion.p>
 
-        <motion.button
-          variants={itemVariants}
-          whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(251, 191, 36, 0.6)' }}
-          whileTap={{ scale: 0.95 }}
-          className="bg-orange-500 text-white font-bold py-4 px-10 rounded-full text-lg shadow-xl transition-shadow"
-        >
-          Start Your Mission
-        </motion.button>
+         <motion.button
+      variants={itemVariants}
+      whileHover={{
+        scale: 1.05,
+        boxShadow: "0 0 20px rgba(251, 191, 36, 0.6)",
+      }}
+      whileTap={{ scale: 0.95 }}
+      onClick={() => navigate("/student/auth")}
+      className="bg-orange-500 text-white font-bold py-4 px-10 rounded-full text-lg shadow-xl transition-shadow"
+    >
+      Start Your Mission
+    </motion.button>
 
         {/* Added "More Content" section with key features */}
         <motion.div
