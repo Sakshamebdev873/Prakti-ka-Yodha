@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser'
 import authRouter from './routes/auth.route.js'
 import userRouter from './routes/user.routes.js'
 import teacherRouter from './routes/teacher.routes.js'
+import adminRouter from './routes/admin.route.js'
 const app = express();
 
 
@@ -15,6 +16,7 @@ app.use(express.json())
 app.use(morgan('dev'))
 app.use(cookieParser())
 // routes
+app.use('/api/v1/admin/institutions',adminRouter)
 app.use('/api/v1/auth',authRouter)
 app.use('/api/v1/user',userRouter)
 app.use('/api/v1/teacher',teacherRouter)

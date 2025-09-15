@@ -118,3 +118,47 @@ export const deleteInstitution = async (req: Request, res: Response) => {
     res.status(500).json({msg : "Server error during institution deletion"})
   }
 };
+export const inviteInstitution = async (req:Request,res:Response) =>{
+  const {email,institutionId} = req.body
+  if(!email|| !institutionId) {
+    return res.status(400).json({message :'Email and institutionId are required.' })
+  }
+  const adminUserId = (req as any).user.userId
+  try {
+    const institution = await prisma.institution.findUnique({
+      where : {id : institutionId}
+    })
+    if(!institution){
+      return res.status(404).json({message : "Institution not found."})
+    }
+    const expiresAt = new Date(Date.now() + 7*24*60*60*1000)
+    const token = uuidv4()
+    const invitation = await prisma.teacherInvitation.create({
+      data  :{
+        email,institutionId,token,expiresAt,invitedBy : adminUserId
+      }
+    })
+    const registrationLink = `${process.env.FRONTEND_URL}/register/institution-admin?token=${token}`;
+        console.log(`
+        ============================================================
+        (Email Simulation) Sending Institution Admin Invite to: ${email}
+        Registration Link: ${registrationLink}
+        ============================================================
+        `);
+
+        // 7. Send a success response
+        res.status(201).json({ 
+            message: `Invitation sent successfully to ${email}.`, 
+            invitation 
+        });
+
+  } catch (error : any) {
+    if(error.code === 'P2002') {
+            return res.status(409).json({ message: 'This email has already been invited to this institution.' });
+        }
+
+        // Handle generic server errors
+        console.error("Error sending institution admin invitation:", error);
+        res.status(500).json({ message: 'Server error during invitation process.' });
+  }
+}
