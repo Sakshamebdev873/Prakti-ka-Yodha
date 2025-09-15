@@ -1,142 +1,155 @@
 import { Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
+import prisma from '../libs/prisma'; // Your central Prisma client
+import { AuthRequest } from '../middleware/auth'; // Import the extended Request type
 
-const prisma = new PrismaClient();
-
-// Re-use the avatar list for validation. In a larger app, you'd move this to a shared constants file.
+// In a real app, this would be fetched from a config or database
 const VALID_AVATARS = [
     'https://example.com/avatars/eco-avatar-01.png',
     'https://example.com/avatars/eco-avatar-02.png',
     'https://example.com/avatars/eco-avatar-03.png',
-    'https://example.com/avatars/eco-avatar-04.png',
 ];
 
-// --- 1. Get Current User's Profile ---
-export const getUserProfile = async (req: Request, res: Response): Promise<Response> => {
-  // The user's ID is attached to the request by the `authenticate` middleware
-  const userId = req.user?.userId;
+// --- 1. Get Current User's Profile (Handles All Roles) ---
+export const getUserProfile = async (req: AuthRequest, res: Response) => {
+  const { profileId, role } = req.user || {};
 
-  if (!userId) {
-    return res.status(401).json({ message: "Unauthorized" });
+  if (!profileId || !role) {
+    return res.status(401).json({ message: "Unauthorized: Invalid token payload." });
   }
 
   try {
-    const user = await prisma.user.findUnique({
-      where: { id: userId },
-      // IMPORTANT: Select only the fields that are safe to send to the client
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        role: true,
-        avatar: true,
-        ecoScore: true,
-        streakCount: true,
-        createdAt: true,
-      }
-    });
+    let userProfile: any = null;
+    const commonInclude = { account: { select: { email: true, role: true } } };
 
-    if (!user) {
-      return res.status(404).json({ message: 'User not found.' });
+    // Use a switch to query the correct role-specific table
+    switch (role) {
+      case 'STUDENT':
+        userProfile = await prisma.student.findUnique({
+          where: { id: profileId },
+          include: commonInclude,
+        });
+        break;
+      case 'TEACHER':
+        userProfile = await prisma.teacher.findUnique({
+          where: { id: profileId },
+          include: commonInclude,
+        });
+        break;
+      case 'INSTITUTION_ADMIN':
+        userProfile = await prisma.institutionAdmin.findUnique({
+          where: { id: profileId },
+          include: commonInclude,
+        });
+        break;
+      case 'ADMIN':
+        userProfile = await prisma.admin.findUnique({
+          where: { id: profileId },
+          include: commonInclude,
+        });
+        break;
+      default:
+        return res.status(400).json({ message: "Invalid user role." });
     }
 
-    return res.status(200).json(user);
+    if (!userProfile) {
+      return res.status(404).json({ message: 'User profile not found.' });
+    }
+
+    // Sanitize the response: remove the nested account and elevate the properties
+    const { account, ...profile } = userProfile;
+    const response = { ...profile, ...account };
+
+    return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json({ message: 'Server error.', error });
   }
 };
 
+// --- 2. Update User's Profile (Name and Avatar - Handles All Roles) ---
+export const updateUserProfile = async (req: AuthRequest, res: Response) => {
+    const { profileId, role } = req.user || {};
+    const { name, avatar } = req.body;
 
-// --- 2. Update User's Profile (Name and Avatar) ---
-export const updateUserProfile = async (req: Request, res: Response): Promise<Response> => {
-  const userId = req.user?.userId;
-  const { name, avatar } = req.body;
-
-  // Build an object with only the fields that the user wants to update
-  const dataToUpdate: { name?: string; avatar?: string } = {};
-
-  if (name) {
-    if (typeof name !== 'string' || name.length < 2) {
-      return res.status(400).json({ message: "Name must be at least 2 characters long." });
-    }
-    dataToUpdate.name = name;
-  }
-  
-  if (avatar) {
-    if (!VALID_AVATARS.includes(avatar)) {
-      return res.status(400).json({ message: 'Invalid avatar selected.' });
-    }
-    dataToUpdate.avatar = avatar;
-  }
-
-  // Check if there is anything to update
-  if (Object.keys(dataToUpdate).length === 0) {
-    return res.status(400).json({ message: 'No valid fields provided for update.' });
-  }
-
-  try {
-    const updatedUser = await prisma.user.update({
-      where: { id: userId },
-      data: dataToUpdate,
-      select: { // Again, only return safe fields
-        id: true,
-        name: true,
-        email: true,
-        role: true,
-        avatar: true,
-        ecoScore: true,
-        streakCount: true,
-      }
-    });
-
-    return res.status(200).json(updatedUser);
-  } catch (error) {
-    return res.status(500).json({ message: 'Server error while updating profile.', error });
-  }
-};
-
-
-// --- 3. Change User's Password ---
-export const changePassword = async (req: Request, res: Response): Promise<Response> => {
-    const userId = req.user?.userId;
-    const { oldPassword, newPassword } = req.body;
-
-    if (!oldPassword || !newPassword) {
-        return res.status(400).json({ message: 'Both old and new passwords are required.' });
+    if (!profileId || !role) {
+        return res.status(401).json({ message: "Unauthorized: Invalid token." });
     }
 
-    if (newPassword.length < 8) {
-        return res.status(400).json({ message: 'New password must be at least 8 characters long.' });
+    const dataToUpdate: { name?: string; avatar?: string } = {};
+    if (name) dataToUpdate.name = name;
+    if (avatar && VALID_AVATARS.includes(avatar)) dataToUpdate.avatar = avatar;
+
+    if (Object.keys(dataToUpdate).length === 0) {
+        return res.status(400).json({ message: 'No valid fields provided for update.' });
     }
 
     try {
-        // We MUST fetch the user with the password hash to verify the old password
-        const user = await prisma.user.findUnique({ where: { id: userId } });
+        let updatedProfile: any = null;
 
-        if (!user) {
-            return res.status(404).json({ message: 'User not found.' });
+        // Use a switch to update the correct role-specific table
+        switch (role) {
+            case 'STUDENT':
+                updatedProfile = await prisma.student.update({ where: { id: profileId }, data: dataToUpdate });
+                break;
+            case 'TEACHER':
+                updatedProfile = await prisma.teacher.update({ where: { id: profileId }, data: dataToUpdate });
+                break;
+            case 'INSTITUTION_ADMIN':
+                updatedProfile = await prisma.institutionAdmin.update({ where: { id: profileId }, data: dataToUpdate });
+                break;
+            case 'ADMIN':
+                updatedProfile = await prisma.admin.update({ where: { id: profileId }, data: dataToUpdate });
+                break;
+            default:
+                return res.status(400).json({ message: "Invalid user role." });
         }
 
-        const isPasswordCorrect = await bcrypt.compare(oldPassword, user.passwordHash);
+        return res.status(200).json(updatedProfile);
+    } catch (error) {
+        return res.status(500).json({ message: 'Server error while updating profile.' });
+    }
+};
+
+// --- 3. Change Password (Interacts with Account model - Universal for all roles) ---
+export const changePassword = async (req: AuthRequest, res: Response) => {
+    const { accountId } = req.user || {}; // Use accountId from the token
+    const { oldPassword, newPassword } = req.body;
+
+    if (!accountId) {
+        return res.status(401).json({ message: "Unauthorized: Invalid token." });
+    }
+    if (!oldPassword || !newPassword || newPassword.length < 8) {
+        return res.status(400).json({ message: 'Old password and a new password (min 8 chars) are required.' });
+    }
+
+    try {
+        // 1. Fetch the account (not the profile) to get the password hash
+        const account = await prisma.account.findUnique({ where: { id: accountId } });
+        if (!account) {
+            return res.status(404).json({ message: 'Account not found.' });
+        }
+
+        // 2. Verify the old password
+        const isPasswordCorrect = await bcrypt.compare(oldPassword, account.passwordHash);
         if (!isPasswordCorrect) {
             return res.status(403).json({ message: 'Incorrect old password.' });
         }
 
-        // Hash the new password and update it in the database
+        // 3. Hash the new password and update the account
         const newPasswordHash = await bcrypt.hash(newPassword, 12);
-        await prisma.user.update({
-            where: { id: userId },
+        await prisma.account.update({
+            where: { id: accountId },
             data: { passwordHash: newPasswordHash },
         });
 
-        // We should also consider revoking all existing refresh tokens here for security
-        await prisma.refreshToken.deleteMany({
-            where: { userId: userId }
+        // 4. SECURITY: Invalidate all existing refresh tokens for this account
+        await prisma.refreshToken.updateMany({
+            where: { accountId: accountId, revoked: false },
+            data: { revoked: true },
         });
 
-        return res.status(200).json({ message: 'Password updated successfully. Please log in again.' });
+        return res.status(200).json({ message: 'Password updated successfully. For security, you have been logged out from all devices.' });
     } catch (error) {
-        return res.status(500).json({ message: 'Server error while changing password.', error });
+        return res.status(500).json({ message: 'Server error while changing password.' });
     }
 };

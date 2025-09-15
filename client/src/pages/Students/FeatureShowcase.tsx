@@ -3,11 +3,11 @@ import { motion, AnimatePresence, type Variants } from 'framer-motion';
 
 // Icons for the different features
 import { 
-    FaGamepad, FaUsers, FaLightbulb, FaChartLine, FaGlobeAsia, FaFistRaised, FaUserShield, FaMapMarkedAlt, FaTrophy, FaBolt, FaHandshake, FaProjectDiagram, FaChalkboardTeacher, FaComments, FaPuzzlePiece, FaQuestionCircle, FaBrain, FaNewspaper, FaFileUpload, FaCertificate, FaMapPin, FaRobot, FaShieldAlt
+    FaGamepad, FaUsers, FaLightbulb, FaChartLine, FaFistRaised, FaUserShield, FaMapMarkedAlt, FaTrophy, FaBolt, FaHandshake, FaProjectDiagram, FaComments, FaPuzzlePiece, FaQuestionCircle, FaBrain, FaFileUpload, FaCertificate, FaRobot, FaShieldAlt
 } from 'react-icons/fa';
-import AdvancedFeaturesDeepDive from '../components/other/AdvanceFeaturesDeepDive';
-import CommunityAndLearningDeepDive from '../components/other/CommunityAndLearningDeepDive';
-import GamificationDeepDive from '../components/other/GamificationDeepDive';
+import AdvancedFeaturesDeepDive from './components/other/AdvanceFeaturesDeepDive';
+import CommunityAndLearningDeepDive from './components/other/CommunityAndLearningDeepDive';
+import GamificationDeepDive from './components/other/GamificationDeepDive';
 
 // --- Data Structure for all Features ---
 const categories = [

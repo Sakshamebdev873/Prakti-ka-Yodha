@@ -1,68 +1,37 @@
-// schema.prisma
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  // previewFeatures = ["accelerate"] // Uncomment if you use Prisma Accelerate
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
-// --- NEW MODEL: For Schools, Colleges, etc. ---
-model Institution {
-  id      String          @id @default(uuid())
-  name    String          @unique
-  type    InstitutionType
-  address String?
+// ------------------------------------
+// 1. Core Identity & Authentication
+// ------------------------------------
+// This is the central model for logging in.
+model Account {
+  id           String    @id @default(uuid())
+  email        String    @unique
+  passwordHash String
+  role         Role
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
 
-  // An institution has many users (students and teachers)
-  users              User[]
-  // An institution can have many pending invitations for teachers
-  teacherInvitations TeacherInvitation[]
-}
+  // One-to-one relationships to the specific role profiles.
+  // Only one of these will exist for any given account.
+  adminProfile      Admin?
+  instAdminProfile  InstitutionAdmin?
+  teacherProfile    Teacher?
+  studentProfile    Student?
 
-// --- NEW ENUM: To differentiate between institution types ---
-enum InstitutionType {
-  SCHOOL
-  COLLEGE
-  UNIVERSITY
-  OTHER
-}
-
-model User {
-  id            String    @id @default(uuid())
-  name          String
-  email         String    @unique
-  emailVerified DateTime?
-  passwordHash  String
-  role          Role      @default(STUDENT)
-  avatar        String?
-  ecoScore      Int       @default(0)
-  streakCount   Int       @default(0)
-  lastActive    DateTime?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-
-  // --- MODIFIED: Link User to an Institution ---
-  // A user must belong to an institution. This is non-optional.
-  institutionId String
-  institution   Institution @relation(fields: [institutionId], references: [id], onDelete: Cascade)
-
-  // Relations
-  badges             BadgeUser[]
-  challenges         UserChallenge[]
-  projects           Project[]
-  submissions        Submission[]
-  pledges            Pledge[]
-  forumPosts         ForumPost[]
-  wasteScans         WasteScan[]
-  carbonLogs         CarbonLog[]
-  recommendations    Recommendation[]
+  // An account can have many refresh tokens, forum posts, and can send invitations.
   refreshTokens      RefreshToken[]
-  leaderboardEntries LeaderboardEntry[]
-  createdChallenges  Challenge[]        @relation("ChallengeAuthor")
-  ownedClassrooms    Classroom[]        @relation("ClassroomTeacher")
-  classrooms         ClassroomUser[]
+  forumPosts         ForumPost[]
+  sentInvitations    TeacherInvitation[] @relation("InvitationSender")
 }
 
 enum Role {
@@ -72,28 +41,104 @@ enum Role {
   INSTITUTION_ADMIN
 }
 
-// -----------------------------
-// Authentication & Invitations
-// -----------------------------
+// ------------------------------------
+// 2. Role-Specific Profile Models
+// ------------------------------------
 
-// --- NEW MODEL: To handle the Admin-invites-Teacher flow ---
-model TeacherInvitation {
-  id            String      @id @default(uuid())
-  email         String // The email of the teacher to be invited
-  institutionId String // The institution they are being invited to
+model Admin {
+  id        String @id @default(uuid())
+  name      String
+  avatar    String?
+  accountId String  @unique
+  account   Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+}
+
+model InstitutionAdmin {
+  id            String  @id @default(uuid())
+  name          String
+  avatar        String?
+  accountId     String  @unique
+  account       Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  institutionId String
+  institution   Institution @relation(fields: [institutionId], references: [id], onDelete: Cascade)
+}
+
+model Teacher {
+  id            String  @id @default(uuid())
+  name          String
+  avatar        String?
+  accountId     String  @unique
+  account       Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  institutionId String
   institution   Institution @relation(fields: [institutionId], references: [id], onDelete: Cascade)
 
-  // A unique, secure token sent in the invitation link
-  token     String           @unique
-  expiresAt DateTime
-  status    InvitationStatus @default(PENDING)
+  // Relations specific to Teachers
+  ownedClassrooms   Classroom[] @relation("ClassroomTeacher")
+  createdChallenges Challenge[] @relation("ChallengeAuthor")
+}
 
-  // Who sent the invitation
-  invitedBy String // Could be an Admin's ID
+model Student {
+  id            String    @id @default(uuid())
+  name          String
+  avatar        String?
+  ecoScore      Int       @default(0)
+  streakCount   Int       @default(0)
+  lastActive    DateTime?
+  accountId     String    @unique
+  account       Account   @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  institutionId String
+  institution   Institution @relation(fields: [institutionId], references: [id], onDelete: Cascade)
 
-  createdAt DateTime @default(now())
+  // Relations specific to Students
+  academicProfile    AcademicProfile?
+  badges             BadgeUser[]
+  challenges         UserChallenge[]
+  projects           Project[]
+  submissions        Submission[]
+  pledges            Pledge[]
+  wasteScans         WasteScan[]
+  carbonLogs         CarbonLog[]
+  recommendations    Recommendation[]
+  leaderboardEntries LeaderboardEntry[]
+  classrooms         ClassroomUser[]
+}
 
-  @@unique([email, institutionId]) // Can't invite the same email to the same institution twice
+// ------------------------------------
+// 3. Institution & Invitation Models
+// ------------------------------------
+model Institution {
+  id                 String               @id @default(uuid())
+  name               String               @unique
+  type               InstitutionType
+  address            String?
+  joinCode           String?              @unique
+  institutionAdmins  InstitutionAdmin[]
+  teachers           Teacher[]
+  students           Student[]
+  teacherInvitations TeacherInvitation[]
+}
+
+enum InstitutionType {
+  SCHOOL
+  COLLEGE
+  UNIVERSITY
+  OTHER
+}
+
+model TeacherInvitation {
+  id                 String           @id @default(uuid())
+  email              String
+  institutionId      String
+  institution        Institution      @relation(fields: [institutionId], references: [id], onDelete: Cascade)
+  token              String           @unique
+  expiresAt          DateTime
+  status             InvitationStatus @default(PENDING)
+  createdAt          DateTime         @default(now())
+  // CORRECTED RELATION: An invitation is sent by a generic Account (which could be an Admin or InstAdmin)
+  invitedByAccountId String
+  invitedBy          Account          @relation("InvitationSender", fields: [invitedByAccountId], references: [id])
+
+  @@unique([email, institutionId])
 }
 
 enum InvitationStatus {
@@ -103,21 +148,19 @@ enum InvitationStatus {
 }
 
 model RefreshToken {
-  id          String   @id @default(uuid())
-  hashedToken String   @unique
-  userId      String
-  jti         String   @unique
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  revoked     Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id        String   @id @default(uuid())
+  jti       String   @unique
+  accountId String
+  account   Account  @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  revoked   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
-// (The rest of your schema remains the same...)
+// ------------------------------------
+// 4. Gamification, Learning, & Community Models
+// ------------------------------------
 
-// -----------------------------
-// Gamification
-// -----------------------------
 model Badge {
   id          String      @id @default(uuid())
   name        String      @unique
@@ -135,13 +178,12 @@ enum BadgeTier {
 
 model BadgeUser {
   id        String   @id @default(uuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  studentId String
+  student   Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
   badgeId   String
   badge     Badge    @relation(fields: [badgeId], references: [id], onDelete: Cascade)
   awardedAt DateTime @default(now())
-
-  @@unique([userId, badgeId])
+  @@unique([studentId, badgeId])
 }
 
 model Challenge {
@@ -153,7 +195,7 @@ model Challenge {
   startDate            DateTime?
   endDate              DateTime?
   authorId             String
-  author               User                 @relation("ChallengeAuthor", fields: [authorId], references: [id])
+  author               Teacher              @relation("ChallengeAuthor", fields: [authorId], references: [id], onDelete: Cascade)
   participants         UserChallenge[]
   assignedInClassrooms ClassroomChallenge[]
 }
@@ -167,14 +209,13 @@ enum ChallengeType {
 
 model UserChallenge {
   id          String          @id @default(uuid())
-  userId      String
-  user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  studentId   String
+  student     Student         @relation(fields: [studentId], references: [id], onDelete: Cascade)
   challengeId String
   challenge   Challenge       @relation(fields: [challengeId], references: [id], onDelete: Cascade)
   status      ChallengeStatus @default(PENDING)
   completedAt DateTime?
-
-  @@unique([userId, challengeId])
+  @@unique([studentId, challengeId])
 }
 
 enum ChallengeStatus {
@@ -202,22 +243,18 @@ model LeaderboardEntry {
   id            String      @id @default(uuid())
   leaderboardId String
   leaderboard   Leaderboard @relation(fields: [leaderboardId], references: [id], onDelete: Cascade)
-  userId        String
-  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  studentId     String
+  student       Student     @relation(fields: [studentId], references: [id], onDelete: Cascade)
   score         Int         @default(0)
-
-  @@unique([leaderboardId, userId])
+  @@unique([leaderboardId, studentId])
 }
 
-// -----------------------------
-// Learning & Submissions
-// -----------------------------
 model Project {
   id          String       @id @default(uuid())
   title       String
   description String
-  userId      String
-  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  studentId   String
+  student     Student      @relation(fields: [studentId], references: [id], onDelete: Cascade)
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
   submissions Submission[]
@@ -227,12 +264,12 @@ model Submission {
   id        String           @id @default(uuid())
   projectId String
   project   Project          @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  userId    String
-  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  studentId String
+  student   Student          @relation(fields: [studentId], references: [id], onDelete: Cascade)
   content   String           @db.VarChar(5000)
+  status    SubmissionStatus @default(PENDING)
   createdAt DateTime         @default(now())
   updatedAt DateTime         @updatedAt
-  status    SubmissionStatus @default(PENDING)
 }
 
 enum SubmissionStatus {
@@ -241,13 +278,10 @@ enum SubmissionStatus {
   REJECTED
 }
 
-// -----------------------------
-// Community Features
-// -----------------------------
 model Pledge {
   id        String   @id @default(uuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  studentId String
+  student   Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
   message   String   @db.VarChar(500)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -255,20 +289,20 @@ model Pledge {
 
 model ForumPost {
   id        String   @id @default(uuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  authorId  String
+  author    Account  @relation(fields: [authorId], references: [id], onDelete: Cascade)
   content   String   @db.VarChar(2000)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-// -----------------------------
-// AI Features
-// -----------------------------
+// ------------------------------------
+// 5. AI & Tracking Models
+// ------------------------------------
 model WasteScan {
   id         String    @id @default(uuid())
-  userId     String
-  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  studentId  String
+  student    Student   @relation(fields: [studentId], references: [id], onDelete: Cascade)
   imageUrl   String
   label      WasteType
   confidence Float
@@ -283,14 +317,13 @@ enum WasteType {
 
 model CarbonLog {
   id        String    @id @default(uuid())
-  userId    String
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  studentId String
+  student   Student   @relation(fields: [studentId], references: [id], onDelete: Cascade)
   date      DateTime  @db.Date
   habitType HabitType
   value     Int
   createdAt DateTime  @default(now())
-
-  @@unique([userId, date, habitType])
+  @@unique([studentId, date, habitType])
 }
 
 enum HabitType {
@@ -303,21 +336,21 @@ enum HabitType {
 
 model Recommendation {
   id        String   @id @default(uuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  studentId String
+  student   Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
   message   String   @db.VarChar(1000)
   createdAt DateTime @default(now())
 }
 
-// -----------------------------
-// Classroom & School Features
-// -----------------------------
+// ------------------------------------
+// 6. Classroom & Academic Models
+// ------------------------------------
 model Classroom {
   id                  String               @id @default(uuid())
   name                String
   joinCode            String               @unique
   teacherId           String
-  teacher             User                 @relation("ClassroomTeacher", fields: [teacherId], references: [id], onDelete: Cascade)
+  teacher             Teacher              @relation("ClassroomTeacher", fields: [teacherId], references: [id], onDelete: Cascade)
   createdAt           DateTime             @default(now())
   students            ClassroomUser[]
   classRoomChallenges ClassroomChallenge[]
@@ -328,9 +361,8 @@ model ClassroomUser {
   classroomId String
   classroom   Classroom @relation(fields: [classroomId], references: [id], onDelete: Cascade)
   studentId   String
-  student     User      @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  student     Student   @relation(fields: [studentId], references: [id], onDelete: Cascade)
   joinedAt    DateTime  @default(now())
-
   @@unique([classroomId, studentId])
 }
 
@@ -341,6 +373,17 @@ model ClassroomChallenge {
   challengeId String
   challenge   Challenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
   assignedAt  DateTime  @default(now())
-
   @@unique([classroomId, challengeId])
+}
+
+model AcademicProfile {
+  id          String   @id @default(uuid())
+  studentId   String   @unique
+  student     Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  branch      String?
+  degree      String?
+  yearOfStudy Int?
+  grade       String?
+  section     String?
+  updatedAt   DateTime @updatedAt
 }

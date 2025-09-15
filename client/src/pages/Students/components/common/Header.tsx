@@ -35,7 +35,7 @@ const PrakritiYoddhaHeader: React.FC = () => {
       <nav className="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
         {/* Logo */}
         <motion.a
-          href="/"
+          href="/student"
           whileHover={{ scale: 1.05 }}
           className="flex items-center gap-2 text-xl font-bold text-gray-800"
         >
@@ -46,15 +46,15 @@ const PrakritiYoddhaHeader: React.FC = () => {
 
         {/* Navigation Links */}
         <div className="hidden md:flex items-center space-x-6">
-          <NavLink href="/feature">Features</NavLink>
-          <NavLink href="/impact">Our Impact</NavLink>
-          <NavLink href="/works">How It Works</NavLink>
-          <NavLink href="/contact">Contact</NavLink>
+          <NavLink href="/student/feature">Features</NavLink>
+          <NavLink href="/student/impact">Our Impact</NavLink>
+          <NavLink href="/student/works">How It Works</NavLink>
+          <NavLink href="/student/contact">Contact</NavLink>
         </div>
 
         {/* Get Started Button */}
         <motion.a
-          href="/auth"
+          href="/"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           className="bg-emerald-600 text-white font-semibold px-5 py-2 rounded-full shadow hover:bg-emerald-700 transition"
