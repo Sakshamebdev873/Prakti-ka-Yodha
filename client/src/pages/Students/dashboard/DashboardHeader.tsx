@@ -11,15 +11,15 @@ const DashboardHeader: React.FC = () => {
   return (
     <motion.header /* ... same as before ... */ >
       <nav className="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
-        <a href="/dashboard" className="flex items-center gap-2 text-xl font-bold text-gray-800">
+        <a href="/student" className="flex items-center gap-2 text-xl font-bold text-gray-800">
           <span className="text-2xl text-emerald-600">🍃</span><span className="text-orange-500">Yoddha</span>
         </a>
         <div className="hidden md:flex items-center space-x-1 bg-gray-100 p-1 rounded-full">
-            <NavLink to="/dashboard" end className={({ isActive }) => `px-4 py-1.5 rounded-full font-semibold transition-colors ${isActive ? 'bg-white shadow' : 'text-gray-600 hover:text-gray-200'}`}>Dashboard</NavLink>
-            <NavLink to="/dashboard/missions" className={({ isActive }) => `px-4 py-1.5 rounded-full font-semibold transition-colors ${isActive ? 'bg-white shadow' : 'text-gray-600 hover:text-gray-200'}`}>Missions</NavLink>
-            <NavLink to="/dashboard/learn" className={({ isActive }) => `px-4 py-1.5 rounded-full font-semibold transition-colors ${isActive ? 'bg-white shadow' : 'text-gray-600 hover:text-gray-200'}`}>Learn</NavLink>
-            <NavLink to="/dashboard/community" className={({ isActive }) => `px-4 py-1.5 rounded-full font-semibold transition-colors ${isActive ? 'bg-white shadow' : 'text-gray-600 hover:text-gray-200'}`}>Community</NavLink>
-            <NavLink to="/dashboard/impact" className={({ isActive }) => `px-4 py-1.5 rounded-full font-semibold transition-colors ${isActive ? 'bg-white shadow' : 'text-gray-600 hover:text-gray-200'}`}>My Impact</NavLink>
+            <NavLink to="/student/dashboard" end className={({ isActive }) => `px-4 py-1.5 rounded-full font-semibold transition-colors ${isActive ? 'bg-white shadow' : 'text-gray-600 hover:text-gray-200'}`}>Dashboard</NavLink>
+            <NavLink to="/student/dashboard/missions" className={({ isActive }) => `px-4 py-1.5 rounded-full font-semibold transition-colors ${isActive ? 'bg-white shadow' : 'text-gray-600 hover:text-gray-200'}`}>Missions</NavLink>
+            <NavLink to="/student/dashboard/learn" className={({ isActive }) => `px-4 py-1.5 rounded-full font-semibold transition-colors ${isActive ? 'bg-white shadow' : 'text-gray-600 hover:text-gray-200'}`}>Learn</NavLink>
+            <NavLink to="/student/dashboard/community" className={({ isActive }) => `px-4 py-1.5 rounded-full font-semibold transition-colors ${isActive ? 'bg-white shadow' : 'text-gray-600 hover:text-gray-200'}`}>Community</NavLink>
+            <NavLink to="/student/dashboard/impact" className={({ isActive }) => `px-4 py-1.5 rounded-full font-semibold transition-colors ${isActive ? 'bg-white shadow' : 'text-gray-600 hover:text-gray-200'}`}>My Impact</NavLink>
         </div>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2 bg-emerald-50 border border-emerald-200 rounded-full px-4 py-1.5">

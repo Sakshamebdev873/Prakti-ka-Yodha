@@ -10,33 +10,35 @@ import {
   FaLeaf,
   FaCrown,
   FaFire,
+  FaHandshake,
+  FaCrosshairs,
 } from "react-icons/fa";
 
 // --- MOCK DATA ---
 const topPlayers = [
-  { name: "Aarav", score: 980, avatar: "/images/avatar1.png" },
-  { name: "Anjali", score: 920, avatar: "/images/avatar2.png" },
-  { name: "Rohan", score: 870, avatar: "/images/avatar3.png" },
+  { name: "Aarav", score: 980, avatar: "https://i.pravatar.cc/150?u=Aarav" },
+  { name: "Anjali", score: 920, avatar: "https://i.pravatar.cc/150?u=Anjali" },
+  { name: "Rohan", score: 870, avatar: "https://i.pravatar.cc/150?u=Rohan" },
 ];
 
 const postsData = [
   {
     id: 1,
     author: "Anjali M.",
-    avatar: "/images/avatar2.png",
+    avatar: "https://i.pravatar.cc/150?u=anjali",
     content:
       "Our Eco-Club just finished the campus clean-up drive! We collected 15kg of plastic. Feeling so proud! 🌱",
-    image: "/images/community-cleanup.jpg",
+    image: "https://tse2.mm.bing.net/th/id/OIP.-g3I3zACwM9q5q8FSWcwqAHaE8?r=0&rs=1&pid=ImgDetMain&o=7&rm=3",
     likes: 12,
     comments: 3,
   },
   {
     id: 2,
     author: "Rohan K.",
-    avatar: "/images/avatar3.png",
+    avatar: "https://i.pravatar.cc/150?u=rohan",
     content:
       "Just hit a 30-day streak on daily missions! The key is consistency. #EcoWarrior",
-    image: "/images/forest-path.jpg",
+    image: "https://tse4.mm.bing.net/th/id/OIP.HWhaV9V8JoQpuZ4Og2-0ngHaE7?r=0&w=1024&h=681&rs=1&pid=ImgDetMain&o=7&rm=3",
     likes: 25,
     comments: 6,
   },
@@ -56,9 +58,9 @@ const eventsData = [
 ];
 
 const squadOnline = [
-  { name: "Meera", avatar: "/images/avatar4.png" },
-  { name: "Kabir", avatar: "/images/avatar5.png" },
-  { name: "Ishita", avatar: "/images/avatar6.png" },
+  { name: "Meera", avatar: "https://i.pravatar.cc/150?u=meera" },
+  { name: "Kabir", avatar: "https://i.pravatar.cc/150?u=kabir" },
+  { name: "Ishita", avatar: "https://i.pravatar.cc/150?u=ishita" },
 ];
 
 const floatingIcons = [
@@ -68,6 +70,9 @@ const floatingIcons = [
 ];
 
 const CommunityPage: React.FC = () => {
+  const [showConnect, setShowConnect] = useState(false);
+  const [showChallenge, setShowChallenge] = useState(false);
+
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-emerald-50 via-green-100 to-emerald-200 p-6 pt-28 overflow-hidden">
       {/* Floating background icons */}
@@ -158,7 +163,7 @@ const CommunityPage: React.FC = () => {
           </div>
 
           {/* Sidebar */}
-          <div className="space-y-8 sticky top-24">
+          <div className="space-y-8 sticky top-50">
             {/* Leaderboard */}
             <motion.div
               className="bg-white p-6 rounded-2xl shadow-xl border"
@@ -246,10 +251,72 @@ const CommunityPage: React.FC = () => {
               <p className="text-sm text-gray-500 mt-4">
                 {squadOnline.length} warriors online now
               </p>
+
+              {/* Connect + Challenge buttons */}
+              <div className="mt-6 flex flex-col gap-3">
+                <motion.button
+                  onClick={() => setShowConnect(true)}
+                  className="w-full bg-emerald-500 text-white px-4 py-2 rounded-xl flex items-center justify-center gap-2 hover:bg-emerald-600 shadow"
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <FaHandshake /> Connect with Squadron
+                </motion.button>
+                <motion.button
+                  onClick={() => setShowChallenge(true)}
+                  className="w-full bg-red-500 text-white px-4 py-2 rounded-xl flex items-center justify-center gap-2 hover:bg-red-600 shadow"
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <FaCrosshairs /> Challenge Rivals
+                </motion.button>
+              </div>
             </motion.div>
           </div>
         </div>
       </div>
+
+      {/* --- Connect Modal --- */}
+      {showConnect && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="bg-white p-6 rounded-2xl shadow-2xl w-96"
+          >
+            <h2 className="text-xl font-bold mb-4">Connect with Squadron</h2>
+            <p className="text-gray-600 mb-4">
+              Invite your friends to join missions, track progress, and build eco-impact together.
+            </p>
+            <button
+              className="bg-emerald-500 px-4 py-2 text-white rounded-lg hover:bg-emerald-600"
+              onClick={() => setShowConnect(false)}
+            >
+              Close
+            </button>
+          </motion.div>
+        </div>
+      )}
+
+      {/* --- Challenge Modal --- */}
+      {showChallenge && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="bg-white p-6 rounded-2xl shadow-2xl w-96"
+          >
+            <h2 className="text-xl font-bold mb-4">Challenge Rivals</h2>
+            <p className="text-gray-600 mb-4">
+              Pick a rival team or player and challenge them to complete missions faster or with higher impact.
+            </p>
+            <button
+              className="bg-red-500 px-4 py-2 text-white rounded-lg hover:bg-red-600"
+              onClick={() => setShowChallenge(false)}
+            >
+              Close
+            </button>
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 };

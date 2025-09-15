@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FaPaperPlane, FaMapMarkerAlt, FaEnvelope, FaPhone, FaChevronDown } from 'react-icons/fa';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { FaPaperPlane, FaMapMarkerAlt, FaEnvelope, FaPhone } from 'react-icons/fa';
 
 // --- Data for FAQ Section ---
 

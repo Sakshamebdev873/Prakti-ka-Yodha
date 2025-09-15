@@ -2,10 +2,10 @@ import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 // --- Import all necessary components ---
-import Header from './components/common/Header'; // Your main marketing header
-import Footer from './components/common/Footer'; // Your main marketing footer
-import DashboardHeader from './components/dashboard/DashboardHeader'; // The new dashboard header
-import DashboardFooter from './components/dashboard/DashboardFooter'; // The new dashboard footer
+import Header from './pages/Students/components/common/Header'; // Your main marketing header
+import Footer from './pages/Students/components/common/Footer'; // Your main marketing footer
+import DashboardHeader from './pages/Students/dashboard/DashboardHeader'; // The new dashboard header
+import DashboardFooter from './pages/Students/dashboard/DashboardFooter'; // The new dashboard footer
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const location = useLocation();
@@ -17,7 +17,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const showNoLayout = noLayoutRoutes.some((route) => location.pathname.startsWith(route));
 
   // 2. Routes that have the special DASHBOARD layout
-  const dashboardRoutes = ['/dashboard'];
+  const dashboardRoutes = ['//dashboard'];
   const showDashboardLayout = dashboardRoutes.some((route) => location.pathname.startsWith(route));
 
   if (showNoLayout) {
