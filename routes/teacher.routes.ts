@@ -1,110 +1,76 @@
-import { Router } from 'express';
-import authenticate from '../middleware/authenticate';
-import authorize from '../middleware/authorize';
-import { 
-    // Challenge Management
-    createChallengeWithAI,
-    assignChallengeToClassroom,
+import express from 'express';
+import { Role } from '@prisma/client';
+import { authenticate, authorize } from '../middleware/auth.middleware.js';
 
-    // Classroom & Student Management
+// Import all the relevant controller functions
+import {
     createClassroom,
     getMyClassrooms,
     getClassroomDetails,
     removeStudentFromClassroom,
-    
-    // Evaluation
-    approveSubmission
-} from '../controllers/teacher.controllers';
+    createChallengeWithAI,
+    assignChallengeToClassroom,
+    approveSubmission,
+    rejectSubmission // It's good practice to have a reject function too
+} from '../controllers/teacher.controllers.js';
 
-const router = Router();
+const router = express.Router();
 
-// A user must be logged in (authenticate) AND have the correct role (authorize)
-// to access any of these routes.
-
-//==========================================================================
-// CHALLENGE & ASSIGNMENT ROUTES
-//==========================================================================
-
-// POST /api/teacher/challenges/generate
-// Creates a new challenge using the AI service.
-// Accessible by Teachers and Admins.
-router.post(
-    '/challenges/generate', 
-    authenticate, 
-    authorize(['TEACHER', 'ADMIN']), 
-    createChallengeWithAI
-);
-
-// POST /api/teacher/challenges/assign
-// Assigns an existing challenge to a specific classroom.
-// Accessible by Teachers and Admins.
-router.post(
-    '/challenges/assign',
-    authenticate,
-    authorize(['TEACHER', 'ADMIN']),
-    assignChallengeToClassroom
-);
+// -----------------------------------------------------------------------------
+// --- Middleware Enforcement ---
+// -----------------------------------------------------------------------------
+// This line applies to ALL routes defined in this file.
+// Every request must have a valid JWT (`authenticate`) and the user's role
+// must be 'TEACHER' (`authorize`).
+router.use(authenticate, authorize([Role.TEACHER]));
 
 
-//==========================================================================
-// CLASSROOM & STUDENT MANAGEMENT ROUTES
-//==========================================================================
+// -----------------------------------------------------------------------------
+// --- Classroom Management Routes ---
+// -----------------------------------------------------------------------------
 
+// Create a new classroom
 // POST /api/teacher/classrooms
-// Creates a new classroom.
-// Accessible only by Teachers.
-router.post(
-    '/classrooms',
-    authenticate,
-    authorize(['TEACHER']),
-    createClassroom
-);
+router.post('/classrooms', createClassroom);
 
+// Get a list of all classrooms owned by the currently logged-in teacher
 // GET /api/teacher/classrooms
-// Gets a list of the teacher's own classrooms.
-// Accessible only by Teachers.
-router.get(
-    '/classrooms',
-    authenticate,
-    authorize(['TEACHER']),
-    getMyClassrooms
-);
+router.get('/classrooms', getMyClassrooms);
 
+// Get the detailed view of a single classroom, including its student list
 // GET /api/teacher/classrooms/:classroomId
-// Gets the detailed roster and information for a specific classroom.
-// Accessible only by Teachers.
-router.get(
-    '/classrooms/:classroomId',
-    authenticate,
-    authorize(['TEACHER']),
-    getClassroomDetails
-);
+router.get('/classrooms/:classroomId', getClassroomDetails);
 
-// DELETE /api/teacher/classrooms/remove-student
-// Removes a student from a classroom. We use DELETE as it's a destructive action.
-// The required IDs are sent in the body for clarity.
-router.delete(
-    '/classrooms/remove-student',
-    authenticate,
-    authorize(['TEACHER']),
-    removeStudentFromClassroom
-);
+// Remove a student from a classroom
+// DELETE /api/teacher/classrooms/students
+router.delete('/classrooms/students', removeStudentFromClassroom);
 
 
-//==========================================================================
-// EVALUATION ROUTES
-//==========================================================================
+// -----------------------------------------------------------------------------
+// --- Challenge & Assignment Routes ---
+// -----------------------------------------------------------------------------
 
-// PATCH /api/teacher/submissions/:submissionId/approve
-// Approves a student's project submission.
-// We use PATCH because we are modifying the state of the submission.
-// Accessible by Teachers and Admins.
-router.patch(
-    '/submissions/:submissionId/approve',
-    authenticate,
-    authorize(['TEACHER', 'ADMIN']),
-    approveSubmission
-);
+// Create a new challenge using the AI service
+// POST /api/teacher/challenges/ai-create
+router.post('/challenges/ai-create', createChallengeWithAI);
+
+// Assign an existing challenge to one of the teacher's classrooms
+// POST /api/teacher/challenges/assign
+router.post('/challenges/assign', assignChallengeToClassroom);
+
+
+// -----------------------------------------------------------------------------
+// --- Submission Review Routes ---
+// -----------------------------------------------------------------------------
+
+// Approve a student's project submission
+// PUT /api/teacher/submissions/:submissionId/approve
+router.put('/submissions/:submissionId/approve', approveSubmission);
+
+// Reject a student's project submission
+// PUT /api/teacher/submissions/:submissionId/reject
+// (You'll need to create the `rejectSubmission` controller function for this)
+router.put('/submissions/:submissionId/reject', rejectSubmission);
 
 
 export default router;

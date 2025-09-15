@@ -1,22 +1,37 @@
-import { Router, type Request, type Response } from 'express';
-import { signUp, signIn, refreshToken, signOut } from '../controllers/authControllers.js';
-import authenticate from '../middleware/authenticate.js';
+import express from 'express';
+import {
+    registerStudent,
+    registerTeacher,
+    registerInstitutionAdmin,
+    signIn,
+    signOut,
+    refreshToken
+} from '../controllers/authControllers.js';
+
+const router = express.Router();
+
+// --- Registration Routes ---
+
+// Public registration for students using a join code
+router.post('/register/student', registerStudent);
+
+// Registration for invited teachers using a unique token
+router.post('/register/teacher', registerTeacher);
+
+// Registration for invited institution admins using a unique token
+router.post('/register/institution-admin', registerInstitutionAdmin);
 
 
-const router = Router();
+// --- Session Management Routes ---
 
-router.post('/register', signUp);
-router.post('/login', signIn);
-router.post('/refresh', refreshToken);
-router.post('/logout', authenticate,signOut);
+// Universal sign-in for all roles
+router.post('/signin', signIn);
 
-// Example of a protected route using the middleware
-router.get('/profile', authenticate, (req : Request, res:Response) => {
-  // Thanks to our type declaration, req.user is now fully typed and safe to access
-  if (req.user) {
-    res.json({ message: `Welcome user ${req.user.userId} with role ${req.user.role}`});
-  }
-});
+// Universal sign-out
+router.post('/signout', signOut);
+
+// Universal refresh token
+router.post('/refresh-token', refreshToken);
 
 
 export default router;
