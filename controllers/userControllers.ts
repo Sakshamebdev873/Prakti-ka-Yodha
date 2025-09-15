@@ -1,8 +1,6 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
-import prisma from '../libs/prisma'; // Your central Prisma client
-import { AuthRequest } from '../middleware/auth'; // Import the extended Request type
-
+import prisma from '../libs/prisma';
 // In a real app, this would be fetched from a config or database
 const VALID_AVATARS = [
     'https://example.com/avatars/eco-avatar-01.png',
@@ -11,7 +9,7 @@ const VALID_AVATARS = [
 ];
 
 // --- 1. Get Current User's Profile (Handles All Roles) ---
-export const getUserProfile = async (req: AuthRequest, res: Response) => {
+export const getUserProfile = async (req: Request, res: Response) => {
   const { profileId, role } = req.user || {};
 
   if (!profileId || !role) {
@@ -67,7 +65,7 @@ export const getUserProfile = async (req: AuthRequest, res: Response) => {
 };
 
 // --- 2. Update User's Profile (Name and Avatar - Handles All Roles) ---
-export const updateUserProfile = async (req: AuthRequest, res: Response) => {
+export const updateUserProfile = async (req: Request, res: Response) => {
     const { profileId, role } = req.user || {};
     const { name, avatar } = req.body;
 
@@ -111,7 +109,7 @@ export const updateUserProfile = async (req: AuthRequest, res: Response) => {
 };
 
 // --- 3. Change Password (Interacts with Account model - Universal for all roles) ---
-export const changePassword = async (req: AuthRequest, res: Response) => {
+export const changePassword = async (req: Request, res: Response) => {
     const { accountId } = req.user || {}; // Use accountId from the token
     const { oldPassword, newPassword } = req.body;
 
