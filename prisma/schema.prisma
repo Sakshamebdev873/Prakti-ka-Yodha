@@ -47,8 +47,8 @@ model User {
 
   // --- MODIFIED: Link User to an Institution ---
   // A user must belong to an institution. This is non-optional.
-  institutionId String
-  institution   Institution @relation(fields: [institutionId], references: [id], onDelete: Cascade)
+  institutionId String?
+  institution   Institution? @relation(fields: [institutionId], references: [id], onDelete: SetNull)
 
   // Relations
   badges             BadgeUser[]
