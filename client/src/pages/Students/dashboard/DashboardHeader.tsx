@@ -11,7 +11,7 @@ const DashboardHeader: React.FC = () => {
   return (
     <motion.header /* ... same as before ... */ >
       <nav className="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
-        <a href="/student" className="flex items-center gap-2 text-xl font-bold text-gray-800">
+        <a href="/" className="flex items-center gap-2 text-xl font-bold text-gray-800">
           <span className="text-2xl text-emerald-600">🍃</span><span className="text-orange-500">Yoddha</span>
         </a>
         <div className="hidden md:flex items-center space-x-1 bg-gray-100 p-1 rounded-full">

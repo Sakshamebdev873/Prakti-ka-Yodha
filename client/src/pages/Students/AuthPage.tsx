@@ -11,8 +11,7 @@ const AnimatedGradient = () => (
     animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
     transition={{ duration: 25, ease: "linear", repeat: Infinity }}
     style={{
-      background:
-        "linear-gradient(-45deg, #10b981, #22c55e, #14b8a6, #059669)",
+      background: "linear-gradient(-45deg, #10b981, #22c55e, #14b8a6, #059669)",
       backgroundSize: "400% 400%",
     }}
   />
@@ -32,13 +31,8 @@ const LoginForm = ({ onSwitch, onLoginSuccess }) => {
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    if (email === "test@example.com" && password === "password") {
-      console.log("LOGIN SUCCESS (Mocked)");
-      onLoginSuccess(); // This will trigger the navigation
-    } else {
-      setError("Invalid email or password. Please try again.");
-      setIsLoading(false);
-    }
+    // ✅ No condition check, just redirect to /student/dashboard
+    onLoginSuccess();
   };
 
   return (
@@ -88,8 +82,7 @@ const LoginForm = ({ onSwitch, onLoginSuccess }) => {
           whileHover={{
             scale: isLoading ? 1 : 1.02,
             y: isLoading ? 0 : -2,
-            boxShadow:
-              "0 10px 15px -3px rgb(249 115 22 / 0.3)",
+            boxShadow: "0 10px 15px -3px rgb(249 115 22 / 0.3)",
           }}
           whileTap={{ scale: isLoading ? 1 : 0.98 }}
           disabled={isLoading}
@@ -112,16 +105,13 @@ const LoginForm = ({ onSwitch, onLoginSuccess }) => {
 };
 
 // @ts-ignore
-const SignupForm = ({ onSwitch }) => {
+const SignupForm = ({ onSwitch, onSignupSuccess }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState(""); // ✅ role state
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
-  const navigate = useNavigate(); // ✅ navigation hook
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -131,21 +121,15 @@ const SignupForm = ({ onSwitch }) => {
 
     await new Promise((resolve) => setTimeout(resolve, 1500));
 
-    if (email === "taken@example.com") {
-      setError("This email address is already taken.");
-      setIsLoading(false);
-    } else if (!name || !email || !password || !role) {
+    if (!name || !email || !password) {
       setError("Please fill in all fields.");
       setIsLoading(false);
     } else {
-      console.log("SIGNUP SUCCESS (Mocked)", { name, email, role });
+      console.log("SIGNUP SUCCESS (Mocked)", { name, email });
       setSuccess("Account created! Redirecting...");
 
       setTimeout(() => {
-        // ✅ Role-based redirect
-        if (role === "student") navigate("/student");
-        else if (role === "teacher") navigate("/teacher");
-        else if (role === "institution") navigate("/institution");
+        onSignupSuccess(); // ✅ redirect
       }, 1500);
     }
   };
@@ -165,8 +149,12 @@ const SignupForm = ({ onSwitch }) => {
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-5">
-        {error && <p className="text-red-500 text-center font-semibold">{error}</p>}
-        {success && <p className="text-green-600 text-center font-semibold">{success}</p>}
+        {error && (
+          <p className="text-red-500 text-center font-semibold">{error}</p>
+        )}
+        {success && (
+          <p className="text-green-600 text-center font-semibold">{success}</p>
+        )}
 
         {/* Name */}
         <div className="relative">
@@ -207,21 +195,6 @@ const SignupForm = ({ onSwitch }) => {
           />
         </div>
 
-        {/* ✅ Role Choice Box */}
-        <div className="relative">
-          <select
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-            className="w-full text-gray-600 p-3 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition"
-            required
-          >
-            <option value="">Sign up as...</option>
-            <option value="student">Student</option>
-            <option value="teacher">Teacher</option>
-            <option value="institution">Institution</option>
-          </select>
-        </div>
-
         <motion.button
           type="submit"
           className="w-full py-3 bg-emerald-600 text-white font-bold rounded-lg shadow-lg disabled:opacity-50"
@@ -256,12 +229,17 @@ const AuthPage: React.FC = () => {
   const navigate = useNavigate();
 
   const handleLoginSuccess = () => {
-    console.log("Redirecting to dashboard...");
-    navigate("//dashboard");
+    console.log("Redirecting to /student/dashboard...");
+    navigate("/student/dashboard"); // ✅ fixed path
+  };
+
+  const handleSignupSuccess = () => {
+    console.log("Redirecting to /student/dashboard...");
+    navigate("/student/dashboard"); // ✅ fixed path
   };
 
   return (
-    <div className="min-h-screen  bg-gray-100  flex items-center  justify-center p-4">
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
       <div className="relative w-full max-w-5xl h-[650px] flex shadow-2xl rounded-3xl overflow-hidden">
         {/* Left Branding Panel */}
         <div className="relative hidden lg:flex w-1/2 items-center justify-center p-12 text-white">
@@ -308,7 +286,11 @@ const AuthPage: React.FC = () => {
                 onLoginSuccess={handleLoginSuccess}
               />
             ) : (
-              <SignupForm key="signup" onSwitch={() => setIsLoginView(true)} />
+              <SignupForm
+                key="signup"
+                onSwitch={() => setIsLoginView(true)}
+                onSignupSuccess={handleSignupSuccess}
+              />
             )}
           </AnimatePresence>
         </div>
