@@ -23,7 +23,7 @@ app.use('/api/v1/admin/institutions', admin_route_js_1.default);
 app.use('/api/v1/auth', auth_route_js_1.default);
 app.use('/api/v1/user', user_routes_js_1.default);
 app.use('/api/v1/teacher', teacher_routes_js_1.default);
-app.use('/api/institution', institution_route_js_1.default);
+app.use('/api/v1/institution', institution_route_js_1.default);
 const port = process.env.PORT || 5101;
 const start = () => {
     try {

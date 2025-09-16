@@ -21,7 +21,7 @@ app.use('/api/v1/admin/institutions',adminRouter)
 app.use('/api/v1/auth',authRouter)
 app.use('/api/v1/user',userRouter)
 app.use('/api/v1/teacher',teacherRouter)
-app.use('/api/institution', institutionRoutes);
+app.use('/api/v1/institution', institutionRoutes);
 const port = process.env.PORT || 5101;
 
 
