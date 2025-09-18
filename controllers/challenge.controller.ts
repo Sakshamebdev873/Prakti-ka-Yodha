@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import prisma from "../libs/prisma";
 import { ChallengeStatus } from "@prisma/client";
+import { getLevelFromScore } from "../config/level.config";
 
 /**
  * @route   GET /api/challenges
@@ -102,45 +103,71 @@ export const startChallenge = async (req:Request,res : Response) =>{
  * @desc    Marks a simple (e.g., DAILY, WEEKLY) challenge as complete and awards points.
  * @access  Private (Student only)
  */
-export const completedChallenge = async (req:Request,res:Response) =>{
-    const studentId = req.user?.profileId
-    const {userchallengeId} = req.params
-    if(!studentId){
-        return res.status(401).json({message : "Unauthorized"})
+export const completedChallenge = async (req: Request, res: Response) => {
+    const studentId = req.user?.profileId;
+    const { userChallengeId } = req.params;
+
+    if (!studentId) {
+        return res.status(401).json({ message: "Unauthorized." });
     }
+
     try {
-        const result = await prisma.$transaction(async(tx) =>{
-          // Step 1: Find the UserChallenge record to make sure it exists and belongs to this student.
-          const userChallenge = await tx.userChallenge.findFirst({
-            where : {id : userchallengeId,studentId : studentId},
-            include : {challenge :{select : {points : true,type : true}}}
-          })  
-          if(!userChallenge){
-            throw new Error('Challenge not found or you do not have permission to complete it. ')
-          }
-          if(userChallenge.status !== ChallengeStatus.PENDING){
-            throw new Error(`This challenge is already marked as ${userChallenge.status}.`);
-          }
-          if(userChallenge.challenge.type === 'PROJECT'){
-            throw new Error('Project challenges must be approved by a teacher and cannot be self-completed')
-          }
-          const updatedUserChallenge = await tx.userChallenge.update({
-            where : {id : userchallengeId},
-            data : {
-                status : ChallengeStatus.COMPLETED,
-                completedAt : new Date()
+        const result = await prisma.$transaction(async (tx) => {
+            // Step 1: Find the UserChallenge to verify ownership and status
+            const userChallenge = await tx.userChallenge.findFirst({
+                where: { id: userChallengeId, studentId: studentId }, // Security Check
+                include: { challenge: { select: { points: true, type: true } } }
+            });
+
+            if (!userChallenge) throw new Error("Challenge not found or you do not have permission.");
+            if (userChallenge.status !== 'PENDING') throw new Error(`Challenge is already ${userChallenge.status}.`);
+            if (userChallenge.challenge.type === 'PROJECT') throw new Error("Project challenges must be approved by a teacher.");
+
+            // Step 2: Get the student's current score to calculate level change
+            const student = await tx.student.findUnique({ where: { id: studentId }, select: { ecoScore: true } });
+            if (!student) throw new Error("Student profile not found.");
+
+            const oldScore = student.ecoScore;
+            const pointsAwarded = userChallenge.challenge.points;
+            const newScore = oldScore + pointsAwarded;
+
+            // --- LEVEL-UP & BADGE LOGIC ---
+            const oldLevel = getLevelFromScore(oldScore);
+            const newLevel = getLevelFromScore(newScore);
+
+            if (newLevel.level > oldLevel.level) {
+                console.log(`LEVEL UP! Student ${studentId} reached Level ${newLevel.level}: ${newLevel.name}`);
+                if (newLevel.badgeToAward) {
+                    const levelUpBadge = await tx.badge.findUnique({ where: { name: newLevel.badgeToAward } });
+                    if (levelUpBadge) {
+                        // Use upsert to safely award the badge without crashing if it already exists
+                        await tx.badgeUser.upsert({
+                            where: { studentId_badgeId: { studentId, badgeId: levelUpBadge.id } },
+                            create: { studentId, badgeId: levelUpBadge.id },
+                            update: {}
+                        });
+                    }
+                }
             }
-          })
-          await tx.student.update({
-            where : {id : studentId},
-            data : {
-                ecoScore : {increment : userChallenge.challenge.points}
-            }
-          })
-          return updatedUserChallenge
-        })
+            // --- END OF LOGIC ---
+
+            // Step 3: Update the challenge status
+            const updatedUserChallenge = await tx.userChallenge.update({
+                where: { id: userChallengeId },
+                data: { status: 'COMPLETED', completedAt: new Date() }
+            });
+
+            // Step 4: Update the student's ecoScore
+            await tx.student.update({
+                where: { id: studentId },
+                data: { ecoScore: newScore } // Use the calculated new score
+            });
+
+            return updatedUserChallenge;
+        });
+
         res.status(200).json(result);
-    } catch (error : any) {
-         res.status(400).json({ message: error.message }); // Send specific error messages to the client
+    } catch (error: any) {
+        res.status(400).json({ message: error.message });
     }
-}
+};
