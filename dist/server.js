@@ -12,6 +12,9 @@ const auth_route_js_1 = __importDefault(require("./routes/auth.route.js"));
 const user_routes_js_1 = __importDefault(require("./routes/user.routes.js"));
 const teacher_routes_js_1 = __importDefault(require("./routes/teacher.routes.js"));
 const admin_route_js_1 = __importDefault(require("./routes/admin.route.js"));
+const institution_route_js_1 = __importDefault(require("./routes/institution.route.js"));
+const student_routes_js_1 = __importDefault(require("./routes/student.routes.js"));
+const challenge_routes_js_1 = __importDefault(require("./routes/challenge.routes.js"));
 const app = (0, express_1.default)();
 // main packages
 app.use(express_1.default.json());
@@ -22,6 +25,9 @@ app.use('/api/v1/admin/institutions', admin_route_js_1.default);
 app.use('/api/v1/auth', auth_route_js_1.default);
 app.use('/api/v1/user', user_routes_js_1.default);
 app.use('/api/v1/teacher', teacher_routes_js_1.default);
+app.use('/api/v1/institution', institution_route_js_1.default);
+app.use('/api/student', student_routes_js_1.default);
+app.use('/api/challenges', challenge_routes_js_1.default);
 const port = process.env.PORT || 5101;
 const start = () => {
     try {

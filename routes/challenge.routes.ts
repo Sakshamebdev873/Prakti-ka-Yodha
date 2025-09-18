@@ -1,0 +1,37 @@
+import express from 'express';
+import { Role } from '@prisma/client';
+import { authenticate, authorize } from '../middleware/auth.middleware.js';
+
+import {
+    getAvailableChallenges,
+    startChallenge,
+    completedChallenge
+} from '../controllers/challenge.controller.js';
+import { getGameLibrary, logGamePlayed } from '../controllers/game.controller.js';
+
+const router = express.Router();
+
+// --- Middleware Enforcement ---
+// All routes in this file require a user to be an authenticated STUDENT.
+router.use(authenticate, authorize([Role.STUDENT]));
+
+
+// --- Challenge Interaction Routes ---
+
+// GET /api/challenges -> Get a list of challenges the student can start
+router.get('/', getAvailableChallenges);
+
+// POST /api/challenges/:challengeId/start -> Accept a challenge
+router.post('/:challengeId/start', startChallenge);
+
+// POST /api/challenges/user-challenge/:userChallengeId/complete -> Mark a daily/weekly/quiz challenge as done
+router.post('/user-challenge/:userChallengeId/complete', completedChallenge);
+// --- Game ("Eco-Arcade") Routes ---
+
+// GET /api/challenges/games -> Get the list of all games and their unlock status
+router.get('/games/library', getGameLibrary);
+
+// POST /api/challenges/games/:gameId/played -> Log that a game was played for a one-time point bonus
+router.post('/games/:gameId/played', logGamePlayed);
+
+export default router;

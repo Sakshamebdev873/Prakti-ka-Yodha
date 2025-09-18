@@ -12,7 +12,6 @@ datasource db {
 // ------------------------------------
 // 1. Core Identity & Authentication
 // ------------------------------------
-// This is the central model for logging in.
 model Account {
   id           String    @id @default(uuid())
   email        String    @unique
@@ -21,14 +20,11 @@ model Account {
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
 
-  // One-to-one relationships to the specific role profiles.
-  // Only one of these will exist for any given account.
   adminProfile      Admin?
   instAdminProfile  InstitutionAdmin?
   teacherProfile    Teacher?
   studentProfile    Student?
 
-  // An account can have many refresh tokens, forum posts, and can send invitations.
   refreshTokens      RefreshToken[]
   forumPosts         ForumPost[]
   sentInvitations    TeacherInvitation[] @relation("InvitationSender")
@@ -72,7 +68,6 @@ model Teacher {
   institutionId String
   institution   Institution @relation(fields: [institutionId], references: [id], onDelete: Cascade)
 
-  // Relations specific to Teachers
   ownedClassrooms   Classroom[] @relation("ClassroomTeacher")
   createdChallenges Challenge[] @relation("ChallengeAuthor")
 }
@@ -89,7 +84,10 @@ model Student {
   institutionId String
   institution   Institution @relation(fields: [institutionId], references: [id], onDelete: Cascade)
 
-  // Relations specific to Students
+  // --- ADDED RELATION ---
+  playedGames        PlayedGame[]
+
+  // Existing Relations
   academicProfile    AcademicProfile?
   badges             BadgeUser[]
   challenges         UserChallenge[]
@@ -134,10 +132,8 @@ model TeacherInvitation {
   expiresAt          DateTime
   status             InvitationStatus @default(PENDING)
   createdAt          DateTime         @default(now())
-  // CORRECTED RELATION: An invitation is sent by a generic Account (which could be an Admin or InstAdmin)
   invitedByAccountId String
   invitedBy          Account          @relation("InvitationSender", fields: [invitedByAccountId], references: [id])
-
   @@unique([email, institutionId])
 }
 
@@ -160,6 +156,23 @@ model RefreshToken {
 // ------------------------------------
 // 4. Gamification, Learning, & Community Models
 // ------------------------------------
+
+// --- NEW MODEL ---
+// This model tracks which games a student has already played for points.
+model PlayedGame {
+  id        String   @id @default(uuid())
+  studentId String
+  student   Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  
+  // This is a string identifier for the game, e.g., "nasa-climate-kids"
+  gameId    String
+  
+  playedAt  DateTime @default(now())
+
+  // Ensures a student can only get points for the same game once.
+  @@unique([studentId, gameId])
+}
+
 
 model Badge {
   id          String      @id @default(uuid())
