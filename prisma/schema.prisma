@@ -211,8 +211,27 @@ model Challenge {
   author               Teacher              @relation("ChallengeAuthor", fields: [authorId], references: [id], onDelete: Cascade)
   participants         UserChallenge[]
   assignedInClassrooms ClassroomChallenge[]
+  projects             Project[]
 }
+model Project {
+  id          String       @id @default(uuid())
+  title       String
+  description String
+  studentId   String
+  student     Student      @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  submissions Submission[]
 
+  // --- ADD THIS RELATION ---
+  // A project is created for a specific challenge
+  challengeId String
+  challenge   Challenge    @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+
+  // --- ADD THIS CONSTRAINT ---
+  // Ensures a student can only create one project per challenge
+  @@unique([studentId, challengeId])
+}
 enum ChallengeType {
   DAILY
   WEEKLY
@@ -262,16 +281,7 @@ model LeaderboardEntry {
   @@unique([leaderboardId, studentId])
 }
 
-model Project {
-  id          String       @id @default(uuid())
-  title       String
-  description String
-  studentId   String
-  student     Student      @relation(fields: [studentId], references: [id], onDelete: Cascade)
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  submissions Submission[]
-}
+
 
 model Submission {
   id        String           @id @default(uuid())

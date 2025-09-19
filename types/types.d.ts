@@ -6,6 +6,7 @@ export interface JwtPayload {
     profileId: string;
     role: Role;
     institutionId?: string | null;
+    challengeId : string;
 }
 
 // This extends the global Express Request interface

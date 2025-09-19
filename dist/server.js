@@ -16,6 +16,7 @@ const institution_route_js_1 = __importDefault(require("./routes/institution.rou
 const student_routes_js_1 = __importDefault(require("./routes/student.routes.js"));
 const challenge_routes_js_1 = __importDefault(require("./routes/challenge.routes.js"));
 const classroom_student_js_1 = __importDefault(require("./routes/classroom.student.js"));
+const submission_student_routes_js_1 = __importDefault(require("./routes/submission.student.routes.js"));
 const app = (0, express_1.default)();
 // main packages
 app.use(express_1.default.json());
@@ -30,6 +31,7 @@ app.use('/api/v1/institution', institution_route_js_1.default);
 app.use('/api/v1/student', student_routes_js_1.default);
 app.use('/api/v1/challenges', challenge_routes_js_1.default);
 app.use('/api/v1/student', classroom_student_js_1.default);
+app.use('/api/v1/student/submit', submission_student_routes_js_1.default);
 const port = process.env.PORT || 5101;
 const start = () => {
     try {

@@ -11,6 +11,7 @@ import institutionRoutes from './routes/institution.route.js';
 import studentRoutes from './routes/student.routes.js'
 import challengeRoutes from './routes/challenge.routes.js'
 import studentClassroomRoutes from './routes/classroom.student.js'
+import submissionStudentRoutes from './routes/submission.student.routes.js'
 const app = express();
 
 
@@ -28,6 +29,7 @@ app.use('/api/v1/institution', institutionRoutes);
 app.use('/api/v1/student', studentRoutes);
 app.use('/api/v1/challenges', challengeRoutes);
 app.use('/api/v1/student',studentClassroomRoutes)
+app.use('/api/v1/student/submit', submissionStudentRoutes);
 const port = process.env.PORT || 5101;
 
 
