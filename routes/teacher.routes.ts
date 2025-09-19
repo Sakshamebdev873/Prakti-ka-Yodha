@@ -11,7 +11,10 @@ import {
     createChallengeWithAI,
     assignChallengeToClassroom,
     approveSubmission,
-    rejectSubmission // It's good practice to have a reject function too
+    rejectSubmission, // It's good practice to have a reject function too
+    updateClassroom,
+    deleteClassroom,
+    addStudentClassroom
 } from '../controllers/teacher.controllers.js';
 
 const router = express.Router();
@@ -39,13 +42,13 @@ router.get('/classrooms', getMyClassrooms);
 
 // Get the detailed view of a single classroom, including its student list
 // GET /api/teacher/classrooms/:classroomId
-router.get('/classrooms/:classroomId', getClassroomDetails);
+router.route('/classrooms/:classroomId').get(getClassroomDetails).put(updateClassroom).delete(deleteClassroom);
 
 // Remove a student from a classroom
 // DELETE /api/teacher/classrooms/students
 router.delete('/classrooms/students', removeStudentFromClassroom);
 
-
+router.post('/classrooms/:classroomId/add-student', addStudentClassroom);
 // -----------------------------------------------------------------------------
 // --- Challenge & Assignment Routes ---
 // -----------------------------------------------------------------------------
