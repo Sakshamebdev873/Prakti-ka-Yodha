@@ -46,10 +46,10 @@ const PrakritiYoddhaHeader: React.FC = () => {
 
         {/* Navigation Links */}
         <div className="hidden md:flex items-center space-x-6">
-          <NavLink href="/student/feature">Features</NavLink>
-          <NavLink href="/student/impact">Our Impact</NavLink>
-          <NavLink href="/student/works">How It Works</NavLink>
-          <NavLink href="/student/contact">Contact</NavLink>
+          <NavLink href="/feature">Features</NavLink>
+          <NavLink href="/impact">Our Impact</NavLink>
+          <NavLink href="/works">How It Works</NavLink>
+          <NavLink href="/contact">Contact</NavLink>
         </div>
 
         {/* Get Started Button */}

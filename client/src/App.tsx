@@ -24,6 +24,7 @@ import Recyclable from "./pages/Students/dashboard/impact/Recyclable";
 import NonRecyclablePage from "./pages/Students/dashboard/impact/NonRecyclablePage";
 import CommunityCleanupPage from "./pages/Students/dashboard/impact/CommunityCleanupPage";
 import PlantFirstTreePage from "./pages/Students/dashboard/impact/PlantFirstTreePage";
+import InteractiveFeaturesPage from "./pages/Students/FeatureShowcase";
 
 // Layout for public student pages
 function StudentPublicLayout() {
@@ -58,14 +59,14 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-          <Route path="/student/auth" element={<AuthPage />} />
+        <Route path="/auth" element={<AuthPage />} />
         {/* All public pages (including /) use StudentPublicLayout */}
         <Route element={<StudentPublicLayout />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/student/feature" element={<Features />} />
-          <Route path="/student/impact" element={<InteractiveImpactPage />} />
-          <Route path="/student/works" element={<SuperInteractiveHowItWorks />} />
-          <Route path="/student/contact" element={<ContactPage />} />
+          <Route path="/feature" element={<InteractiveFeaturesPage />} />
+          <Route path="/impact" element={<InteractiveImpactPage />} />
+          <Route path="/works" element={<SuperInteractiveHowItWorks />} />
+          <Route path="/contact" element={<ContactPage />} />
         </Route>
 
         {/* Dashboard routes under /student/dashboard */}
@@ -86,7 +87,10 @@ export default function App() {
               <Route path="non_recyclable" element={<NonRecyclablePage />} />
             </Route>
 
-            <Route path="community_cleanup" element={<CommunityCleanupPage />} />
+            <Route
+              path="community_cleanup"
+              element={<CommunityCleanupPage />}
+            />
             <Route path="first_saple" element={<PlantFirstTreePage />} />
           </Route>
         </Route>

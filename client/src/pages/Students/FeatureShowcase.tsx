@@ -8,6 +8,7 @@ import {
 import AdvancedFeaturesDeepDive from './components/other/AdvanceFeaturesDeepDive';
 import CommunityAndLearningDeepDive from './components/other/CommunityAndLearningDeepDive';
 import GamificationDeepDive from './components/other/GamificationDeepDive';
+import Footer from './components/common/Footer';
 
 // --- Data Structure for all Features ---
 const categories = [
@@ -158,6 +159,7 @@ const InteractiveFeaturesPage: React.FC = () => {
             <AdvancedFeaturesDeepDive/>
             <CommunityAndLearningDeepDive/>
             <GamificationDeepDive/>
+            <Footer/>
      </>
     );
 };

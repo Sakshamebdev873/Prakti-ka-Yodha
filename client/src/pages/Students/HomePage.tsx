@@ -6,6 +6,7 @@ import CollectiveImpact from './components/home/CollectiveImpact';
 import Testimonials from './components/home/Testimonials';
 import PlatformPreview from './components/home/PlatformPreview';
 import FinalCTA from './components/home/FinalCTA';
+import Footer from './components/common/Footer';
 
 const HomePage: React.FC = () => {
   return (
@@ -17,6 +18,7 @@ const HomePage: React.FC = () => {
       <Testimonials />
       <PlatformPreview />
       <FinalCTA />
+      <Footer/>
     </div>
   );
 };

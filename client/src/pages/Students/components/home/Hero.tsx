@@ -57,7 +57,7 @@ const Hero: React.FC = () => {
         boxShadow: "0 0 20px rgba(251, 191, 36, 0.6)",
       }}
       whileTap={{ scale: 0.95 }}
-      onClick={() => navigate("/student/auth")}
+      onClick={() => navigate("/auth")}
       className="bg-orange-500 text-white font-bold py-4 px-10 rounded-full text-lg shadow-xl transition-shadow"
     >
       Start Your Mission

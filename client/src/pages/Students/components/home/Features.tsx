@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { FaTasks, FaTrophy, FaGamepad, FaTree, FaUsers, FaChartLine } from 'react-icons/fa';
 
+
 const featureList = [
     {
       icon: <FaGamepad size={40} className="text-emerald-500" />,
@@ -27,7 +28,7 @@ const featureList = [
 ];
 
 // A dedicated component for each node on the timeline
-const FeatureNode = ({ feature, index }) => {
+const FeatureNode = ({ feature, index } : any) => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -77,6 +78,7 @@ const Features: React.FC = () => {
     const vineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
+    <>
     <section id="features" className="py-20 bg-emerald-50/50">
       <div ref={ref} className="container mx-auto px-6">
         {/* Section Header */}
@@ -113,6 +115,8 @@ const Features: React.FC = () => {
         </div>
       </div>
     </section>
+  
+    </>
   );
 };
 

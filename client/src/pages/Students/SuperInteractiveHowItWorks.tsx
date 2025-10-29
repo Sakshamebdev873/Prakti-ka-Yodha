@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { FaUserPlus, FaTachometerAlt, FaGamepad, FaAward, FaGlobeAsia, FaCheckCircle, FaMousePointer, FaSchool, FaChartLine, FaTrophy, FaBrain, FaRecycle, FaStar, FaCertificate, FaUserShield, FaGift, FaTree, FaUsers, FaMapMarkedAlt, FaUser, FaChevronDown } from 'react-icons/fa';
+import Footer from './components/common/Footer';
 
 
 const HowItWorksIntro: React.FC = () => {
@@ -206,6 +207,7 @@ const SuperInteractiveHowItWorks: React.FC = () => {
 
             </div>
         </section>
+        <Footer/>
      </>
     );
 };

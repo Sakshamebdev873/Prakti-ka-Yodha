@@ -17,6 +17,7 @@ import {
   FaArrowRight,
 } from "react-icons/fa";
 import { useRef, useEffect } from "react";
+import Footer from "./components/common/Footer";
 
 // --- Reusable Counter Component (No changes) ---
 function Counter({ to }: any) {
@@ -24,7 +25,7 @@ function Counter({ to }: any) {
   const isInView = useInView(nodeRef, { once: true, margin: "-100px" });
   useEffect(() => {
     if (isInView) {
-      const node = nodeRef.current;
+      const node = nodeRef.current ;
       const controls = animate(0, to, {
         duration: 2.5,
         ease: "easeOut",
@@ -104,7 +105,7 @@ const impactData = [
 ];
 
 // --- Sub-Components with Micro-interactions ---
-const MainStatNode = ({ data }) => (
+const MainStatNode = ({ data }:any) => (
     <motion.div className={`flex w-full ${data.align === 'left' ? 'justify-start' : 'justify-end'}`} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.5 }}>
         <motion.div
             className={`w-full md:w-7/12 p-8 rounded-2xl shadow-2xl border ${data.align === 'left' ? 'bg-white' : 'bg-emerald-600 text-white'}`}
@@ -122,7 +123,7 @@ const MainStatNode = ({ data }) => (
     </motion.div>
 );
 
-const TestimonialNode = ({ data }) => (
+const TestimonialNode = ({ data }:any) => (
     <motion.div className="w-full flex justify-center" initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, amount: 0.8 }} transition={{ duration: 0.5, ease: "easeOut" }} whileHover={{ scale: 1.03 }}>
         <div className="group w-full md:w-1/2 text-center p-8 bg-white/50 backdrop-blur-md rounded-2xl shadow-xl border border-white">
             <FaQuoteLeft className="text-4xl text-emerald-500/50 mx-auto mb-4 transition-transform duration-300 group-hover:scale-110" />
@@ -132,7 +133,7 @@ const TestimonialNode = ({ data }) => (
     </motion.div>
 );
 
-const FactoidNode = ({ data }) => (
+const FactoidNode = ({ data }:any) => (
     <motion.div className="w-full flex justify-center" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.8 }}>
         <motion.div className="group flex items-center gap-4 p-6 bg-orange-100/50 border-2 border-orange-200 rounded-full shadow-lg" whileHover={{ y: -8, boxShadow: "0 10px 15px -3px rgb(0 0 0 / 0.1)" }}>
             <div className="text-3xl text-orange-500 transition-transform duration-300 group-hover:rotate-12">{data.icon}</div>
@@ -141,7 +142,7 @@ const FactoidNode = ({ data }) => (
     </motion.div>
 );
 
-const ParallaxNode = ({ data }) => {
+const ParallaxNode = ({ data }:any) => {
     const ref = useRef(null);
     const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
     const y = useTransform(scrollYProgress, [0, 1], ["-20%", "20%"]);
@@ -162,6 +163,7 @@ const InteractiveImpactPage: React.FC = () => {
   const treeY = useTransform(scrollYProgress, [0, 1], ["5%", "95%"]);
 
   return (
+    <>
     <section ref={targetRef} className="relative py-20 bg-gradient-to-b from-teal-50 to-emerald-100 min-h-[700vh]">
       {/* The sticky container for the tree and path */}
       <section className="relative py-20 text-center max-w-3xl mx-auto">
@@ -253,6 +255,8 @@ const InteractiveImpactPage: React.FC = () => {
         </div>
       </div>
     </section>
+    <Footer/>
+    </>
   );
 };
 export default InteractiveImpactPage;

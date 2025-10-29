@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FaPaperPlane, FaMapMarkerAlt, FaEnvelope, FaPhone } from 'react-icons/fa';
+import Footer from './components/common/Footer';
 
 // --- Data for FAQ Section ---
 
@@ -10,6 +11,7 @@ const ContactPage: React.FC = () => {
  
 
     return (
+        <>
         <section className="py-20 mt-7 bg-gray-50">
             <div className="container mx-auto px-6">
                 {/* 1. Page Header */}
@@ -91,6 +93,8 @@ const ContactPage: React.FC = () => {
                 
             </div>
         </section>
+        <Footer/>
+        </>
     );
 };
 
