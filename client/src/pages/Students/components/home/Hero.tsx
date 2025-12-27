@@ -31,7 +31,7 @@ const Hero: React.FC = () => {
       <div className="absolute inset-0 bg-black/40 z-0"></div>
 
       <motion.div
-        className="relative z-10 container mx-auto px-6 text-center"
+        className="relative z-10 container mx-auto px-4 text-center"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
